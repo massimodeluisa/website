@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    'Geist Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  --font-pixel: 'Geist Pixel Square', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-pixel-grid: 'Geist Pixel Grid', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-pixel-circle: 'Geist Pixel Circle', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-pixel-triangle: 'Geist Pixel Triangle', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-pixel-line: 'Geist Pixel Line', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --color-site-primary: #8894a9;
+  --color-site-primary-dark: #484647;
+  --color-site-secondary: #b68370;
+  --color-site-neutral: #9a9a91;
+  --color-osaka-red: #cc1613;
+  --color-osaka-umber: #22150c;
+  --color-osaka-garnet: #6d0002;
+  --color-osaka-ivory: #f7f5e2;
+}

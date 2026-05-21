@@ -1,0 +1,134 @@
+/**
+ * Core palette
+ * #8894A9 Lavender Gray, primary
+ * #484647 Charcoal, primary dark
+ * #B68370 Dusty Taupe, secondary
+ * #9A9A91 Grey Olive, neutral support
+ *
+ * Osaka palette
+ * #CC1613 Signal Red
+ * #22150C Deep Umber
+ * #6D0002 Dark Garnet
+ * #F7F5E2 Warm Ivory
+ */
+
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('/fonts/geist/geist-sans/Geist-Variable.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('/fonts/geist/geist-sans/Geist-Italic-Variable.woff2') format('woff2');
+  font-display: swap;
+  font-style: italic;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/geist/geist-mono/GeistMono-Variable.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/geist/geist-mono/GeistMono-Italic-Variable.woff2') format('woff2');
+  font-display: swap;
+  font-style: italic;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Square';
+  src: url('/fonts/geist/geist-pixel/GeistPixel-Square.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Grid';
+  src: url('/fonts/geist/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Circle';
+  src: url('/fonts/geist/geist-pixel/GeistPixel-Circle.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Triangle';
+  src: url('/fonts/geist/geist-pixel/GeistPixel-Triangle.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Line';
+  src: url('/fonts/geist/geist-pixel/GeistPixel-Line.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@layer base {
+  :root {
+    --site-primary: #8894a9;
+    --site-primary-dark: #484647;
+    --site-secondary: #b68370;
+    --site-neutral: #9a9a91;
+    --site-background: #f8f8f5;
+    --site-surface: #ffffff;
+    --site-text: var(--site-primary-dark);
+    --site-heading: var(--site-primary-dark);
+    --site-muted: #696966;
+    --site-border: #deded8;
+    --site-link: var(--site-primary);
+    --site-link-hover: var(--site-secondary);
+    --site-selection: #d8ddd9;
+  }
+
+  @supports (color: color-mix(in oklab, black, white)) {
+    :root {
+      --site-background: color-mix(in oklab, var(--site-primary) 8%, white);
+      --site-surface: color-mix(in oklab, var(--site-secondary) 6%, white);
+      --site-text: color-mix(in oklab, var(--site-primary-dark) 92%, white);
+      --site-heading: color-mix(in oklab, var(--site-primary-dark) 92%, black);
+      --site-muted: color-mix(in oklab, var(--site-text) 62%, var(--site-surface));
+      --site-border: color-mix(in oklab, var(--site-primary) 34%, transparent);
+      --site-link: color-mix(in oklab, var(--site-primary) 62%, var(--site-primary-dark));
+      --site-link-hover: color-mix(in oklab, var(--site-secondary) 78%, black);
+      --site-selection: color-mix(in oklab, var(--site-primary) 35%, transparent);
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    margin: 0;
+    background: var(--site-background);
+    color: var(--site-text);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--site-selection);
+  }
+}
