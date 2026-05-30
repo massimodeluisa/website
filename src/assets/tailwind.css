@@ -1,4 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Mirror the dark-mode triggers defined in theme.scss so Tailwind's `dark:`
+ * modifier reacts to system preference AND to the `[data-theme="dark"]` /
+ * `.dark` selectors used by the explicit theme switcher. */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:where(:not([data-theme='light']) *, :not([data-theme='light'])) {
+      @slot;
+    }
+  }
+  &:where(.dark, .dark *, [data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+}
+
+/* Full-width page gutter — no max-width cap. Horizontal padding scales with the
+ * viewport up to the section vertical padding (py-24 = 6rem) on huge screens. */
+@utility site-container {
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
+}
 
 @theme {
   --font-sans:
@@ -12,13 +36,46 @@
   --font-pixel-circle: 'Geist Pixel Circle', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
   --font-pixel-triangle: 'Geist Pixel Triangle', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
   --font-pixel-line: 'Geist Pixel Line', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-jp:
+    'DotGothic16', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Noto Sans CJK JP', 'Hiragino Sans',
+    sans-serif;
 
   --color-site-primary: #8894a9;
   --color-site-primary-dark: #484647;
   --color-site-secondary: #b68370;
   --color-site-neutral: #9a9a91;
+  --color-site-background: var(--site-background);
+  --color-site-surface: var(--site-surface);
+  --color-site-text: var(--site-text);
+  --color-site-heading: var(--site-heading);
+  --color-site-muted: var(--site-muted);
+  --color-site-border: var(--site-border);
+  --color-site-link: var(--site-link);
+  --color-site-link-hover: var(--site-link-hover);
+  --color-site-selection: var(--site-selection);
   --color-osaka-red: #cc1613;
   --color-osaka-umber: #22150c;
   --color-osaka-garnet: #6d0002;
   --color-osaka-ivory: #f7f5e2;
+}
+
+/* Tailwind Typography (`prose`, used for rendered markdown) mapped to the
+ * theme tokens so it follows light/dark automatically. */
+.prose {
+  --tw-prose-body: var(--site-text);
+  --tw-prose-headings: var(--site-heading);
+  --tw-prose-lead: var(--site-muted);
+  --tw-prose-links: var(--site-link);
+  --tw-prose-bold: var(--site-heading);
+  --tw-prose-counters: var(--site-muted);
+  --tw-prose-bullets: var(--site-secondary);
+  --tw-prose-hr: var(--site-border);
+  --tw-prose-quotes: var(--site-heading);
+  --tw-prose-quote-borders: var(--site-secondary);
+  --tw-prose-captions: var(--site-muted);
+  --tw-prose-code: var(--site-heading);
+  --tw-prose-pre-code: var(--site-text);
+  --tw-prose-pre-bg: color-mix(in oklab, var(--site-surface) 70%, var(--site-background));
+  --tw-prose-th-borders: var(--site-border);
+  --tw-prose-td-borders: var(--site-border);
 }
