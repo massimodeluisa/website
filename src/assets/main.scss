@@ -1,36 +1,59 @@
 @use './theme';
 
+// Shared SplitText reveal primitives (classes emitted by useTextReveal). Global
+// so every component animating text gets identical line/word/char masking.
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+.reveal-line-inner {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.reveal-word,
+.reveal-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+// Footer heart pulse — global so the Tailwind `animate-[footer-heartbeat...]`
+// utility can reference a non-scoped keyframe name.
+@keyframes footer-heartbeat {
+  0%,
+  28%,
+  70%,
+  100% {
+    transform: translateY(-1px) scale(1);
+  }
+  14% {
+    transform: translateY(-1px) scale(1.22);
+  }
+  42% {
+    transform: translateY(-1px) scale(1.14);
+  }
+}
+
+// Selected-work carousel title swap — global so the Tailwind `animate-[…]`
+// utility in WorkCarousel can reference it.
+@keyframes work-carousel-title-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer components {
-  .site-page {
-    min-height: 100dvh;
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in oklab, var(--site-primary) 14%, transparent),
-        transparent 36%
-      ),
-      var(--site-background);
-    color: var(--site-text);
-  }
-
-  .site-header {
-    background: color-mix(in oklab, var(--site-surface) 88%, transparent);
-    border-color: var(--site-border);
-    backdrop-filter: blur(18px);
-  }
-
-  .site-footer {
-    background: color-mix(in oklab, var(--site-surface) 78%, transparent);
-    border-color: var(--site-border);
-  }
-
-  .site-heading,
-  .site-brand {
+  .site-heading {
     color: var(--site-heading);
   }
 
-  .site-muted,
-  .site-nav {
+  .site-muted {
     color: var(--site-muted);
   }
 
@@ -38,97 +61,10 @@
     color: var(--site-link);
   }
 
-  .site-link,
-  .site-title-link {
-    color: inherit;
-  }
-
-  .site-link:hover,
-  .site-title-link:hover,
-  .site-card-link:hover,
-  .site-nav-link:hover {
-    color: var(--site-link-hover);
-  }
-
-  .site-nav-link {
-    border-color: transparent;
-    color: var(--site-muted);
-  }
-
-  .site-nav-link.router-link-active {
-    border-color: var(--site-secondary);
-    color: var(--site-heading);
-  }
-
-  .site-card,
-  .site-card-link {
+  .site-card {
     background: color-mix(in oklab, var(--site-surface) 88%, white);
     border-color: var(--site-border);
-    box-shadow: 0 18px 60px color-mix(in oklab, var(--site-heading) 8%, transparent);
-  }
-
-  .site-card-link {
-    color: var(--site-text);
-  }
-
-  .site-card-link:hover {
-    border-color: var(--site-secondary);
-  }
-
-  .presentation-page {
-    width: min(1180px, calc(100% - 32px));
-    margin-inline: auto;
-    padding-block: clamp(40px, 6vw, 72px) clamp(64px, 9vw, 112px);
-  }
-
-  .presentation-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-    gap: clamp(20px, 3vw, 32px);
-    align-items: stretch;
-  }
-
-  .presentation-hero + .presentation-section {
-    margin-top: clamp(56px, 8vw, 88px);
-  }
-
-  .presentation-section + .presentation-section {
-    margin-top: clamp(52px, 7vw, 80px);
-  }
-
-  .presentation-section-heading {
-    margin-bottom: clamp(20px, 3vw, 28px);
-  }
-
-  .presentation-stack {
-    display: grid;
-    gap: clamp(14px, 2vw, 20px);
-  }
-
-  .showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: clamp(16px, 2.4vw, 24px);
-  }
-
-  .specimen-line {
-    overflow-wrap: anywhere;
-    line-height: 1.1;
-  }
-
-  @media (width < 760px) {
-    .presentation-page {
-      width: min(100% - 24px, 1180px);
-      padding-block: 32px 64px;
-    }
-
-    .presentation-hero {
-      grid-template-columns: 1fr;
-    }
-
-    .presentation-hero + .presentation-section,
-    .presentation-section + .presentation-section {
-      margin-top: 44px;
-    }
+    box-shadow: 0 calc(var(--spacing) * 4.5) calc(var(--spacing) * 15)
+      color-mix(in oklab, var(--site-heading) 8%, transparent);
   }
 }
