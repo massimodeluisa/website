@@ -1,51 +1,79 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { computed } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 
-const navigation = [
-  { label: 'Colors', to: '/colors' },
-  { label: 'Font', to: '/fonts' },
+import { useI18n } from '@/i18n'
+import TechBrand from '@/components/shared/TechBrand.vue'
+import ScrollToTopButton from '@/components/site/ScrollToTopButton.vue'
+import SiteHeader from '@/components/site/SiteHeader.vue'
+
+// MARK: - Composables
+
+const route = useRoute()
+const { t } = useI18n()
+
+// MARK: - Variables
+
+const footerLinks: { labelKey: string; href: string; download?: boolean; external?: boolean }[] = [
+  { labelKey: 'footer.sitemap', href: '/sitemap.xml' },
+  { labelKey: 'footer.rss', href: '/rss.xml' },
+  { labelKey: 'footer.cv', href: '/cv.pdf', download: true },
+  {
+    labelKey: 'footer.sourceCode',
+    href: 'https://github.com/massimodeluisa/website',
+    external: true,
+  },
 ]
+
+// MARK: - Computed
+
+const isHomeRoute = computed(() => route.name === 'home' || route.name === 'locale.home')
+const isNotFoundRoute = computed(() => route.name === 'notFound' || route.name === 'locale.notFound')
 </script>
 
-<template>
-  <div class="site-page flex min-h-dvh flex-col">
-    <header class="site-header sticky top-0 z-10 border-b">
-      <div
-        class="mx-auto flex w-[min(1180px,calc(100%-32px))] items-center justify-between gap-6 py-4"
-      >
-        <RouterLink class="site-brand text-lg font-semibold" to="/colors"
-          >Website system</RouterLink
-        >
+<template lang="pug">
+.flex.flex-col(:class="isNotFoundRoute ? 'h-dvh overflow-hidden' : 'min-h-dvh'" class="overflow-x-clip")
+  SiteHeader
 
-        <nav
-          class="site-nav flex items-center gap-2 text-sm font-medium"
-          aria-label="Main navigation"
-        >
-          <RouterLink
-            v-for="item in navigation"
-            :key="item.to"
-            class="site-nav-link rounded-full border px-3 py-1.5 transition-colors"
-            :to="item.to"
-          >
-            {{ item.label }}
-          </RouterLink>
-        </nav>
-      </div>
-    </header>
+  main.grow(:class="isHomeRoute || isNotFoundRoute ? 'pt-0' : 'pt-20'")
+    RouterView
 
-    <main class="grow">
-      <RouterView />
-    </main>
+  footer.border-t.border-site-border(class="bg-site-surface/80")
+    .mx-auto.flex.flex-wrap.items-center.justify-between.gap-x-6.gap-y-3.px-6.py-6.text-sm(
+      class='max-w-[calc(var(--spacing)*295)] text-site-muted'
+    )
+      p.flex.flex-wrap.items-center(class="gap-x-2.5 gap-y-1.5")
+        | {{ t('footer.madeWith') }}
+        span.text-base.inline-block.origin-center.text-site-secondary.will-change-transform(
+          aria-hidden="true"
+          class="-translate-y-px -mt-2 -mx-1 -mb-3 text-xl animate-[footer-heartbeat_1.6s_ease-in-out_infinite] motion-reduce:animate-none"
+        ) ♥
+        | {{ t('footer.and') }}
+        TechBrand(brand="vue")
+        TechBrand(brand="tailwind")
+        TechBrand(brand="gsap")
+        TechBrand(brand="bun")
+        TechBrand(brand="vite")
+        TechBrand(brand="typescript")
 
-    <footer class="site-footer border-t">
-      <div
-        class="site-muted mx-auto flex w-[min(1180px,calc(100%-32px))] flex-wrap items-center justify-between gap-3 py-6 text-sm"
-      >
-        <span>Design reference</span>
-        <span class="font-mono">Geist / #8894A9 / #B68370</span>
-      </div>
-    </footer>
-  </div>
+      nav.flex.flex-wrap.items-center.gap-x-4.gap-y-2.text-xs(:aria-label="t('footer.navAriaLabel')")
+        template(v-for="(link, i) in footerLinks" :key="link.href")
+          span.text-site-muted.opacity-40(v-if="i > 0" aria-hidden="true") ·
+          a.text-site-muted.no-underline.transition-colors(
+            :href="link.href"
+            :download="link.download || undefined"
+            :target="link.external ? '_blank' : undefined"
+            :rel="link.external ? 'noopener noreferrer' : undefined"
+            class="hover:text-site-heading focus-visible:text-site-heading"
+          ) {{ t(link.labelKey) }}
+
+      a.font-mono.text-xs.opacity-60.no-underline.transition-opacity(
+        href="https://github.com/massimodeluisa/website/blob/main/LICENSE.md"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="t('footer.licenseAriaLabel')"
+        class="hover:opacity-100"
+      ) {{ t('footer.copyright') }}
+
+  ScrollToTopButton
 </template>
-
-<style scoped></style>
