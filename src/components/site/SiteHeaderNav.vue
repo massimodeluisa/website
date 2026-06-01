@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 import gsap from 'gsap'
 
 import StdButton from '@/components/shared/StdButton.vue'
 import { useActiveSection } from '@/composables/use-scroll-spy'
+import { blogPosts } from '@/contents/blog'
 import { useI18n } from '@/i18n'
 import { NAV_ITEMS, type INavItem } from '@/data/navigation'
 
@@ -17,6 +18,11 @@ import SiteHeaderContactPill from './SiteHeaderContactPill.vue'
 const route = useRoute()
 const { t } = useI18n()
 const { activeSection } = useActiveSection()
+
+// Drop the Blog link until at least one post exists.
+const navItems = computed(() =>
+  blogPosts.length ? NAV_ITEMS : NAV_ITEMS.filter((item) => item.id !== 'blog'),
+)
 
 // MARK: - Variables
 
@@ -132,7 +138,7 @@ nav.ml-auto.hidden.items-center.gap-2.text-sm.font-medium(
   class="md:flex"
   :aria-label="t('nav.ariaLabel')"
 )
-  template(v-for="item in NAV_ITEMS" :key="item.id")
+  template(v-for="item in navItems" :key="item.id")
     SiteHeaderContactPill(
       v-if="item.prominent"
       :to="item.to"
@@ -175,7 +181,7 @@ teleport(to="body")
     class="bg-[color-mix(in_oklab,var(--site-background)_95%,transparent)] md:hidden"
   )
     RouterLink.mobile-link.text-5xl.font-medium.tracking-tight.transition-colors(
-      v-for="item in NAV_ITEMS"
+      v-for="item in navItems"
       :key="item.id"
       :to="item.to"
       @click="handleNavClick(item.to, $event)"
