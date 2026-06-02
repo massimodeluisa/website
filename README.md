@@ -1,48 +1,107 @@
-# website
+# Massimo De Luisa — Portfolio
 
-This template should help get you started developing with Vue 3 in Vite.
+Professional, multilingual portfolio of **Massimo De Luisa** (MDL), CTO at Smart Squad Srl and Inksquad Srl.
 
-## Recommended IDE Setup
+Live at [deluisa.me](https://deluisa.me) (primary), with Japanese domains [出る.com](https://出る.com) and [デルイザ.com](https://デルイザ.com) for the Japan move.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Philosophy
 
-## Recommended Browser Setup
+This site is built with obsessive attention to **cleanliness, clarity, and craft**.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Extremely high signal-to-noise ratio
+- Purposeful, restrained motion (GSAP)
+- Rigorous component hygiene and ordering
+- First-class multilingual experience (English, Italian, Japanese, Russian, Ukrainian)
+- Content-driven (markdown case studies + journal)
 
-## Type Support for `.vue` Imports in TS
+The visual and technical references that shaped the direction include the quiet confidence of ewan-kerboas.fr, martinpriotti.dev, aimane.dev, crz.studio, and jorisbrianti.fr, combined with the technical depth already present in the previous version of this portfolio.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Tech Stack
 
-## Customize configuration
+- **Vue 3** (latest beta + Volar)
+- **Tailwind CSS 4** (via Vite plugin)
+- **GSAP 3** (ScrollTrigger, SplitText, DrawSVG, matchMedia)
+- **Pug** templates + **SCSS**
+- **TypeScript** (strict)
+- **bun** as package manager and runtime
+- Custom lightweight i18n (no heavy dependencies)
+- Markdown-driven content (works + journal)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Typography: Geist Sans / Mono / Pixel (Vercel typeface, self-hosted variable fonts).
 
-## Project Setup
+## Development
 
-```sh
+```bash
 bun install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 bun dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Quality commands (all via bun)
 
-```sh
-bun run build
+```bash
+bun run build          # Production build
+bun run type-check     # vue-tsc
+bun lint               # oxlint + eslint + oxfmt
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Component Discipline (enforced)
 
-```sh
-bun lint
-```
+Every component follows a strict internal order:
+
+1. Imports (external → `@/` → relative)
+2. Types & interfaces
+3. Props / Emits (`defineProps`, `defineEmits`)
+4. Constants / static data
+5. Reactive state (refs, shallowRefs, composables)
+6. Computed
+7. Methods & event handlers
+8. Watchers
+9. Lifecycle hooks
+
+Templates are written in **Pug**. Styles (when not achievable with Tailwind) live in `<style lang="scss" scoped>`.
+
+## Internationalization
+
+Five languages, client-side, clean URLs, persisted in localStorage:
+
+- English (primary)
+- Italian (complete)
+- Japanese, Russian, Ukrainian (UI complete, content expanding)
+
+Language switcher lives elegantly inside the fixed header (and mobile menu). All new copy must go through `useI18n()`.
+
+## Content
+
+- **Selected Work**: Case studies loaded from `src/contents/works/*.md` (frontmatter + rendered HTML).
+- **Journal / Blog**: Markdown posts in `src/contents/blog/` (planned, with categories Tech / Product / Personal).
+- Photos and assets live in `src/assets/`.
+
+## Header (sacred)
+
+The fixed header with its scroll-driven "transparent → pill" morph animation, house icon, live Rome time, and mobile hamburger is preserved exactly as originally authored. Only navigation labels and the integrated language switcher were added.
+
+## Deployment
+
+Static build. Intended targets:
+
+- GitHub Pages (`gh-pages` branch or GitHub Action)
+- Direct deployment to the custom domains (Vercel, Cloudflare Pages, or Netlify all work excellently)
+
+The Japanese domains (`出る.com`, `デルイザ.com`) are chosen for their playful kanji reading of "De Luisa" → "Deruiza" → 出る (to go out / to emerge).
+
+## License & Attribution
+
+Personal portfolio. Feel free to study the source for patterns (especially the GSAP + Vue + Tailwind 4 + Pug + strict component hygiene approach). If you reuse significant parts in public work, a credit or star on GitHub is appreciated.
+
+## Contact
+
+Massimo De Luisa  
+CTO @ Smart Squad & Inksquad
+Udine, Italy → Japan
+
+- GitHub: https://github.com/massimodeluisa
+- X: https://x.com/massimodeluisa
+
+---
+
+Built with clarity and care. The code should read as nicely as the site looks.
