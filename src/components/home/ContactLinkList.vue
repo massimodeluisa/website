@@ -39,6 +39,12 @@ const links: ISocialLink[] = [
     external: true,
   },
   {
+    labelKey: 'contact.links.line',
+    href: 'https://line.me/ti/p/KrsSKLsYE9',
+    icon: 'fa-brands:line',
+    external: true,
+  },
+  {
     labelKey: 'contact.links.x',
     href: 'https://x.com/massimodeluisa',
     icon: 'simple-icons:x',

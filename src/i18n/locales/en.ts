@@ -126,6 +126,7 @@ export const en = {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       telegram: 'Telegram',
+      line: 'Line',
       x: 'X',
     },
   },

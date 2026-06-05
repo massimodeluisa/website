@@ -125,6 +125,7 @@ export const uk = {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       telegram: 'Telegram',
+      line: 'Line',
       x: 'X',
     },
   },

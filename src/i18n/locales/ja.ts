@@ -126,6 +126,7 @@ export const ja = {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       telegram: 'Telegram',
+      line: 'Line',
       x: 'X',
     },
   },
