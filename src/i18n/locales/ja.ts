@@ -7,6 +7,7 @@ export const ja = {
     contact: 'お問い合わせ',
     ariaLabel: 'メインナビゲーション',
     toggleMenu: 'メニューを開閉',
+    skipToContent: 'コンテンツへスキップ',
   },
   lang: {
     switchTo: '言語を切り替え',
@@ -122,6 +123,7 @@ export const ja = {
     cvMeta: 'PDF · 2ページ',
     directLabel: '直接のコンタクト',
     links: {
+      share: '共有',
       email: 'メール',
       github: 'GitHub',
       linkedin: 'LinkedIn',

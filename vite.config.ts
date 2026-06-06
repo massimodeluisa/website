@@ -1,5 +1,5 @@
 /// <reference types="vite-ssg" />
-import { readdirSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -13,10 +13,18 @@ import tailwindcss from '@tailwindcss/vite'
 /* Locale path prefixes ('' is the default English, served unprefixed). */
 const LOCALE_PREFIXES = ['', '/it', '/ja', '/ru', '/uk']
 
+/* Per-locale copy files (`slug.<locale>.md`) share their base slug's route. */
+const LOCALE_COPY_SUFFIX = /\.(it|ja|ru|uk|en)\.md$/
+
 function markdownSlugs(dir: string): string[] {
   const folder = fileURLToPath(new URL(`./src/contents/${dir}`, import.meta.url))
+  /* A content type with no entries yet (e.g. blog before its first post) has no
+   * directory — treat that as zero slugs rather than crashing the build. */
+  if (!existsSync(folder)) {
+    return []
+  }
   return readdirSync(folder)
-    .filter((file) => file.endsWith('.md'))
+    .filter((file) => file.endsWith('.md') && !LOCALE_COPY_SUFFIX.test(file))
     .map((file) => file.replace(/\.md$/, ''))
 }
 
@@ -79,6 +87,13 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     dirStyle: 'nested',
+    /*
+     * Render pages one at a time. The active locale lives in a shared module
+     * singleton (i18n currentLocale, set per route by the locale guard); the
+     * default parallel render races on it and bleeds one locale across every
+     * page. Serial rendering keeps each page's locale correct in its HTML.
+     */
+    concurrency: 1,
     includedRoutes: () => staticRoutes(),
   },
 })

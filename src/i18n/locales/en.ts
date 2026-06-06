@@ -7,6 +7,7 @@ export const en = {
     contact: 'Contact',
     ariaLabel: 'Main navigation',
     toggleMenu: 'Toggle menu',
+    skipToContent: 'Skip to content',
   },
   lang: {
     switchTo: 'Switch language',
@@ -122,6 +123,7 @@ export const en = {
     cvMeta: 'PDF · 2 pages',
     directLabel: 'Direct lines',
     links: {
+      share: 'Share',
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
@@ -174,7 +176,8 @@ export const en = {
     eyebrow: '404',
     title: 'Something went',
     accent: 'wrong',
-    subtitle: 'Lost past the event horizon — somewhere between Galileo\'s stars and Fermi\'s silence.',
+    subtitle:
+      "Lost past the event horizon — somewhere between Galileo's stars and Fermi's silence.",
     cta: 'Go home',
   },
 } as const

@@ -7,6 +7,7 @@ export const uk = {
     contact: 'Контакти',
     ariaLabel: 'Основна навігація',
     toggleMenu: 'Відкрити/закрити меню',
+    skipToContent: 'Перейти до вмісту',
   },
   lang: {
     switchTo: 'Змінити мову',
@@ -121,6 +122,7 @@ export const uk = {
     cvMeta: 'PDF · 2 сторінки',
     directLabel: 'Прямі контакти',
     links: {
+      share: 'Поділитися',
       email: 'Ел. пошта',
       github: 'GitHub',
       linkedin: 'LinkedIn',

@@ -7,6 +7,7 @@ export const ru = {
     contact: 'Контакты',
     ariaLabel: 'Основная навигация',
     toggleMenu: 'Открыть/закрыть меню',
+    skipToContent: 'Перейти к содержимому',
   },
   lang: {
     switchTo: 'Сменить язык',
@@ -121,6 +122,7 @@ export const ru = {
     cvMeta: 'PDF · 2 страницы',
     directLabel: 'Прямые контакты',
     links: {
+      share: 'Поделиться',
       email: 'Эл. почта',
       github: 'GitHub',
       linkedin: 'LinkedIn',

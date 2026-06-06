@@ -7,6 +7,7 @@ export const it = {
     contact: 'Contatti',
     ariaLabel: 'Navigazione principale',
     toggleMenu: 'Apri/chiudi menu',
+    skipToContent: 'Vai al contenuto',
   },
   lang: {
     switchTo: 'Cambia lingua',
@@ -122,6 +123,7 @@ export const it = {
     cvMeta: 'PDF · 2 pagine',
     directLabel: 'Linee dirette',
     links: {
+      share: 'Condividi',
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
@@ -174,7 +176,8 @@ export const it = {
     eyebrow: '404',
     title: 'Qualcosa è andato',
     accent: 'storto',
-    subtitle: 'Persa oltre l\'orizzonte degli eventi — tra le stelle di Galileo e il silenzio di Fermi.',
+    subtitle:
+      "Persa oltre l'orizzonte degli eventi — tra le stelle di Galileo e il silenzio di Fermi.",
     cta: 'Torna alla home',
   },
 } as const

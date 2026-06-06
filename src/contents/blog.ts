@@ -1,5 +1,7 @@
 import { asString, slugFromPath } from './loader'
 
+// MARK: - Types
+
 type TBlogFrontmatter = {
   title?: string
   date?: string
@@ -22,6 +24,8 @@ export type TBlogPost = {
   readingTime: number
   html: string
 }
+
+// MARK: - Data
 
 const contentFiles = import.meta.glob('./blog/*.md', { eager: true }) as Record<
   string,
