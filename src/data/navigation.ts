@@ -3,6 +3,8 @@
  * ids the scroll-spy tracks. Keep NAV_ITEMS in DOM / scroll order.
  */
 
+// MARK: - Types
+
 export type TSectionId = 'home' | 'about' | 'work' | 'blog' | 'contact'
 
 export interface INavItem {
@@ -12,6 +14,8 @@ export interface INavItem {
   /** Rendered as the prominent contact pill instead of a plain link. */
   prominent?: boolean
 }
+
+// MARK: - Data
 
 export const NAV_ITEMS: readonly INavItem[] = [
   { id: 'home', labelKey: 'nav.home', to: '/#home' },

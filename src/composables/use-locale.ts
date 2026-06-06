@@ -1,13 +1,17 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useI18n, type TLocaleCode } from '@/i18n'
+import { NON_DEFAULT_LOCALES, SUPPORTED_LOCALES, useI18n, type TLocaleCode } from '@/i18n'
 
-const NON_DEFAULT_LOCALES = ['it', 'ja', 'ru', 'uk'] as const
+// MARK: - Composable
 
 export function useLocale() {
+  // MARK: - Variables
+
   const route = useRoute()
   const i18n = useI18n()
+
+  // MARK: - Computed
 
   const current = computed<TLocaleCode>(() => {
     const param = route.params.locale
@@ -19,6 +23,8 @@ export function useLocale() {
 
   const prefix = computed(() => (current.value === 'en' ? '' : `/${current.value}`))
 
+  // MARK: - Methods
+
   const localePath = (path: string, target?: TLocaleCode) => {
     const code = target ?? current.value
     const tail = path.startsWith('/') ? path : `/${path}`
@@ -28,10 +34,8 @@ export function useLocale() {
     return `/${code}${tail === '/' ? '' : tail}`
   }
 
-  const localeAlternates = (path: string) => {
-    const all: TLocaleCode[] = ['en', 'it', 'ja', 'ru', 'uk']
-    return all.map((code) => ({ code, href: localePath(path, code) }))
-  }
+  const localeAlternates = (path: string) =>
+    SUPPORTED_LOCALES.map((code) => ({ code, href: localePath(path, code) }))
 
   return {
     current,

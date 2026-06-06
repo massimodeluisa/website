@@ -1,7 +1,8 @@
 import { ViteSSG } from 'vite-ssg'
 
 import App from './App.vue'
-import { installLocaleGuard, routes, scrollBehavior } from './router'
+import { installAnalytics } from './composables/use-analytics'
+import { installLocaleGuard, installLocaleRedirect, routes, scrollBehavior } from './router'
 
 import './assets/tailwind.css'
 import './assets/main.scss'
@@ -19,6 +20,10 @@ dayjs.extend(advancedFormat)
  * vite-ssg owns app/router/head creation (it ships @unhead) for both the
  * static pre-render and the hydrated client.
  */
-export const createApp = ViteSSG(App, { routes, scrollBehavior }, ({ router }) => {
+export const createApp = ViteSSG(App, { routes, scrollBehavior }, ({ router, isClient }) => {
   installLocaleGuard(router)
+  if (isClient) {
+    installLocaleRedirect(router)
+    installAnalytics(router)
+  }
 })

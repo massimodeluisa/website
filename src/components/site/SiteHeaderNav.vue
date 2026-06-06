@@ -13,6 +13,14 @@ import { NAV_ITEMS, type INavItem } from '@/data/navigation'
 import LanguageSwitcher from './LanguageSwitcher.vue'
 import SiteHeaderContactPill from './SiteHeaderContactPill.vue'
 
+// MARK: - Constants
+
+const MOBILE_MENU_OPEN_DURATION = 0.25
+const MOBILE_MENU_CLOSE_DURATION = 0.2
+const MOBILE_LINKS_DURATION = 0.4
+const MOBILE_LINKS_STAGGER = 0.06
+const MOBILE_LINKS_DELAY = 0.05
+
 // MARK: - Composables
 
 const route = useRoute()
@@ -42,12 +50,19 @@ const openMobile = () => {
     gsap.fromTo(
       mobileMenuEl.value,
       { autoAlpha: 0 },
-      { autoAlpha: 1, duration: 0.25, ease: 'power2.out' },
+      { autoAlpha: 1, duration: MOBILE_MENU_OPEN_DURATION, ease: 'power2.out' },
     )
     gsap.fromTo(
       links,
       { autoAlpha: 0, y: 24 },
-      { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power3.out', stagger: 0.06, delay: 0.05 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: MOBILE_LINKS_DURATION,
+        ease: 'power3.out',
+        stagger: MOBILE_LINKS_STAGGER,
+        delay: MOBILE_LINKS_DELAY,
+      },
     )
   })
 }
@@ -60,7 +75,7 @@ const closeMobile = () => {
   }
   gsap.to(mobileMenuEl.value, {
     autoAlpha: 0,
-    duration: 0.2,
+    duration: MOBILE_MENU_CLOSE_DURATION,
     ease: 'power2.in',
     onComplete: () => {
       mobileOpen.value = false
