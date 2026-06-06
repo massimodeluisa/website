@@ -6,6 +6,11 @@ import StdButton from '@/components/shared/StdButton.vue'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
 
+// MARK: - Constants
+
+const CTA_REVEAL_DURATION = 0.45
+const CTA_REVEAL_STAGGER = 0.06
+
 // MARK: - Composables
 
 const { t } = useI18n()
@@ -36,7 +41,11 @@ onMounted(() => {
     }
     gsap
       .timeline({ defaults: { ease: 'power3.out' } })
-      .to('[data-hero-cta]', { opacity: 1, y: 0, duration: 0.45, stagger: 0.06 }, 0.55)
+      .to(
+        '[data-hero-cta]',
+        { opacity: 1, y: 0, duration: CTA_REVEAL_DURATION, stagger: CTA_REVEAL_STAGGER },
+        0.55,
+      )
   })
 })
 </script>

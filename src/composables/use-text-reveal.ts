@@ -7,6 +7,8 @@ import { prefersReducedMotion } from '@/utils/motion'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
+// MARK: - Types
+
 export interface IRevealOptions {
   type?: 'lines' | 'words' | 'chars' | 'lines,words' | 'words,chars'
   duration?: number
@@ -25,9 +27,13 @@ interface IActiveSplit {
   revert: () => void
 }
 
+// MARK: - Variables
+
 const activeSplits: IActiveSplit[] = []
 const activeScrollTriggers: ScrollTrigger[] = []
 const elementReveals = new WeakMap<HTMLElement, IActiveSplit>()
+
+// MARK: - Methods
 
 function wrapLinesForMask(lines: HTMLElement[]): HTMLElement[] {
   const inners: HTMLElement[] = []
@@ -182,6 +188,8 @@ function createReveal(element: HTMLElement | null, options: IRevealOptions = {})
 
   return revert
 }
+
+// MARK: - Composable
 
 export function useTextReveal() {
   const localReverts: Array<() => void> = []

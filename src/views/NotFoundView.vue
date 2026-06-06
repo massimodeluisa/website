@@ -20,6 +20,12 @@ interface IGlyph {
   dim: number
 }
 
+// MARK: - Constants
+
+const TYPEWRITER_START_DELAY = 0.2
+const CURSOR_REVEAL_DURATION = 0.1
+const ACCENT_GLITCH_DURATION = 0.05
+
 // MARK: - Composables
 
 const { t } = useI18n()
@@ -28,6 +34,7 @@ const { localePath } = useLocale()
 usePageSeo({
   title: () => `${t('notFound.title')} ${t('notFound.accent')}`,
   description: () => t('notFound.subtitle'),
+  robots: 'noindex, follow',
 })
 
 // MARK: - Variables
@@ -64,7 +71,11 @@ onMounted(() => {
     const fall = root.offsetHeight + 80
     gsap.utils.toArray<HTMLElement>('.nf-glyph').forEach((el) => {
       const duration = 5 + Math.random() * 7
-      gsap.fromTo(el, { y: -80 }, { y: fall, duration, ease: 'none', repeat: -1, delay: -Math.random() * duration })
+      gsap.fromTo(
+        el,
+        { y: -80 },
+        { y: fall, duration, ease: 'none', repeat: -1, delay: -Math.random() * duration },
+      )
     })
 
     /* Typewriter: clear each line, then type it back — the subtitle types fast. */
@@ -80,11 +91,41 @@ onMounted(() => {
       line.el.textContent = ''
     })
 
-    const tw = gsap.timeline({ delay: 0.2 })
+    const tw = gsap.timeline({ delay: TYPEWRITER_START_DELAY })
     sequence.forEach((line) => {
-      tw.to(line.el, { text: line.text, duration: Math.max(0.2, line.text.length * line.speed), ease: 'none' }, '>0.1')
+      tw.to(
+        line.el,
+        { text: line.text, duration: Math.max(0.2, line.text.length * line.speed), ease: 'none' },
+        '>0.1',
+      )
     })
-    tw.to('.nf-cursor', { opacity: 1, duration: 0.1 }, '>-0.05')
+    tw.to('.nf-cursor', { opacity: 1, duration: CURSOR_REVEAL_DURATION }, '>-0.05')
+
+    /* Both sides: once typed, the subtitle loops type-out → type-in at the cursor. */
+    const subtitle = sequence.find((line) => line.el === subtitleEl.value)
+    if (subtitle) {
+      const loop = gsap
+        .timeline({ repeat: -1 })
+        .to(
+          subtitle.el,
+          {
+            text: { value: '' },
+            duration: Math.max(0.3, subtitle.text.length * 0.006),
+            ease: 'none',
+          },
+          '+=2.4',
+        )
+        .to(
+          subtitle.el,
+          {
+            text: { value: subtitle.text },
+            duration: Math.max(0.3, subtitle.text.length * subtitle.speed),
+            ease: 'none',
+          },
+          '+=0.3',
+        )
+      tw.add(loop)
+    }
 
     tw.add(() => {
       if (!accentEl.value) {
@@ -92,9 +133,14 @@ onMounted(() => {
       }
       gsap
         .timeline({ repeat: -1, repeatDelay: 1.8 })
-        .to(accentEl.value, { skewX: 12, x: -5, duration: 0.05, ease: 'power1.inOut' })
-        .to(accentEl.value, { skewX: -9, x: 5, y: -3, duration: 0.05 })
-        .to(accentEl.value, { skewX: 0, x: 0, y: 0, duration: 0.05 })
+        .to(accentEl.value, {
+          skewX: 12,
+          x: -5,
+          duration: ACCENT_GLITCH_DURATION,
+          ease: 'power1.inOut',
+        })
+        .to(accentEl.value, { skewX: -9, x: 5, y: -3, duration: ACCENT_GLITCH_DURATION })
+        .to(accentEl.value, { skewX: 0, x: 0, y: 0, duration: ACCENT_GLITCH_DURATION })
     })
   }, root)
 })
