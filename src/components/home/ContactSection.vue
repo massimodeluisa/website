@@ -13,6 +13,13 @@ import ContactLinkList from './ContactLinkList.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// MARK: - Constants
+
+const CARD_REVEAL_DURATION = 0.62
+const CARD_REVEAL_STAGGER = 0.1
+const FADE_REVEAL_DURATION = 0.5
+const FADE_REVEAL_STAGGER = 0.012
+
 // MARK: - Composables
 
 const { t } = useI18n()
@@ -51,9 +58,9 @@ onMounted(() => {
     gsap.to(cards, {
       opacity: 1,
       y: 0,
-      duration: 0.62,
+      duration: CARD_REVEAL_DURATION,
       ease: 'power3.out',
-      stagger: 0.1,
+      stagger: CARD_REVEAL_STAGGER,
       scrollTrigger: { trigger: section, start: 'top 76%', once: true },
     })
   }
@@ -66,7 +73,12 @@ onMounted(() => {
   ]
   for (const { sel, delay } of fades) {
     section.querySelectorAll<HTMLElement>(sel).forEach((el) => {
-      revealCharsFade(el, { start: 'top 80%', delay, duration: 0.5, stagger: 0.012 })
+      revealCharsFade(el, {
+        start: 'top 80%',
+        delay,
+        duration: FADE_REVEAL_DURATION,
+        stagger: FADE_REVEAL_STAGGER,
+      })
     })
   }
 })
@@ -149,5 +161,4 @@ Section(id="contact" content-class="grid gap-12 items-start lg:grid-cols-[1.05fr
 .cv-card:hover .cv-card-arrow {
   transform: translateY(2px);
 }
-
 </style>

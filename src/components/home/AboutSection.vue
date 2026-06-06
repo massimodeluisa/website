@@ -1,56 +1,81 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted } from 'vue'
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import Section from "@/components/shared/Section.vue";
-import TechBrand from "@/components/shared/TechBrand.vue";
-import { useI18n } from "@/i18n";
-import { useTextReveal } from "@/composables/use-text-reveal";
-import { prefersReducedMotion } from "@/utils/motion";
+import Section from '@/components/shared/Section.vue'
+import TechBrand from '@/components/shared/TechBrand.vue'
+import { useI18n } from '@/i18n'
+import { useTextReveal } from '@/composables/use-text-reveal'
+import { prefersReducedMotion } from '@/utils/motion'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
+
+// MARK: - Constants
+
+const KICKER_REVEAL_DURATION = 0.4
+const KICKER_REVEAL_STAGGER = 0.018
+const TITLE_REVEAL_DELAY = 0.08
+const TITLE_REVEAL_DURATION = 0.45
+const TITLE_REVEAL_STAGGER = 0.014
+const TOKEN_REVEAL_DURATION = 0.5
+const TOKEN_REVEAL_STAGGER = 0.05
+const CARD_REVEAL_DURATION = 0.7
+const CARD_EYEBROW_DURATION = 0.55
+const CARD_EYEBROW_STAGGER = 0.04
+const CARD_TITLE_DURATION = 0.65
+const CARD_BODY_DURATION = 0.75
+const CARD_BODY_STAGGER = 0.07
 
 // MARK: - Composables
 
-const { t } = useI18n();
-const { revealCharsFade, revealLines, revealWords } = useTextReveal();
+const { t } = useI18n()
+const { revealCharsFade, revealLines, revealWords } = useTextReveal()
 
 // MARK: - Variables
 
 const focusAreas = [
   {
-    key: "product",
-    icon: "◆",
+    key: 'product',
+    icon: '◆',
   },
   {
-    key: "leadership",
-    icon: "◎",
+    key: 'leadership',
+    icon: '◎',
   },
   {
-    key: "research",
-    icon: "◌",
+    key: 'research',
+    icon: '◌',
   },
-] as const;
+] as const
 
-let aboutTriggers: ScrollTrigger[] = [];
+let aboutTriggers: ScrollTrigger[] = []
 
 // MARK: - Lifecycle
 
 onMounted(() => {
-  const kicker = document.querySelector<HTMLElement>("#about .site-kicker");
-  const title = document.querySelector<HTMLElement>("#about h2");
-  const bio = document.querySelector<HTMLElement>("#about [data-about-bio]");
-  const intro = document.querySelector<HTMLElement>("#about [data-about-intro]");
+  const kicker = document.querySelector<HTMLElement>('#about .site-kicker')
+  const title = document.querySelector<HTMLElement>('#about h2')
+  const bio = document.querySelector<HTMLElement>('#about [data-about-bio]')
+  const intro = document.querySelector<HTMLElement>('#about [data-about-intro]')
 
-  const reduced = prefersReducedMotion();
+  const reduced = prefersReducedMotion()
 
   if (kicker) {
-    revealCharsFade(kicker, { start: "top 88%", duration: 0.4, stagger: 0.018 });
+    revealCharsFade(kicker, {
+      start: 'top 88%',
+      duration: KICKER_REVEAL_DURATION,
+      stagger: KICKER_REVEAL_STAGGER,
+    })
   }
   if (title) {
-    revealCharsFade(title, { start: "top 85%", delay: 0.08, duration: 0.45, stagger: 0.014 });
+    revealCharsFade(title, {
+      start: 'top 85%',
+      delay: TITLE_REVEAL_DELAY,
+      duration: TITLE_REVEAL_DURATION,
+      stagger: TITLE_REVEAL_STAGGER,
+    })
   }
 
   /*
@@ -61,84 +86,94 @@ onMounted(() => {
   const revealTokens = (el: HTMLElement, delay: number) => {
     const trigger = ScrollTrigger.create({
       trigger: el,
-      start: "top 82%",
+      start: 'top 82%',
       once: true,
       onEnter: () => {
-        const tokens = Array.from(el.children) as HTMLElement[];
-        gsap.set(el, { opacity: 1 });
+        const tokens = Array.from(el.children) as HTMLElement[]
+        gsap.set(el, { opacity: 1 })
         if (reduced) {
-          gsap.set(tokens, { opacity: 1 });
-          return;
+          gsap.set(tokens, { opacity: 1 })
+          return
         }
-        gsap.set(tokens, { opacity: 0 });
-        gsap.to(tokens, { opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.05, delay });
+        gsap.set(tokens, { opacity: 0 })
+        gsap.to(tokens, {
+          opacity: 1,
+          duration: TOKEN_REVEAL_DURATION,
+          ease: 'power2.out',
+          stagger: TOKEN_REVEAL_STAGGER,
+          delay,
+        })
       },
-    });
-    aboutTriggers.push(trigger);
-  };
+    })
+    aboutTriggers.push(trigger)
+  }
 
   if (bio) {
-    revealTokens(bio, 0.12);
+    revealTokens(bio, 0.12)
   }
   if (intro) {
-    revealTokens(intro, 0.18);
+    revealTokens(intro, 0.18)
   }
 
-  const cards = document.querySelectorAll<HTMLElement>("#about .site-card");
+  const cards = document.querySelectorAll<HTMLElement>('#about .site-card')
   cards.forEach((card, index) => {
     const trigger = ScrollTrigger.create({
       trigger: card,
-      start: "top 82%",
+      start: 'top 82%',
       once: true,
       onEnter: () => {
         if (reduced) {
-          gsap.set(card, { opacity: 1, y: 0, scale: 1 });
+          gsap.set(card, { opacity: 1, y: 0, scale: 1 })
         } else {
           gsap.to(card, {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.7,
-            ease: "power3.out",
+            duration: CARD_REVEAL_DURATION,
+            ease: 'power3.out',
             delay: index * 0.07,
-          });
+          })
         }
 
-        const eyebrow = card.querySelector<HTMLElement>("[data-card-eyebrow]");
-        const cardTitle = card.querySelector<HTMLElement>("[data-card-title]");
-        const cardBody = card.querySelector<HTMLElement>("[data-card-body]");
+        const eyebrow = card.querySelector<HTMLElement>('[data-card-eyebrow]')
+        const cardTitle = card.querySelector<HTMLElement>('[data-card-title]')
+        const cardBody = card.querySelector<HTMLElement>('[data-card-body]')
 
-        const baseDelay = 0.22 + index * 0.07;
+        const baseDelay = 0.22 + index * 0.07
 
         if (eyebrow) {
           revealWords(eyebrow, {
             scrollTrigger: false,
             delay: baseDelay,
-            duration: 0.55,
-            stagger: 0.04,
-          });
+            duration: CARD_EYEBROW_DURATION,
+            stagger: CARD_EYEBROW_STAGGER,
+          })
         }
         if (cardTitle) {
-          revealWords(cardTitle, { scrollTrigger: false, delay: baseDelay + 0.06, duration: 0.65 });
+          revealWords(cardTitle, {
+            scrollTrigger: false,
+            delay: baseDelay + 0.06,
+            duration: CARD_TITLE_DURATION,
+          })
         }
         if (cardBody) {
           revealLines(cardBody, {
             scrollTrigger: false,
             delay: baseDelay + 0.14,
-            duration: 0.75,
-            stagger: 0.07,
-          });
+            duration: CARD_BODY_DURATION,
+            stagger: CARD_BODY_STAGGER,
+          })
         }
       },
-    });
-    aboutTriggers.push(trigger);
-  });
-});
+    })
+    aboutTriggers.push(trigger)
+  })
+})
 
 onUnmounted(() => {
-  aboutTriggers.forEach((trigger) => trigger.kill());
-  aboutTriggers = [];
-});
+  aboutTriggers.forEach((trigger) => trigger.kill())
+  aboutTriggers = []
+})
 </script>
 
 <template lang="pug">
@@ -146,14 +181,14 @@ Section(id="about")
   p.site-kicker.font-mono.text-sm.font-semibold.uppercase.opacity-0(class="tracking-[0.24em]") {{ t('about.kicker') }}
   h2.mt-3.text-4xl.font-semibold.text-site-heading.opacity-0(class="md:text-6xl") {{ t('about.title') }}
 
-  p.mt-6.max-w-2xl.text-lg.leading-relaxed.text-site-heading.opacity-0(data-about-bio)
+  p.mt-6.text-lg.leading-relaxed.text-site-heading.opacity-0(data-about-bio)
     span {{ t('hero.bioPre') }}
     TechBrand(brand="smartsquad")
     span {{ t('hero.bioAnd') }}
     TechBrand(brand="inksquad")
     span {{ t('hero.bioPost') }}
 
-  p.mt-5.max-w-2xl.text-lg.leading-relaxed.text-site-muted.opacity-0(
+  p.mt-5.text-lg.leading-relaxed.text-site-muted.opacity-0(
     data-about-intro
     style="word-spacing: 0"
   )

@@ -16,6 +16,12 @@ const { t } = useI18n()
 
 const links: ISocialLink[] = [
   {
+    labelKey: 'contact.links.share',
+    href: 'https://massimo.deluisa.bio',
+    icon: 'mdi:link-variant',
+    external: true,
+  },
+  {
     labelKey: 'contact.links.email',
     href: 'mailto:massimodeluisa@me.com',
     icon: 'mdi:email-outline',
@@ -35,7 +41,7 @@ const links: ISocialLink[] = [
   {
     labelKey: 'contact.links.telegram',
     href: 'https://t.me/massimodeluisa',
-    icon: 'mdi:send',
+    icon: 'fa-brands:telegram',
     external: true,
   },
   {
