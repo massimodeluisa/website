@@ -87,7 +87,7 @@ const isNotFoundRoute = computed(
         ) {{ t('footer.cookiePreferences') }}
 
       a.font-mono.text-xs.opacity-60.no-underline.transition-opacity(
-        href="https://github.com/massimodeluisa/website/blob/main/LICENSE.md"
+        href="https://github.com/massimodeluisa/website/blob/master/LICENSE.md"
         target="_blank"
         rel="noopener noreferrer"
         :aria-label="t('footer.licenseAriaLabel')"
