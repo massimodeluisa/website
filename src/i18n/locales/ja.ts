@@ -2,7 +2,6 @@ export const ja = {
   nav: {
     home: 'ホーム',
     about: '私について',
-    work: '実績',
     blog: 'ブログ',
     contact: 'お問い合わせ',
     ariaLabel: 'メインナビゲーション',
@@ -20,12 +19,8 @@ export const ja = {
     tagline4: 'AIシステムを実用的に統合します。',
     tagline5: '運用の重圧を持続可能なプラットフォームに変えます。',
     tagline6: 'エンジニアリングとプロダクトを重要な意思決定で揃えます。',
-    bioPre: '',
-    bioAnd: 'と',
-    bioPost:
-      'のCTO。プレッシャーの中でもシンプルさを保つプラットフォーム、モバイルアプリ、AIワークフローを構築しています。',
+    bio: "モバイル開発とシステム統合を手がける2つのソフトウェア企業のCTO。プレッシャーの中でもシンプルさを保つプラットフォーム、モバイルアプリ、AIワークフローを構築しています。",
     ctaContact: '会話の予約',
-    ctaWork: '選定実績を見る',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
   },
@@ -61,38 +56,6 @@ export const ja = {
         body: '大規模コードベースとドキュメントのための実用AIワークフロー。',
       },
     },
-  },
-  work: {
-    kicker: '私が作った・指揮したもの',
-    title: '実績',
-    intro: '運用圧力下のシステム。',
-    viewProject: 'プロジェクトを見る',
-    previous: '前の実績',
-    next: '次の実績',
-    openWork: '実績を開く',
-    source: 'ソース',
-    yearRange: '2015 → 2026',
-    techGlobe: {
-      ariaLabel: 'テクノロジーロゴの地球儀',
-      captionTitle: 'テクノロジーシグナル',
-      captionBody: '選定した実績におけるスタックの傾向',
-      tooltip: {
-        heading: 'テクノロジー',
-        site: 'サイト',
-        source: 'ソース',
-      },
-    },
-  },
-  workDetail: {
-    back: '選定実績',
-    highlights: 'ハイライト',
-    stack: 'スタック',
-    sources: 'ソース',
-    visit: 'プロジェクトを訪問 →',
-    notFound: '実績が見つかりません。',
-    notFoundHint: 'お探しのケーススタディは移動したか存在しません。',
-    backHome: '← ホームへ戻る',
-    gallery: 'ギャラリー',
   },
   blog: {
     kicker: 'Journal',
@@ -174,7 +137,7 @@ export const ja = {
       leadership: {
         eyebrow: 'テクニカルリーダーシップ',
         title: 'メイカーの速度で考えるCTO',
-        body: 'Smart Squad Srl と Inksquad Srl のために、アーキテクチャ、採用の文脈、納期リスク、プロダクトの細部のバランスを取ります。',
+        body: '2つのソフトウェア企業のために、アーキテクチャ、採用の文脈、納期リスク、プロダクトの細部のバランスを取ります。',
         animationTitle: 'ノートPCのメイカー速度を表すループアイコン',
       },
       research: {
@@ -186,8 +149,6 @@ export const ja = {
     },
   },
   scrollToTop: {
-    prevWork: '前の実績へスクロール',
-    nextWork: '次の実績へスクロール',
     toTop: '先頭へスクロール',
   },
   notFound: {

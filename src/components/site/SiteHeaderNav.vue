@@ -95,11 +95,7 @@ const handleNavClick = (to: string, e: Event) => {
   if (to.startsWith('#')) {
     e.preventDefault()
     const id = to.slice(1)
-    // #work: on desktop land on the morph .work-track, else the section element.
-    const target =
-      id === 'work'
-        ? (document.querySelector<HTMLElement>('#work .work-track') ?? document.getElementById(id))
-        : document.getElementById(id)
+    const target = document.getElementById(id)
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
@@ -117,9 +113,6 @@ const isActive = (item: INavItem) => {
   const name = String(route.name ?? '')
   if (name.includes('blog')) {
     return item.id === 'blog'
-  }
-  if (name.includes('work')) {
-    return item.id === 'work'
   }
   if (name === 'home' || name === 'locale.home') {
     return activeSection.value === item.id

@@ -195,11 +195,7 @@ Section(id="about")
   h2.mt-3.text-4xl.font-semibold.text-site-heading.opacity-0(class="md:text-6xl") {{ t('about.title') }}
 
   p.mt-6.text-lg.leading-relaxed.text-site-heading.opacity-0(data-about-bio)
-    span {{ t('hero.bioPre') }}
-    TechBrand(brand="smartsquad")
-    span {{ t('hero.bioAnd') }}
-    TechBrand(brand="inksquad")
-    span {{ t('hero.bioPost') }}
+    span {{ t('hero.bio') }}
 
   p.mt-5.text-lg.leading-relaxed.text-site-muted.opacity-0(
     data-about-intro

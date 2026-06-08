@@ -36,11 +36,11 @@ function parseFrontmatter(raw: string): { data: TFrontmatter; body: string } {
 }
 
 /*
- * Works are authored as a base `slug.md` (metadata) plus per-locale copies
- * `slug.<locale>.md` (title/summary/body) — mirror src/contents/works.ts. Only
- * the base file is a real page; the English copy is overlaid as the canonical
- * locale so title/summary/body resolve. Locale-suffixed files must NOT become
- * their own slugs (that produced phantom /work/slug.it URLs in the sitemap).
+ * Content is authored as a base `slug.md` (metadata) plus per-locale copies
+ * `slug.<locale>.md` (title/summary/body). Only the base file is a real page;
+ * the English copy is overlaid as the canonical locale so title/summary/body
+ * resolve. Locale-suffixed files must NOT become their own slugs (that produced
+ * phantom /slug.it URLs in the sitemap).
  */
 const LOCALE_SUFFIX = /\.(en|it|ja|ru|uk)\.md$/
 
@@ -64,7 +64,6 @@ function readContent(dir: string): TContentEntry[] {
 }
 
 const blog = readContent('blog').sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-const works = readContent('works').sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0))
 
 const today = new Date().toISOString().slice(0, 10)
 const xml = (s: string | undefined): string =>
@@ -74,7 +73,7 @@ const xml = (s: string | undefined): string =>
     .replace(/>/g, '&gt;')
 
 /* Base paths (no locale prefix). */
-const pages = ['/', '/blog', ...blog.map((p) => `/blog/${p.slug}`), ...works.map((w) => `/work/${w.slug}`)]
+const pages = ['/', '/blog', ...blog.map((p) => `/blog/${p.slug}`)]
 
 function locUrl(prefix: string, path: string): string {
   const base = prefix ? `/${prefix}` : ''
@@ -165,19 +164,15 @@ function llmsTxt(): string {
 ## About
 
 - Massimo De Luisa is a CTO & Product Engineer based in Udine, Italy (relocating to Japan).
-- He builds platforms, mobile apps and AI-assisted workflows for Smart Squad and Inksquad.
+- He is CTO of two software companies (mobile development and systems integration), building platforms, mobile apps and AI-assisted workflows.
 - Core stack: Vue, TypeScript, Tailwind, Supabase, and long-context AI tooling.
 - Site available in English, Italian, Japanese, Russian and Ukrainian.
 
 ## Pages
 
-- [Home](${SITE}/): overview, focus areas and selected work
+- [Home](${SITE}/): overview and focus areas
 - [Journal](${SITE}/blog): writing on systems, product and craft
 ${blog.length ? `\n## Journal\n\n${list(blog, '/blog')}\n` : ''}
-## Selected work
-
-${list(works, '/work')}
-
 ## Contact & profiles
 
 - GitHub: https://github.com/massimodeluisa
@@ -187,7 +182,7 @@ ${list(works, '/work')}
 
 ## Optional
 
-- [llms-full.txt](${SITE}/llms-full.txt): every post and case study as plain markdown
+- [llms-full.txt](${SITE}/llms-full.txt): every post as plain markdown
 `
 }
 
@@ -195,10 +190,6 @@ function llmsFull(): string {
   const out = [`# ${SITE_NAME}\n\n> ${SUMMARY}\n`, '\n---\n\n# Journal\n']
   for (const p of blog) {
     out.push(`\n## ${p.title}\n\n_${p.date || ''}_\n\n${p.body}\n`)
-  }
-  out.push('\n---\n\n# Selected work\n')
-  for (const w of works) {
-    out.push(`\n## ${w.title}\n\n${w.summary ? `${w.summary}\n\n` : ''}${w.body}\n`)
   }
   return out.join('\n')
 }

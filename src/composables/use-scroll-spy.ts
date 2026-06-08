@@ -55,7 +55,7 @@ export function useScrollSpy({ ids }: IScrollSpyOptions): void {
      * than the viewport and earlier sections still cover the focus line.
      * Without this, clicking #contact on a tall screen would land at bottom
      * but the URL would snap back to whichever section sits in the upper
-     * quarter of the viewport (typically #blog or #work).
+     * quarter of the viewport (typically #blog).
      */
     const docHeight = document.documentElement.scrollHeight
     const atScrollEnd = window.scrollY + viewport >= docHeight - 4

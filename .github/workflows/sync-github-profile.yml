@@ -27,7 +27,7 @@ jobs:
     env:
       GITHUB_USER: massimodeluisa
       GITHUB_REPOSITORY_SOURCE: ${{ inputs.repository-source || 'authenticated' }}
-      GITHUB_REPO_OWNERS: ${{ vars.PORTFOLIO_REPO_OWNERS || 'massimodeluisa,smartsquad,inksquad' }}
+      GITHUB_REPO_OWNERS: ${{ vars.PORTFOLIO_REPO_OWNERS || 'massimodeluisa' }}
       PROFILE_SYNC_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN }}
       GH_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN || github.token }}
 

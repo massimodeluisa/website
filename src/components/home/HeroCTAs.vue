@@ -26,11 +26,6 @@ const scrollToContact = () => {
   }
 }
 
-const scrollToWork = () => {
-  const target = document.getElementById('work')
-  target?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
-
 // MARK: - Lifecycle
 
 onMounted(() => {
@@ -56,6 +51,4 @@ onMounted(() => {
   class="opacity-0 translate-y-2 md:justify-start"
 )
   StdButton.min-h-11.rounded-full.px-7(variant="primary" @click="scrollToContact") {{ t('hero.ctaContact') }}
-
-  StdButton.min-h-11.rounded-full.px-6(variant="secondary" @click="scrollToWork") {{ t('hero.ctaWork') }}
 </template>

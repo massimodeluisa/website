@@ -1,6 +1,6 @@
 # Massimo De Luisa — Portfolio
 
-Professional, multilingual portfolio of **Massimo De Luisa** (MDL), CTO at Smart Squad Srl and Inksquad Srl.
+Professional, multilingual portfolio of **Massimo De Luisa** (MDL), CTO of two software companies (mobile development and systems integration).
 
 Live at [deluisa.me](https://deluisa.me) (primary), with Japanese domains [出る.com](https://出る.com) and [デルイザ.com](https://デルイザ.com) for the Japan move.
 
@@ -72,7 +72,6 @@ Language switcher lives elegantly inside the fixed header (and mobile menu). All
 
 ## Content
 
-- **Selected Work**: Case studies loaded from `src/contents/works/*.md` (frontmatter + rendered HTML).
 - **Journal / Blog**: Markdown posts in `src/contents/blog/` (planned, with categories Tech / Product / Personal).
 - Photos and assets live in `src/assets/`.
 
@@ -96,7 +95,7 @@ Personal portfolio. Feel free to study the source for patterns (especially the G
 ## Contact
 
 Massimo De Luisa  
-CTO @ Smart Squad & Inksquad
+CTO of two software companies (mobile development & systems integration)
 Udine, Italy → Japan
 
 - GitHub: https://github.com/massimodeluisa

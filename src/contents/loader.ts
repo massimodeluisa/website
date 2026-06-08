@@ -1,5 +1,5 @@
 /*
- * Shared helpers for the markdown content loaders (works.ts, blog.ts).
+ * Shared helpers for the markdown content loaders (blog.ts).
  * Frontmatter arrives untyped from `import.meta.glob`, so these narrow it
  * down to the concrete shapes the loaders expect.
  */

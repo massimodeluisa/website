@@ -15,19 +15,6 @@ export interface IBrandInfo {
 // MARK: - Catalog
 
 export const TECH_BRANDS = {
-  smartsquad: {
-    label: 'Smart Squad',
-    icon: '/brands/logo-sq-dark.svg',
-    color: 'var(--site-heading)',
-    href: 'https://smartsquad.io',
-    mono: true,
-  },
-  inksquad: {
-    label: 'Inksquad',
-    icon: '/brands/inksquad-logo-compact.svg',
-    color: '#A5904F',
-    href: 'https://inksquad.com',
-  },
   nestjs: {
     label: 'NestJS',
     icon: 'logos:nestjs',

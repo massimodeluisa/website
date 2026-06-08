@@ -175,10 +175,6 @@ export const personEntity = (): Record<string, unknown> => ({
     'AI Systems',
     'Technical Leadership',
   ],
-  worksFor: [
-    { '@type': 'Organization', name: 'Smart Squad' },
-    { '@type': 'Organization', name: 'Inksquad' },
-  ],
   address: { '@type': 'PostalAddress', addressLocality: 'Udine', addressCountry: 'IT' },
   sameAs: [
     'https://github.com/massimodeluisa',

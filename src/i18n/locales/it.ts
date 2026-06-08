@@ -2,7 +2,6 @@ export const it = {
   nav: {
     home: 'Home',
     about: 'Chi sono',
-    work: 'Lavori',
     blog: 'Blog',
     contact: 'Contatti',
     ariaLabel: 'Navigazione principale',
@@ -20,12 +19,8 @@ export const it = {
     tagline4: 'Integro sistemi AI in maniera pragmatica.',
     tagline5: 'Trasformo la pressione operativa in piattaforme durature.',
     tagline6: 'Allineo ingegneria e prodotto sulle decisioni che contano.',
-    bioPre: 'CTO di ',
-    bioAnd: ' e ',
-    bioPost:
-      '. Costruisco piattaforme, app mobile e flussi con AI che restano semplici anche sotto pressione.',
+    bio: "CTO di due aziende software — sviluppo mobile e sistemi di integrazione. Costruisco piattaforme, app mobile e flussi con AI che restano semplici anche sotto pressione.",
     ctaContact: 'Prenota una conversazione',
-    ctaWork: 'Vedi i lavori selezionati',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
   },
@@ -61,38 +56,6 @@ export const it = {
         body: 'Workflow AI pratici per grandi codebase e documenti.',
       },
     },
-  },
-  work: {
-    kicker: 'Cose che ho creato/diretto',
-    title: 'Lavori',
-    intro: 'Sistemi sotto pressione operativa.',
-    viewProject: 'Vedi progetto',
-    previous: 'Lavoro precedente',
-    next: 'Lavoro successivo',
-    openWork: 'Apri lavoro',
-    source: 'Fonte',
-    yearRange: '2015 → 2026',
-    techGlobe: {
-      ariaLabel: 'Globo dei loghi tecnologici',
-      captionTitle: 'Segnali tecnologici',
-      captionBody: 'Pattern di stack nei lavori selezionati',
-      tooltip: {
-        heading: 'Tecnologia',
-        site: 'Sito',
-        source: 'Fonte',
-      },
-    },
-  },
-  workDetail: {
-    back: 'Lavori selezionati',
-    highlights: 'Highlights',
-    stack: 'Stack',
-    sources: 'Fonti',
-    visit: 'Vai al progetto →',
-    notFound: 'Lavoro non trovato.',
-    notFoundHint: 'Il case study che cercavi è stato spostato o non esiste.',
-    backHome: '← Torna alla home',
-    gallery: 'Galleria',
   },
   blog: {
     kicker: 'Journal',
@@ -174,7 +137,7 @@ export const it = {
       leadership: {
         eyebrow: 'Leadership Tecnica',
         title: 'Pensiero da CTO con velocità da maker',
-        body: 'Bilancio architettura, contesto di hiring, rischio di consegna e dettaglio di prodotto per Smart Squad Srl e Inksquad Srl.',
+        body: 'Bilancio architettura, contesto di hiring, rischio di consegna e dettaglio di prodotto per due aziende software.',
         animationTitle: 'Icona animata del laptop maker',
       },
       research: {
@@ -186,8 +149,6 @@ export const it = {
     },
   },
   scrollToTop: {
-    prevWork: 'Vai al lavoro precedente',
-    nextWork: 'Vai al lavoro successivo',
     toTop: 'Torna su',
   },
   notFound: {

@@ -3,7 +3,6 @@ import AboutSection from '@/components/home/AboutSection.vue'
 import ContactSection from '@/components/home/ContactSection.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import JournalTeaserSection from '@/components/home/JournalTeaserSection.vue'
-import WorksSection from '@/components/work/WorksSection.vue'
 import {
   usePageSeo,
   useJsonLd,
@@ -52,7 +51,6 @@ useJsonLd({
 article.relative.isolate.bg-site-background.text-site-text(class="overflow-x-clip")
   HeroSection
   AboutSection
-  WorksSection
   JournalTeaserSection
   ContactSection
 </template>

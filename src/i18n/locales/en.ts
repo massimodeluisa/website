@@ -2,7 +2,6 @@ export const en = {
   nav: {
     home: 'Home',
     about: 'About',
-    work: 'Work',
     blog: 'Blog',
     contact: 'Contact',
     ariaLabel: 'Main navigation',
@@ -20,12 +19,8 @@ export const en = {
     tagline4: 'I integrate AI systems pragmatically.',
     tagline5: 'I turn operational pressure into durable platforms.',
     tagline6: 'I align engineering and product on the decisions that matter.',
-    bioPre: 'CTO at ',
-    bioAnd: ' and ',
-    bioPost:
-      '. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure.',
+    bio: "CTO of two software companies — mobile development and systems integration. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure.",
     ctaContact: 'Book a conversation',
-    ctaWork: 'See selected work',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
   },
@@ -61,38 +56,6 @@ export const en = {
         body: 'Practical AI workflows for large codebases and documents.',
       },
     },
-  },
-  work: {
-    kicker: "Things I've built/directed",
-    title: 'Work',
-    intro: 'Systems under operational pressure.',
-    viewProject: 'View project',
-    previous: 'Previous work',
-    next: 'Next work',
-    openWork: 'Open work',
-    source: 'Source',
-    yearRange: '2015 → 2026',
-    techGlobe: {
-      ariaLabel: 'Technology logo globe',
-      captionTitle: 'Technology Signals',
-      captionBody: 'Stack patterns across selected work',
-      tooltip: {
-        heading: 'Technology',
-        site: 'Site',
-        source: 'Source',
-      },
-    },
-  },
-  workDetail: {
-    back: 'Selected work',
-    highlights: 'Highlights',
-    stack: 'Stack',
-    sources: 'Sources',
-    visit: 'Visit project →',
-    notFound: 'Work not found.',
-    notFoundHint: 'The case study you were looking for has moved or never existed.',
-    backHome: '← Back to homepage',
-    gallery: 'Gallery',
   },
   blog: {
     kicker: 'Journal',
@@ -174,7 +137,7 @@ export const en = {
       leadership: {
         eyebrow: 'Technical Leadership',
         title: 'CTO thinking with maker speed',
-        body: 'I balance architecture, hiring context, delivery risk and product detail for Smart Squad Srl and Inksquad Srl.',
+        body: 'I balance architecture, hiring context, delivery risk and product detail across two software companies.',
         animationTitle: 'Looping laptop maker speed icon',
       },
       research: {
@@ -186,8 +149,6 @@ export const en = {
     },
   },
   scrollToTop: {
-    prevWork: 'Scroll to previous work',
-    nextWork: 'Scroll to next work',
     toTop: 'Scroll to top',
   },
   notFound: {
