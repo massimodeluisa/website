@@ -190,23 +190,24 @@ onUnmounted(() => {
   style="perspective: 1200px; perspective-origin: 50% 50%"
   class="w-[min(320px,72vw)] md:w-[380px] lg:w-[420px] md:justify-self-end"
 )
-  .hero-portrait-frame.relative.overflow-hidden.rounded-2xl.border.border-site-border.bg-site-primary.shadow-xl(
+  .hero-portrait-frame.relative.rounded-2xl.border.border-site-border.bg-site-primary.shadow-xl(
     ref="frameEl"
     class="aspect-[4/3.15]"
   )
-    .absolute.inset-0(
-      ref="innerEl"
-      style="transform: scale(1.15); will-change: transform;"
-    )
-      img.absolute.inset-0.h-full.w-full.object-cover(
-        src="@/assets/me-squared-clean.webp"
-        :alt="t('hero.portraitAlt')"
-        loading="eager"
-        decoding="async"
+    .hero-portrait-clip.absolute.inset-0.overflow-hidden.rounded-2xl
+      .absolute.inset-0(
+        ref="innerEl"
+        style="transform: scale(1.15); will-change: transform;"
       )
-    .absolute.inset-0.pointer-events-none(
-      class="bg-gradient-to-b from-black/10 via-transparent to-black/30 lg:to-black/20"
-    )
+        img.absolute.inset-0.h-full.w-full.object-cover(
+          src="@/assets/me-squared-clean.webp"
+          :alt="t('hero.portraitAlt')"
+          loading="eager"
+          decoding="async"
+        )
+      .absolute.inset-0.pointer-events-none(
+        class="bg-gradient-to-b from-black/10 via-transparent to-black/30 lg:to-black/20"
+      )
     .hero-portrait-glare(aria-hidden="true")
 </template>
 
@@ -215,7 +216,6 @@ onUnmounted(() => {
   --glare-x: 50%;
   --glare-y: 50%;
   --glare-opacity: 0;
-  transform-style: preserve-3d;
   transform-origin: 50% 50%;
   will-change: transform;
   transition: box-shadow 0.45s ease;
