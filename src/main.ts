@@ -2,6 +2,7 @@ import { ViteSSG } from 'vite-ssg'
 
 import App from './App.vue'
 import { installAnalytics } from './composables/use-analytics'
+import { initConsent } from './composables/use-consent'
 import { installLocaleGuard, installLocaleRedirect, routes, scrollBehavior } from './router'
 
 import './assets/tailwind.css'
@@ -25,5 +26,6 @@ export const createApp = ViteSSG(App, { routes, scrollBehavior }, ({ router, isC
   if (isClient) {
     installLocaleRedirect(router)
     installAnalytics(router)
+    initConsent()
   }
 })

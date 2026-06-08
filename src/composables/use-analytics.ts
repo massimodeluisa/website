@@ -18,6 +18,16 @@ function ensureDataLayer(): Record<string, unknown>[] {
   return window.dataLayer
 }
 
+/*
+ * Canonical gtag(): pushes the raw `arguments` list onto the dataLayer. Google
+ * Consent Mode reads commands ONLY in this exact shape (not as a flattened
+ * object), so consent default/update must go through here.
+ */
+export const gtag: (...args: unknown[]) => void = function () {
+  // eslint-disable-next-line prefer-rest-params
+  ensureDataLayer().push(arguments as unknown as Record<string, unknown>)
+}
+
 let scriptLoaded = false
 
 /* Inject the GTM container once (client only) — same as the official snippet. */
@@ -26,6 +36,25 @@ function loadGtm() {
     return
   }
   scriptLoaded = true
+
+  /*
+   * Consent Mode v2 defaults — MUST run before gtm.js so the first hits are
+   * cookieless until the user opts in (GDPR/ePrivacy). use-consent then calls
+   * gtag('consent','update',…) when the banner is answered.
+   */
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'denied',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  })
+  gtag('set', 'ads_data_redaction', true)
+  gtag('set', 'url_passthrough', true)
+
   ensureDataLayer().push({ 'gtm.start': Date.now(), event: 'gtm.js' })
   const script = document.createElement('script')
   script.async = true

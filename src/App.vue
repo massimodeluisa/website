@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 
 import { useI18n } from '@/i18n'
+import { showCookiePreferences } from '@/composables/use-consent'
 import TechBrand from '@/components/shared/TechBrand.vue'
 import ScrollToTopButton from '@/components/site/ScrollToTopButton.vue'
 import SiteHeader from '@/components/site/SiteHeader.vue'
@@ -78,6 +79,12 @@ const isNotFoundRoute = computed(
             :rel="link.external ? 'noopener noreferrer' : undefined"
             class="hover:text-site-heading focus-visible:text-site-heading"
           ) {{ t(link.labelKey) }}
+        span.text-site-muted.opacity-40(aria-hidden="true") ·
+        button.text-site-muted.no-underline.transition-colors(
+          type="button"
+          class="hover:text-site-heading focus-visible:text-site-heading"
+          @click="showCookiePreferences"
+        ) {{ t('footer.cookiePreferences') }}
 
       a.font-mono.text-xs.opacity-60.no-underline.transition-opacity(
         href="https://github.com/massimodeluisa/website/blob/main/LICENSE.md"
