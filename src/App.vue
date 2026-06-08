@@ -28,14 +28,26 @@ const footerLinks: { labelKey: string; href: string; download?: boolean; externa
 // MARK: - Computed
 
 const isHomeRoute = computed(() => route.name === 'home' || route.name === 'locale.home')
-const isNotFoundRoute = computed(() => route.name === 'notFound' || route.name === 'locale.notFound')
+const isNotFoundRoute = computed(
+  () => route.name === 'notFound' || route.name === 'locale.notFound',
+)
 </script>
 
 <template lang="pug">
 .flex.flex-col(:class="isNotFoundRoute ? 'h-dvh overflow-hidden' : 'min-h-dvh'" class="overflow-x-clip")
+  //- Keyboard/screen-reader bypass block (WCAG 2.4.1): hidden until focused.
+  a.sr-only(
+    href="#main-content"
+    class="focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:border focus:border-site-border focus:bg-site-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-site-heading focus:no-underline focus:outline-2 focus:outline-offset-2 focus:outline-site-secondary"
+  ) {{ t('nav.skipToContent') }}
+
   SiteHeader
 
-  main.grow(:class="isHomeRoute || isNotFoundRoute ? 'pt-0' : 'pt-20'")
+  main#main-content.grow(
+    tabindex="-1"
+    :class="isHomeRoute || isNotFoundRoute ? 'pt-0' : 'pt-20'"
+    class="outline-none"
+  )
     RouterView
 
   footer.border-t.border-site-border(class="bg-site-surface/80")

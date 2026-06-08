@@ -16,6 +16,12 @@ import { prefersReducedMotion } from '@/utils/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// MARK: - Constants
+
+const SECTION_REVEAL_DURATION = 0.72
+const FADE_REVEAL_DURATION = 0.45
+const FADE_REVEAL_STAGGER = 0.012
+
 // MARK: - Composables
 
 const { t } = useI18n()
@@ -55,7 +61,7 @@ onMounted(() => {
   gsap.to(section, {
     opacity: 1,
     y: 0,
-    duration: 0.72,
+    duration: SECTION_REVEAL_DURATION,
     ease: 'power3.out',
     scrollTrigger: { trigger: section, start: 'top 80%', once: true },
   })
@@ -82,8 +88,8 @@ onMounted(() => {
     revealCharsFade(target.el, {
       start: target.start ?? 'top 84%',
       delay: target.delay,
-      duration: 0.45,
-      stagger: 0.012,
+      duration: FADE_REVEAL_DURATION,
+      stagger: FADE_REVEAL_STAGGER,
     })
   }
 })

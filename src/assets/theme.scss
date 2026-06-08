@@ -109,6 +109,13 @@
     --site-selection: #d8ddd9;
   }
 
+  /* Derived translucent tints reused by card and media-placeholder surfaces.
+     The inner var() resolves lazily, so each token follows the active theme. */
+  :root {
+    --site-border-soft: color-mix(in oklab, var(--site-border) 70%, transparent);
+    --site-surface-soft: color-mix(in oklab, var(--site-surface) 70%, transparent);
+  }
+
   @supports (color: color-mix(in oklab, black, white)) {
     :root,
     [data-theme='light'] {

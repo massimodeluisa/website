@@ -1,8 +1,10 @@
 /*
  * Postbuild dynamic Open Graph images: renders a branded 1200×630 card per page
- * (home, journal index, each post, each case study) via satori → resvg → PNG,
- * written to dist/og/. usePageSeo points og:image at the matching path. Runs
- * after `vite-ssg build` (see the build-only script).
+ * (home, journal index, each post, each case study) via satori → resvg → JPEG,
+ * written to dist/og/. Cards are emitted as JPEG (quality 82) so every card
+ * stays well under ~100KB — under WhatsApp's ~300KB preview cutoff, where the
+ * gradient-heavy PNGs (340–425KB) would silently fail to render. usePageSeo
+ * points og:image at the matching .jpg path. Runs after `vite-ssg build`.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -10,6 +12,7 @@ import { fileURLToPath } from 'node:url'
 
 import { Resvg } from '@resvg/resvg-js'
 import satori, { type SatoriOptions } from 'satori'
+import sharp from 'sharp'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = join(ROOT, 'dist')
@@ -65,13 +68,28 @@ function parseFrontmatter(raw: string): TFrontmatter {
   return data
 }
 
+/*
+ * Works are a base `slug.md` (metadata) + per-locale copies `slug.<locale>.md`
+ * (title/role) — mirror src/contents/works.ts. Only the base file is a real
+ * page; overlay the English copy as the canonical locale so the card has a
+ * title/role. Locale-suffixed files must NOT each render their own card.
+ */
+const LOCALE_SUFFIX = /\.(en|it|ja|ru|uk)\.md$/
+
 function readContent(dir: string): TContentEntry[] {
-  return readdirSync(join(ROOT, 'src/contents', dir))
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => ({
-      slug: file.replace(/\.md$/, ''),
-      ...parseFrontmatter(readFileSync(join(ROOT, 'src/contents', dir, file), 'utf8')),
-    }))
+  const folder = join(ROOT, 'src/contents', dir)
+  if (!existsSync(folder)) {
+    return []
+  }
+  return readdirSync(folder)
+    .filter((file) => file.endsWith('.md') && !LOCALE_SUFFIX.test(file))
+    .map((file) => {
+      const slug = file.replace(/\.md$/, '')
+      const base = parseFrontmatter(readFileSync(join(folder, file), 'utf8'))
+      const enPath = join(folder, `${slug}.en.md`)
+      const en = existsSync(enPath) ? parseFrontmatter(readFileSync(enPath, 'utf8')) : {}
+      return { slug, ...base, ...en }
+    })
 }
 
 const blog = readContent('blog')
@@ -259,9 +277,11 @@ async function writeCard(node: ISatoriNode, outPath: string): Promise<void> {
   const element = node as unknown as Parameters<typeof satori>[0]
   const svg = await satori(element, { width: 1200, height: 630, fonts: FONTS })
   const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
+  /* Re-encode to JPEG so cards stay small enough for WhatsApp link previews. */
+  const jpeg = await sharp(png).jpeg({ quality: 82, mozjpeg: true, chromaSubsampling: '4:4:4' }).toBuffer()
   const file = join(OG_DIR, outPath)
   mkdirSync(dirname(file), { recursive: true })
-  writeFileSync(file, png)
+  writeFileSync(file, jpeg)
 }
 
 async function renderCard(spec: ICardSpec, outPath: string): Promise<void> {
@@ -274,15 +294,15 @@ if (!existsSync(DIST)) {
 }
 mkdirSync(OG_DIR, { recursive: true })
 
-await writeCard(homeCard(), 'home.png')
-await renderCard({ eyebrow: 'Journal', title: 'Writing', subtitle: 'Systems, product & craft' }, 'blog.png')
+await writeCard(homeCard(), 'home.jpg')
+await renderCard({ eyebrow: 'Journal', title: 'Writing', subtitle: 'Systems, product & craft' }, 'blog.jpg')
 for (const post of blog) {
-  await renderCard({ eyebrow: `Journal · ${SITE_NAME}`, title: post.title, subtitle: '' }, `blog/${post.slug}.png`)
+  await renderCard({ eyebrow: `Journal · ${SITE_NAME}`, title: post.title, subtitle: '' }, `blog/${post.slug}.jpg`)
 }
 for (const work of works) {
   await renderCard(
     { eyebrow: `Selected work · ${SITE_NAME}`, title: work.title, subtitle: work.role || '' },
-    `work/${work.slug}.png`,
+    `work/${work.slug}.jpg`,
   )
 }
 

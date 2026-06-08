@@ -4,7 +4,15 @@ import ContactSection from '@/components/home/ContactSection.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import JournalTeaserSection from '@/components/home/JournalTeaserSection.vue'
 import WorksSection from '@/components/work/WorksSection.vue'
-import { usePageSeo, useJsonLd } from '@/composables/use-page-seo'
+import {
+  usePageSeo,
+  useJsonLd,
+  personEntity,
+  websiteEntity,
+  SITE_URL,
+  PERSON_ID,
+  WEBSITE_ID,
+} from '@/composables/use-page-seo'
 import { useScrollSpy } from '@/composables/use-scroll-spy'
 import { SECTION_IDS } from '@/data/navigation'
 import { useI18n } from '@/i18n'
@@ -18,21 +26,24 @@ usePageSeo({
   title: () => t('hero.role'),
   description: () => t('contact.description'),
 })
+/*
+ * One @graph linking the Person, the WebSite and this ProfilePage by @id — the
+ * shape Google's Knowledge Graph and AI answer engines resolve most cleanly.
+ */
 useJsonLd({
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Massimo De Luisa',
-  alternateName: 'MDL',
-  url: 'https://deluisa.me',
-  jobTitle: 'CTO & Product Engineer',
-  worksFor: [
-    { '@type': 'Organization', name: 'Smart Squad' },
-    { '@type': 'Organization', name: 'Inksquad' },
-  ],
-  sameAs: [
-    'https://github.com/massimodeluisa',
-    'https://x.com/massimodeluisa',
-    'https://www.linkedin.com/in/massimodeluisa',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'ProfilePage',
+      '@id': `${SITE_URL}/#profilepage`,
+      url: SITE_URL,
+      name: 'Massimo De Luisa — CTO & Product Engineer',
+      isPartOf: { '@id': WEBSITE_ID },
+      about: { '@id': PERSON_ID },
+      mainEntity: { '@id': PERSON_ID },
+    },
   ],
 })
 </script>

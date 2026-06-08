@@ -35,13 +35,31 @@ function parseFrontmatter(raw: string): { data: TFrontmatter; body: string } {
   return { data, body: match[2].trim() }
 }
 
+/*
+ * Works are authored as a base `slug.md` (metadata) plus per-locale copies
+ * `slug.<locale>.md` (title/summary/body) — mirror src/contents/works.ts. Only
+ * the base file is a real page; the English copy is overlaid as the canonical
+ * locale so title/summary/body resolve. Locale-suffixed files must NOT become
+ * their own slugs (that produced phantom /work/slug.it URLs in the sitemap).
+ */
+const LOCALE_SUFFIX = /\.(en|it|ja|ru|uk)\.md$/
+
 function readContent(dir: string): TContentEntry[] {
   const folder = join(ROOT, 'src/contents', dir)
-  return readdirSync(folder)
-    .filter((file) => file.endsWith('.md'))
+  if (!existsSync(folder)) {
+    return []
+  }
+  const files = readdirSync(folder).filter((file) => file.endsWith('.md'))
+  return files
+    .filter((file) => !LOCALE_SUFFIX.test(file))
     .map((file) => {
-      const { data, body } = parseFrontmatter(readFileSync(join(folder, file), 'utf8'))
-      return { slug: file.replace(/\.md$/, ''), body, ...data }
+      const slug = file.replace(/\.md$/, '')
+      const base = parseFrontmatter(readFileSync(join(folder, file), 'utf8'))
+      const enPath = join(folder, `${slug}.en.md`)
+      const en = existsSync(enPath)
+        ? parseFrontmatter(readFileSync(enPath, 'utf8'))
+        : { data: {} as TFrontmatter, body: '' }
+      return { slug, body: en.body || base.body, ...base.data, ...en.data }
     })
 }
 
@@ -83,8 +101,43 @@ function sitemap(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`
 }
 
+/*
+ * 2026 "selective-allow" robots policy: explicitly welcome the AI answer-engine
+ * and assistant crawlers (citation traffic is ~4× more valuable than classic
+ * organic), opt out of nothing for a personal brand chasing visibility, and
+ * block only Bytespider — the one high-volume crawler that wastes bandwidth and
+ * routinely ignores rules. Each bot is listed individually (best practice) so
+ * the policy stays auditable as the landscape shifts.
+ */
 function robots(): string {
-  return `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`
+  /* Search/retrieval + assistant crawlers, grouped by vendor. All allowed. */
+  const allowed: string[][] = [
+    ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User'], // OpenAI
+    ['ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai'], // Anthropic
+    ['PerplexityBot', 'Perplexity-User'], // Perplexity
+    ['Google-Extended'], // Google (Gemini/Vertex training opt-in token)
+    ['Applebot-Extended'], // Apple Intelligence token
+    ['Bingbot', 'Amazonbot', 'Meta-ExternalAgent', 'DuckAssistBot'], // Bing/Copilot, Amazon, Meta, DuckDuckGo
+    ['Googlebot', 'cohere-ai', 'YouBot', 'Diffbot', 'Timpibot'], // misc answer engines
+  ]
+  const blocks = [
+    '# robots.txt — https://deluisa.me',
+    '# Classic search + AI answer engines welcome (2026 selective-allow policy).',
+    '',
+    'User-agent: *',
+    'Allow: /',
+    '',
+    '# --- AI crawlers & assistants: explicitly allowed for citations ---',
+    ...allowed.flatMap((group) => [...group.map((ua) => `User-agent: ${ua}`), 'Allow: /', '']),
+    '# --- Abusive crawler: ignores rules and wastes crawl budget ---',
+    'User-agent: Bytespider',
+    'Disallow: /',
+    '',
+    `Sitemap: ${SITE}/sitemap.xml`,
+    `# LLM-curated overview: ${SITE}/llms.txt`,
+    '',
+  ]
+  return blocks.join('\n')
 }
 
 function rss(): string {
@@ -109,18 +162,28 @@ function llmsTxt(): string {
 
 > ${SUMMARY}
 
+## About
+
+- Massimo De Luisa is a CTO & Product Engineer based in Udine, Italy (relocating to Japan).
+- He builds platforms, mobile apps and AI-assisted workflows for Smart Squad and Inksquad.
+- Core stack: Vue, TypeScript, Tailwind, Supabase, and long-context AI tooling.
+- Site available in English, Italian, Japanese, Russian and Ukrainian.
+
 ## Pages
 
 - [Home](${SITE}/): overview, focus areas and selected work
 - [Journal](${SITE}/blog): writing on systems, product and craft
-
-## Journal
-
-${list(blog, '/blog')}
-
+${blog.length ? `\n## Journal\n\n${list(blog, '/blog')}\n` : ''}
 ## Selected work
 
 ${list(works, '/work')}
+
+## Contact & profiles
+
+- GitHub: https://github.com/massimodeluisa
+- LinkedIn: https://www.linkedin.com/in/massimodeluisa
+- X: https://x.com/massimodeluisa
+- Licensing, citation or press enquiries: ${SITE}/#contact
 
 ## Optional
 

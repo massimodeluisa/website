@@ -6,7 +6,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import BlogPostCard from '@/components/shared/BlogPostCard.vue'
 import StdButton from '@/components/shared/StdButton.vue'
-import { usePageSeo } from '@/composables/use-page-seo'
+import {
+  usePageSeo,
+  useJsonLd,
+  useBreadcrumbLd,
+  websiteEntity,
+  SITE_URL,
+  PERSON_ID,
+  WEBSITE_ID,
+} from '@/composables/use-page-seo'
+import { useLocale } from '@/composables/use-locale'
 import { useTextReveal } from '@/composables/use-text-reveal'
 import { blogPosts } from '@/contents/blog'
 import { useI18n } from '@/i18n'
@@ -17,12 +26,39 @@ gsap.registerPlugin(ScrollTrigger)
 // MARK: - Composables
 
 const { t } = useI18n()
+const { current } = useLocale()
 const { revealLines, revealWords } = useTextReveal()
 
 usePageSeo({
   title: () => t('blog.heading'),
   description: () => t('blog.intro'),
 })
+useJsonLd(() => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    websiteEntity(),
+    {
+      '@type': 'Blog',
+      '@id': `${SITE_URL}/blog/#blog`,
+      url: `${SITE_URL}/blog`,
+      name: t('blog.heading'),
+      description: t('blog.intro'),
+      inLanguage: current.value,
+      isPartOf: { '@id': WEBSITE_ID },
+      publisher: { '@id': PERSON_ID },
+      blogPost: blogPosts.map((p) => ({
+        '@type': 'BlogPosting',
+        headline: p.title,
+        url: `${SITE_URL}/blog/${p.slug}`,
+        datePublished: p.date,
+      })),
+    },
+  ],
+}))
+useBreadcrumbLd(() => [
+  [t('nav.home'), SITE_URL],
+  [t('blog.heading'), `${SITE_URL}/blog`],
+])
 
 // MARK: - Variables
 

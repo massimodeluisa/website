@@ -36,7 +36,7 @@ RouterLink.block.group.transition-colors(
   .flex.items-center.gap-6
     //- Placeholder cover (tablet+); swap for a real <img> once posts have covers.
     figure.hidden.shrink-0.w-44.overflow-hidden.rounded-lg.border.ring-1.ring-inset(
-      class="md:grid md:place-items-center aspect-[16/10] border-[color-mix(in_oklab,var(--site-border)_70%,transparent)] ring-[color-mix(in_oklab,var(--site-secondary)_16%,transparent)] bg-[color-mix(in_oklab,var(--site-surface)_70%,transparent)]"
+      class="md:grid md:place-items-center aspect-[16/10] border-[var(--site-border-soft)] ring-[color-mix(in_oklab,var(--site-secondary)_16%,transparent)] bg-[var(--site-surface-soft)]"
       aria-hidden="true"
     )
       span.font-mono.text-site-muted(class="text-[8px] uppercase tracking-[0.25em] opacity-50") {{ post.category }}

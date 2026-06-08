@@ -1,5 +1,7 @@
 import { onBeforeUnmount, onMounted, readonly, ref } from 'vue'
 
+// MARK: - Variables
+
 /*
  * Section is "active" when its top crosses this fraction of the viewport
  * height (measured from the top of the viewport). 0.25 = a section becomes
@@ -7,10 +9,14 @@ import { onBeforeUnmount, onMounted, readonly, ref } from 'vue'
  */
 const FOCUS_RATIO = 0.25
 
+// MARK: - Types
+
 interface IScrollSpyOptions {
   /** Section element IDs in DOM order, top-to-bottom. */
   ids: string[]
 }
+
+// MARK: - Variables
 
 /*
  * Shared reactive id of the section anchored at the top of the viewport.
@@ -19,6 +25,8 @@ interface IScrollSpyOptions {
  * observe, so a reactive ref is needed rather than route.hash.)
  */
 const activeSectionId = ref('')
+
+// MARK: - Composable
 
 export function useActiveSection() {
   return { activeSection: readonly(activeSectionId) }

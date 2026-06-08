@@ -6,12 +6,34 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import StdButton from '@/components/shared/StdButton.vue'
-import { usePageSeo, useJsonLd } from '@/composables/use-page-seo'
+import {
+  usePageSeo,
+  useJsonLd,
+  useBreadcrumbLd,
+  personEntity,
+  websiteEntity,
+  SITE_URL,
+  PERSON_ID,
+  WEBSITE_ID,
+} from '@/composables/use-page-seo'
 import { blogPosts } from '@/contents/blog'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// MARK: - Constants
+
+const BACK_ROW_REVEAL_DURATION = 0.5
+const CONTENT_REVEAL_DELAY = 0.06
+const CONTENT_REVEAL_DURATION = 0.6
+const PROSE_REVEAL_DELAY = 0.12
+const PROSE_REVEAL_DURATION = 0.7
+const MORE_SECTION_REVEAL_DELAY = 0.22
+const MORE_SECTION_REVEAL_DURATION = 0.55
+const MORE_LINKS_REVEAL_DURATION = 0.4
+const MORE_LINKS_REVEAL_STAGGER = 0.06
+const MORE_LINKS_REVEAL_DELAY = 0.35
 
 // MARK: - Composables
 
@@ -32,20 +54,45 @@ let postViewTriggers: ScrollTrigger[] = []
 const slug = computed(() => String(route.params.slug ?? ''))
 const post = computed(() => blogPosts.find((p) => p.slug === slug.value))
 
+const postUrl = computed(() => `${SITE_URL}/blog/${slug.value}`)
+
 usePageSeo({
   title: () => post.value?.title ?? t('blog.notFound'),
   description: () => post.value?.excerpt ?? '',
   type: 'article',
+  imageAlt: () => post.value?.title ?? '',
+  published: () => post.value?.date,
+  modified: () => post.value?.date,
+  section: () => post.value?.category,
+  robots: post.value ? undefined : 'noindex, follow',
 })
 useJsonLd(() => ({
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: post.value?.title,
-  description: post.value?.excerpt,
-  datePublished: post.value?.date,
-  author: { '@type': 'Person', name: 'Massimo De Luisa', url: 'https://deluisa.me' },
-  mainEntityOfPage: `https://deluisa.me/blog/${slug.value}`,
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'BlogPosting',
+      '@id': `${postUrl.value}/#article`,
+      headline: post.value?.title,
+      description: post.value?.excerpt,
+      datePublished: post.value?.date,
+      dateModified: post.value?.date,
+      articleSection: post.value?.category,
+      inLanguage: locale.value,
+      image: `${SITE_URL}/og/blog/${slug.value}.jpg`,
+      author: { '@id': PERSON_ID },
+      publisher: { '@id': PERSON_ID },
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl.value },
+    },
+  ],
 }))
+useBreadcrumbLd(() => [
+  [t('nav.home'), SITE_URL],
+  [t('blog.heading'), `${SITE_URL}/blog`],
+  [post.value?.title ?? '', postUrl.value],
+])
 const otherPosts = computed(() =>
   blogPosts.filter((p) => post.value && p.slug !== post.value.slug).slice(0, 3),
 )
@@ -87,10 +134,20 @@ onMounted(() => {
   }
 
   const elements = [
-    { el: backRowEl.value, y: 20, delay: 0, duration: 0.5 },
-    { el: contentWrapperEl.value, y: 28, delay: 0.06, duration: 0.6 },
-    { el: proseEl.value, y: 32, delay: 0.12, duration: 0.7 },
-    { el: moreSectionEl.value, y: 24, delay: 0.22, duration: 0.55 },
+    { el: backRowEl.value, y: 20, delay: 0, duration: BACK_ROW_REVEAL_DURATION },
+    {
+      el: contentWrapperEl.value,
+      y: 28,
+      delay: CONTENT_REVEAL_DELAY,
+      duration: CONTENT_REVEAL_DURATION,
+    },
+    { el: proseEl.value, y: 32, delay: PROSE_REVEAL_DELAY, duration: PROSE_REVEAL_DURATION },
+    {
+      el: moreSectionEl.value,
+      y: 24,
+      delay: MORE_SECTION_REVEAL_DELAY,
+      duration: MORE_SECTION_REVEAL_DURATION,
+    },
   ].filter((item) => item.el)
 
   elements.forEach((item) => {
@@ -122,10 +179,10 @@ onMounted(() => {
           gsap.to(links, {
             opacity: 1,
             y: 0,
-            duration: 0.4,
+            duration: MORE_LINKS_REVEAL_DURATION,
             ease: 'power2.out',
-            stagger: 0.06,
-            delay: 0.35,
+            stagger: MORE_LINKS_REVEAL_STAGGER,
+            delay: MORE_LINKS_REVEAL_DELAY,
           })
         },
       })
@@ -166,7 +223,7 @@ article.pb-24(class="md:pb-32")
         h1.mt-3.text-5xl.font-semibold.text-site-heading {{ post.title }}
 
         figure.relative.mt-8.grid.place-items-center.overflow-hidden.border.ring-1.ring-inset(
-          class="rounded-[14px] aspect-[16/10] border-[color-mix(in_oklab,var(--site-border)_70%,transparent)] ring-[color-mix(in_oklab,var(--site-secondary)_18%,transparent)] bg-[color-mix(in_oklab,var(--site-surface)_70%,transparent)]"
+          class="rounded-[14px] aspect-[16/10] border-[var(--site-border-soft)] ring-[color-mix(in_oklab,var(--site-secondary)_18%,transparent)] bg-[var(--site-surface-soft)]"
           aria-hidden="true"
         )
           span.font-mono.text-xs.uppercase.text-site-muted(class="tracking-[0.3em] opacity-60") {{ post.category }}

@@ -1,3 +1,5 @@
+// MARK: - Types
+
 export interface IBrandInfo {
   label: string
   icon: string
@@ -9,6 +11,8 @@ export interface IBrandInfo {
    *  monochromatic brands whose mark is the same shape in light/dark. */
   mono?: boolean
 }
+
+// MARK: - Catalog
 
 export const TECH_BRANDS = {
   smartsquad: {
@@ -156,6 +160,8 @@ export const TECH_BRANDS = {
 } as const satisfies Record<string, IBrandInfo>
 
 export type TBrand = keyof typeof TECH_BRANDS
+
+// MARK: - Methods
 
 export const techBrandIconUrl = (brand: TBrand): string => {
   const info = TECH_BRANDS[brand]
