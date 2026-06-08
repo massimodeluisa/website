@@ -52,8 +52,10 @@ const isNotFoundRoute = computed(
     RouterView
 
   footer.border-t.border-site-border(class="bg-site-surface/80")
-    .mx-auto.flex.flex-wrap.items-center.justify-between.gap-x-6.gap-y-3.px-6.py-6.text-sm(
-      class='max-w-[calc(var(--spacing)*295)] text-site-muted'
+    //- site-container gutters so the footer lines up with every section
+    //- (e.g. the "Let's meet!" content), instead of a tighter fixed px-6.
+    .site-container.flex.flex-wrap.items-center.justify-between.gap-x-6.gap-y-3.py-6.text-sm(
+      class='text-site-muted'
     )
       p.flex.flex-wrap.items-center(class="gap-x-2.5 gap-y-1.5")
         | {{ t('footer.madeWith') }}
@@ -69,30 +71,34 @@ const isNotFoundRoute = computed(
         TechBrand(brand="vite")
         TechBrand(brand="typescript")
 
-      nav.flex.flex-wrap.items-center.gap-x-4.gap-y-2.text-xs(:aria-label="t('footer.navAriaLabel')")
-        template(v-for="(link, i) in footerLinks" :key="link.href")
-          span.text-site-muted.opacity-40(v-if="i > 0" aria-hidden="true") ·
-          a.text-site-muted.no-underline.transition-colors(
-            :href="link.href"
-            :download="link.download || undefined"
-            :target="link.external ? '_blank' : undefined"
-            :rel="link.external ? 'noopener noreferrer' : undefined"
+      //- Links + copyright are one group: when the footer can't fit on a single
+      //- line they stay next to each other instead of being pulled to opposite
+      //- ends by justify-between.
+      .flex.flex-wrap.items-center(class="gap-x-4 gap-y-1.5")
+        nav.flex.flex-wrap.items-center.gap-x-4.gap-y-2.text-xs(:aria-label="t('footer.navAriaLabel')")
+          template(v-for="(link, i) in footerLinks" :key="link.href")
+            span.text-site-muted.opacity-40(v-if="i > 0" aria-hidden="true") ·
+            a.text-site-muted.no-underline.transition-colors(
+              :href="link.href"
+              :download="link.download || undefined"
+              :target="link.external ? '_blank' : undefined"
+              :rel="link.external ? 'noopener noreferrer' : undefined"
+              class="hover:text-site-heading focus-visible:text-site-heading"
+            ) {{ t(link.labelKey) }}
+          span.text-site-muted.opacity-40(aria-hidden="true") ·
+          button.text-site-muted.no-underline.transition-colors(
+            type="button"
             class="hover:text-site-heading focus-visible:text-site-heading"
-          ) {{ t(link.labelKey) }}
-        span.text-site-muted.opacity-40(aria-hidden="true") ·
-        button.text-site-muted.no-underline.transition-colors(
-          type="button"
-          class="hover:text-site-heading focus-visible:text-site-heading"
-          @click="showCookiePreferences"
-        ) {{ t('footer.cookiePreferences') }}
+            @click="showCookiePreferences"
+          ) {{ t('footer.cookiePreferences') }}
 
-      a.font-mono.text-xs.opacity-60.no-underline.transition-opacity(
-        href="https://github.com/massimodeluisa/website/blob/master/LICENSE.md"
-        target="_blank"
-        rel="noopener noreferrer"
-        :aria-label="t('footer.licenseAriaLabel')"
-        class="hover:opacity-100"
-      ) {{ t('footer.copyright') }}
+        a.font-mono.text-xs.opacity-60.no-underline.transition-opacity(
+          href="https://github.com/massimodeluisa/website/blob/master/LICENSE.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          :aria-label="t('footer.licenseAriaLabel')"
+          class="hover:opacity-100"
+        ) {{ t('footer.copyright') }}
 
   ScrollToTopButton
 </template>

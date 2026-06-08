@@ -55,6 +55,16 @@ let aboutTriggers: ScrollTrigger[] = []
 // MARK: - Lifecycle
 
 onMounted(() => {
+  /*
+   * Defer all SplitText/reveal setup by one frame so Vue's hydration fully
+   * commits and the browser paints the opacity-0 (hidden) state once before we
+   * rewrite the DOM. Splitting synchronously during the hydration flush is what
+   * caused the "flash everything → hide → animate" artifact. Mirrors HeroBio.
+   */
+  requestAnimationFrame(setupReveals)
+})
+
+function setupReveals() {
   const kicker = document.querySelector<HTMLElement>('#about .site-kicker')
   const title = document.querySelector<HTMLElement>('#about h2')
   const bio = document.querySelector<HTMLElement>('#about [data-about-bio]')
@@ -90,12 +100,15 @@ onMounted(() => {
       once: true,
       onEnter: () => {
         const tokens = Array.from(el.children) as HTMLElement[]
-        gsap.set(el, { opacity: 1 })
         if (reduced) {
           gsap.set(tokens, { opacity: 1 })
+          gsap.set(el, { opacity: 1 })
           return
         }
+        // Hide children first, then reveal the parent — never a frame where the
+        // parent is visible with its children still at natural opacity.
         gsap.set(tokens, { opacity: 0 })
+        gsap.set(el, { opacity: 1 })
         gsap.to(tokens, {
           opacity: 1,
           duration: TOKEN_REVEAL_DURATION,
@@ -168,7 +181,7 @@ onMounted(() => {
     })
     aboutTriggers.push(trigger)
   })
-})
+}
 
 onUnmounted(() => {
   aboutTriggers.forEach((trigger) => trigger.kill())

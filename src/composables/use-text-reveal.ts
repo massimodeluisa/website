@@ -104,13 +104,6 @@ function createReveal(element: HTMLElement | null, options: IRevealOptions = {})
     reduceWhiteSpace: false,
   })
 
-  /*
-   * Parent opacity:1 + child opacity:0 keeps content hidden until the timeline plays —
-   * critical for eliminating scroll-reveal flash when an element carries an
-   * opacity-0 CSS class for pre-JS paint safety.
-   */
-  gsap.set(element, { opacity: 1 })
-
   let targets: HTMLElement[]
   let wrappers: HTMLElement[] = []
 
@@ -129,6 +122,15 @@ function createReveal(element: HTMLElement | null, options: IRevealOptions = {})
     targets = split.words as HTMLElement[]
     gsap.set(targets, fade ? { opacity: 0 } : { yPercent: 85, opacity: 0, rotationX: -8 })
   }
+
+  /*
+   * Reveal the parent only AFTER the split children are hidden. Doing it the
+   * other way round (parent → 1, then children → 0) leaves a one-frame window
+   * where the freshly-split children paint at their natural opacity:1 — the
+   * "flash everything, then hide, then animate" artifact. Hiding children first
+   * guarantees the parent is never visible with visible children.
+   */
+  gsap.set(element, { opacity: 1 })
 
   const computedStagger =
     stagger ?? (type.includes('lines') ? 0.085 : type.includes('chars') ? 0.014 : 0.028)
