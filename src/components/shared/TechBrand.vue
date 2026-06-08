@@ -19,7 +19,7 @@ const iconBackground = computed(() => info.value.iconBackground ?? null)
 </script>
 
 <template lang="pug">
-a.inline-flex.items-baseline.font-semibold.no-underline.whitespace-nowrap.transition.duration-200(
+a.inline-flex.items-baseline.font-semibold.no-underline.whitespace-nowrap.transition-colors.duration-200(
   :href="info.href"
   target="_blank"
   rel="noopener noreferrer"
