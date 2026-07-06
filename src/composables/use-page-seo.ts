@@ -18,7 +18,8 @@ export const WEBSITE_ID = `${SITE_URL}/#website`
 const TWITTER_HANDLE = '@massimodeluisa'
 
 /* Let search engines show full-size image previews and untruncated snippets. */
-const DEFAULT_ROBOTS = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+const DEFAULT_ROBOTS =
+  'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
 
 const ALL_LOCALES: TLocaleCode[] = ['en', 'it', 'ja', 'ru', 'uk']
 
@@ -124,7 +125,7 @@ export function usePageSeo(input: IPageSeo) {
     link: () => [
       { rel: 'canonical', href: canonical.value },
       ...ALL_LOCALES.map((code) => ({
-        rel: 'alternate',
+        rel: 'alternate' as const,
         hreflang: code,
         href: `${SITE_URL}${localePath(basePath.value, code)}`,
       })),
@@ -190,6 +191,8 @@ export const websiteEntity = (): Record<string, unknown> => ({
   url: SITE_URL,
   name: SITE_NAME,
   inLanguage: 'en',
+  author: { '@id': PERSON_ID },
+  creator: { '@id': PERSON_ID },
   publisher: { '@id': PERSON_ID },
 })
 

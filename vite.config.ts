@@ -6,6 +6,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import mkcert from 'vite-plugin-mkcert'
 import { Mode, plugin as markdownHtml } from 'vite-plugin-markdown'
 
 import tailwindcss from '@tailwindcss/vite'
@@ -51,7 +52,17 @@ function staticRoutes(): string[] {
 
 // https://vite.dev/config/
 export default defineConfig({
+  /* Stamped into JSON-LD dateModified at build time (deterministic — avoids a
+   * server/client hydration mismatch a runtime `new Date()` would cause). */
+  define: {
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+  },
   plugins: [
+    /*
+     * Trusted local HTTPS for `bun run dev` (generates + installs a local CA).
+     * Lets the dev server be audited over https and matches production (HTTPS).
+     */
+    mkcert(),
     /*
      * Markdown content (works + journal) is loaded as rendered HTML strings via
      * import.meta.glob and injected with v-html — never as Vue components, so a
@@ -78,6 +89,13 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+    /*
+     * Force a single unhead instance: vite-ssg keeps its own nested @unhead/vue
+     * copy, and two instances (even same version) mean the head our composables
+     * write to is not the one vite-ssg serializes — so OG/JSON-LD/canonical would
+     * silently vanish from the prerendered HTML.
+     */
+    dedupe: ['@unhead/vue', 'unhead', '@unhead/dom'],
   },
   /*
    * Consumed by vite-ssg (see build-only script). `dirStyle: 'nested'` emits

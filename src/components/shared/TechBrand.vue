@@ -37,6 +37,7 @@ a.inline-flex.items-baseline.font-semibold.no-underline.whitespace-nowrap.transi
     v-else
     :src="iconUrl"
     :style="iconBackground ? { backgroundColor: iconBackground } : {}"
+    alt=""
     aria-hidden="true"
     loading="lazy"
     decoding="async"

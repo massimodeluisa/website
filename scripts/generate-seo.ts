@@ -87,7 +87,8 @@ function sitemap(): string {
     const lastmod = post && post.date ? post.date : today
     const alternates = [
       ...LOCALES.map(
-        (l) => `    <xhtml:link rel="alternate" hreflang="${l || 'en'}" href="${locUrl(l, path)}"/>`,
+        (l) =>
+          `    <xhtml:link rel="alternate" hreflang="${l || 'en'}" href="${locUrl(l, path)}"/>`,
       ),
       `    <xhtml:link rel="alternate" hreflang="x-default" href="${locUrl('', path)}"/>`,
     ].join('\n')
@@ -101,15 +102,12 @@ function sitemap(): string {
 }
 
 /*
- * 2026 "selective-allow" robots policy: explicitly welcome the AI answer-engine
- * and assistant crawlers (citation traffic is ~4× more valuable than classic
- * organic), opt out of nothing for a personal brand chasing visibility, and
- * block only Bytespider — the one high-volume crawler that wastes bandwidth and
- * routinely ignores rules. Each bot is listed individually (best practice) so
- * the policy stays auditable as the landscape shifts.
+ * Explicitly welcome search, answer-engine, assistant and training crawlers.
+ * Each bot is listed individually so the policy stays auditable as the
+ * landscape shifts.
  */
 function robots(): string {
-  /* Search/retrieval + assistant crawlers, grouped by vendor. All allowed. */
+  /* Search, retrieval, assistant and training crawlers, grouped by vendor. */
   const allowed: string[][] = [
     ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User'], // OpenAI
     ['ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai'], // Anthropic
@@ -117,21 +115,17 @@ function robots(): string {
     ['Google-Extended'], // Google (Gemini/Vertex training opt-in token)
     ['Applebot-Extended'], // Apple Intelligence token
     ['Bingbot', 'Amazonbot', 'Meta-ExternalAgent', 'DuckAssistBot'], // Bing/Copilot, Amazon, Meta, DuckDuckGo
-    ['Googlebot', 'cohere-ai', 'YouBot', 'Diffbot', 'Timpibot'], // misc answer engines
+    ['Googlebot', 'Bytespider', 'cohere-ai', 'YouBot', 'Diffbot', 'Timpibot'], // misc answer engines
   ]
   const blocks = [
     '# robots.txt — https://deluisa.me',
-    '# Classic search + AI answer engines welcome (2026 selective-allow policy).',
+    '# Classic search, AI answer engines and training crawlers welcome.',
     '',
     'User-agent: *',
     'Allow: /',
     '',
     '# --- AI crawlers & assistants: explicitly allowed for citations ---',
     ...allowed.flatMap((group) => [...group.map((ua) => `User-agent: ${ua}`), 'Allow: /', '']),
-    '# --- Abusive crawler: ignores rules and wastes crawl budget ---',
-    'User-agent: Bytespider',
-    'Disallow: /',
-    '',
     `Sitemap: ${SITE}/sitemap.xml`,
     `# LLM-curated overview: ${SITE}/llms.txt`,
     '',

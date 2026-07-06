@@ -3,6 +3,7 @@ import AboutSection from '@/components/home/AboutSection.vue'
 import ContactSection from '@/components/home/ContactSection.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import JournalTeaserSection from '@/components/home/JournalTeaserSection.vue'
+import ProfessionalProfileSection from '@/components/home/ProfessionalProfileSection.vue'
 import {
   usePageSeo,
   useJsonLd,
@@ -40,8 +41,12 @@ useJsonLd({
       url: SITE_URL,
       name: 'Massimo De Luisa — CTO & Product Engineer',
       isPartOf: { '@id': WEBSITE_ID },
+      author: { '@id': PERSON_ID },
+      creator: { '@id': PERSON_ID },
       about: { '@id': PERSON_ID },
       mainEntity: { '@id': PERSON_ID },
+      datePublished: '2025-01-01',
+      dateModified: __BUILD_DATE__,
     },
   ],
 })
@@ -51,6 +56,7 @@ useJsonLd({
 article.relative.isolate.bg-site-background.text-site-text(class="overflow-x-clip")
   HeroSection
   AboutSection
+  ProfessionalProfileSection
   JournalTeaserSection
   ContactSection
 </template>

@@ -1,5 +1,7 @@
 # Massimo De Luisa — Portfolio
 
+[![AI readiness](https://isready.ai/badge/deluisa.me)](https://isready.ai)
+
 Professional, multilingual portfolio of **Massimo De Luisa** (MDL), CTO of two software companies (mobile development and systems integration).
 
 Live at [deluisa.me](https://deluisa.me) (primary), with Japanese domains [出る.com](https://出る.com) and [デルイザ.com](https://デルイザ.com) for the Japan move.
@@ -81,10 +83,18 @@ The fixed header with its scroll-driven "transparent → pill" morph animation, 
 
 ## Deployment
 
-Static build. Intended targets:
+The production site is deployed as a static build through GitHub Pages.
 
-- GitHub Pages (`gh-pages` branch or GitHub Action)
-- Direct deployment to the custom domains (Vercel, Cloudflare Pages, or Netlify all work excellently)
+GitHub Pages does not expose repository-level custom response-header configuration for
+custom domains. To send `Strict-Transport-Security`, put `deluisa.me` behind a CDN or
+reverse proxy that can add:
+
+```text
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+Do not use a static `_headers` file or an HTML `http-equiv` tag for HSTS: GitHub Pages
+ignores the former, and browsers only honor HSTS as an HTTPS response header.
 
 The Japanese domains (`出る.com`, `デルイザ.com`) are chosen for their playful kanji reading of "De Luisa" → "Deruiza" → 出る (to go out / to emerge).
 
