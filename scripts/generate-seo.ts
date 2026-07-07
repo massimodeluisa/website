@@ -1,6 +1,6 @@
 /*
  * Postbuild SEO/LLM surfaces: reads the markdown content and writes sitemap.xml,
- * robots.txt, rss.xml, llms.txt and llms-full.txt into dist/. Runs after
+ * rss.xml, llms.txt and llms-full.txt into dist/. Runs after
  * `vite-ssg build` (see the build-only script).
  */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -101,38 +101,6 @@ function sitemap(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`
 }
 
-/*
- * Explicitly welcome search, answer-engine, assistant and training crawlers.
- * Each bot is listed individually so the policy stays auditable as the
- * landscape shifts.
- */
-function robots(): string {
-  /* Search, retrieval, assistant and training crawlers, grouped by vendor. */
-  const allowed: string[][] = [
-    ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User'], // OpenAI
-    ['ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai'], // Anthropic
-    ['PerplexityBot', 'Perplexity-User'], // Perplexity
-    ['Google-Extended'], // Google (Gemini/Vertex training opt-in token)
-    ['Applebot-Extended'], // Apple Intelligence token
-    ['Bingbot', 'Amazonbot', 'Meta-ExternalAgent', 'DuckAssistBot'], // Bing/Copilot, Amazon, Meta, DuckDuckGo
-    ['Googlebot', 'Bytespider', 'cohere-ai', 'YouBot', 'Diffbot', 'Timpibot'], // misc answer engines
-  ]
-  const blocks = [
-    '# robots.txt — https://deluisa.me',
-    '# Classic search, AI answer engines and training crawlers welcome.',
-    '',
-    'User-agent: *',
-    'Allow: /',
-    '',
-    '# --- AI crawlers & assistants: explicitly allowed for citations ---',
-    ...allowed.flatMap((group) => [...group.map((ua) => `User-agent: ${ua}`), 'Allow: /', '']),
-    `Sitemap: ${SITE}/sitemap.xml`,
-    `# LLM-curated overview: ${SITE}/llms.txt`,
-    '',
-  ]
-  return blocks.join('\n')
-}
-
 function rss(): string {
   const items = blog
     .map(
@@ -194,7 +162,6 @@ if (!existsSync(DIST)) {
 }
 
 writeFileSync(join(DIST, 'sitemap.xml'), sitemap())
-writeFileSync(join(DIST, 'robots.txt'), robots())
 writeFileSync(join(DIST, 'rss.xml'), rss())
 writeFileSync(join(DIST, 'llms.txt'), llmsTxt())
 writeFileSync(join(DIST, 'llms-full.txt'), llmsFull())
@@ -203,5 +170,5 @@ writeFileSync(join(DIST, 'llms-full.txt'), llmsFull())
 writeFileSync(join(DIST, '404.html'), readFileSync(join(DIST, 'index.html'), 'utf8'))
 
 console.log(
-  `[seo] wrote sitemap.xml (${pages.length * LOCALES.length} urls), robots.txt, rss.xml, llms.txt, llms-full.txt, 404.html`,
+  `[seo] wrote sitemap.xml (${pages.length * LOCALES.length} urls), rss.xml, llms.txt, llms-full.txt, 404.html`,
 )
