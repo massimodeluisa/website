@@ -4,13 +4,16 @@ import ContactSection from '@/components/home/ContactSection.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import JournalTeaserSection from '@/components/home/JournalTeaserSection.vue'
 import ProfessionalProfileSection from '@/components/home/ProfessionalProfileSection.vue'
+import WorksSection from '@/components/work/WorksSection.vue'
 import {
   usePageSeo,
   useJsonLd,
   personEntity,
+  organizationEntity,
   websiteEntity,
   SITE_URL,
   PERSON_ID,
+  ORG_ID,
   WEBSITE_ID,
 } from '@/composables/use-page-seo'
 import { useScrollSpy } from '@/composables/use-scroll-spy'
@@ -34,6 +37,7 @@ useJsonLd({
   '@context': 'https://schema.org',
   '@graph': [
     personEntity(),
+    organizationEntity(),
     websiteEntity(),
     {
       '@type': 'ProfilePage',
@@ -43,6 +47,7 @@ useJsonLd({
       isPartOf: { '@id': WEBSITE_ID },
       author: { '@id': PERSON_ID },
       creator: { '@id': PERSON_ID },
+      publisher: { '@id': ORG_ID },
       about: { '@id': PERSON_ID },
       mainEntity: { '@id': PERSON_ID },
       datePublished: '2025-01-01',
@@ -57,6 +62,7 @@ article.relative.isolate.bg-site-background.text-site-text(class="overflow-x-cli
   HeroSection
   AboutSection
   ProfessionalProfileSection
+  WorksSection
   JournalTeaserSection
   ContactSection
 </template>

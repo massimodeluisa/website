@@ -69,10 +69,10 @@ function parseFrontmatter(raw: string): TFrontmatter {
 }
 
 /*
- * Content is a base `slug.md` (metadata) + per-locale copies `slug.<locale>.md`
- * (title/role). Only the base file is a real page; overlay the English copy as
- * the canonical locale so the card has a title/role. Locale-suffixed files must
- * NOT each render their own card.
+ * Works are a base `slug.md` (metadata) + per-locale copies `slug.<locale>.md`
+ * (title/role) — mirror src/contents/works.ts. Only the base file is a real
+ * page; overlay the English copy as the canonical locale so the card has a
+ * title/role. Locale-suffixed files must NOT each render their own card.
  */
 const LOCALE_SUFFIX = /\.(en|it|ja|ru|uk)\.md$/
 
@@ -93,6 +93,7 @@ function readContent(dir: string): TContentEntry[] {
 }
 
 const blog = readContent('blog')
+const works = readContent('works')
 
 /*
  * satori can't parse Geist's variable font (fvar table), so the cards use static
@@ -298,5 +299,11 @@ await renderCard({ eyebrow: 'Journal', title: 'Writing', subtitle: 'Systems, pro
 for (const post of blog) {
   await renderCard({ eyebrow: `Journal · ${SITE_NAME}`, title: post.title, subtitle: '' }, `blog/${post.slug}.jpg`)
 }
+for (const work of works) {
+  await renderCard(
+    { eyebrow: `Selected work · ${SITE_NAME}`, title: work.title, subtitle: work.role || '' },
+    `work/${work.slug}.jpg`,
+  )
+}
 
-console.log(`[og] generated ${2 + blog.length} OG cards in dist/og/`)
+console.log(`[og] generated ${2 + blog.length + works.length} OG cards in dist/og/`)

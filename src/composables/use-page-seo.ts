@@ -14,6 +14,7 @@ export const SITE_NAME = 'Massimo De Luisa'
  * (helps Google's Knowledge Graph + AI answer engines resolve who/what). */
 export const PERSON_ID = `${SITE_URL}/#person`
 export const WEBSITE_ID = `${SITE_URL}/#website`
+export const ORG_ID = `${SITE_URL}/#organization`
 
 const TWITTER_HANDLE = '@massimodeluisa'
 
@@ -165,22 +166,53 @@ export const personEntity = (): Record<string, unknown> => ({
   image: `${SITE_URL}/og/home.jpg`,
   jobTitle: 'CTO & Product Engineer',
   description:
-    'CTO & Product Engineer building platforms, mobile apps and AI-assisted workflows that stay simple under pressure.',
+    'CTO & Product Engineer building platforms, mobile apps and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, IsReady.AI and SIDUS; experimenting with Rust.',
   knowsAbout: [
     'Software Architecture',
     'Product Engineering',
     'Vue.js',
     'TypeScript',
+    'Rust',
     'Supabase',
     'Mobile Development',
     'AI Systems',
+    'Generative Engine Optimization',
     'Technical Leadership',
+  ],
+  worksFor: [
+    { '@type': 'Organization', name: 'Smart Squad', url: 'https://smartsquad.io' },
+    { '@type': 'Organization', name: 'Inksquad', url: 'https://inksquad.com' },
   ],
   address: { '@type': 'PostalAddress', addressLocality: 'Udine', addressCountry: 'IT' },
   sameAs: [
     'https://github.com/massimodeluisa',
     'https://x.com/massimodeluisa',
     'https://www.linkedin.com/in/massimodeluisa',
+    'https://massimo.deluisa.bio',
+    'https://isready.ai',
+    'https://sidus.tools',
+  ],
+})
+
+/*
+ * Personal brand / publisher Organization — gives E-E-A-T entity-identity
+ * signals (logo + sameAs) that Person alone does not always satisfy.
+ */
+export const organizationEntity = (): Record<string, unknown> => ({
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${SITE_URL}/favicon/android-chrome-512x512.png`,
+  },
+  founder: { '@id': PERSON_ID },
+  sameAs: [
+    'https://github.com/massimodeluisa',
+    'https://x.com/massimodeluisa',
+    'https://www.linkedin.com/in/massimodeluisa',
+    'https://massimo.deluisa.bio',
   ],
 })
 
@@ -193,7 +225,7 @@ export const websiteEntity = (): Record<string, unknown> => ({
   inLanguage: 'en',
   author: { '@id': PERSON_ID },
   creator: { '@id': PERSON_ID },
-  publisher: { '@id': PERSON_ID },
+  publisher: { '@id': ORG_ID },
 })
 
 /*

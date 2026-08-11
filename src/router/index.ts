@@ -19,6 +19,7 @@ const baseChildren: RouteRecordRaw[] = [
   { path: '', name: 'home', component: HomeView },
   { path: 'blog', name: 'blog', component: () => import('@/views/BlogView.vue') },
   { path: 'blog/:slug', name: 'blogPost', component: () => import('@/views/BlogPostView.vue') },
+  { path: 'work/:slug', name: 'work', component: () => import('@/views/WorkDetailView.vue') },
   {
     path: ':pathMatch(.*)*',
     name: 'notFound',

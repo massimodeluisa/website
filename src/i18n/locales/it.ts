@@ -2,6 +2,7 @@ export const it = {
   nav: {
     home: 'Home',
     about: 'Chi sono',
+    work: 'Lavori',
     blog: 'Blog',
     contact: 'Contatti',
     ariaLabel: 'Navigazione principale',
@@ -20,6 +21,7 @@ export const it = {
     tagline5: 'Trasformo la pressione operativa in piattaforme durature.',
     tagline6: 'Allineo ingegneria e prodotto sulle decisioni che contano.',
     bio: 'CTO di due aziende software — sviluppo mobile e sistemi di integrazione. Costruisco piattaforme, app mobile e flussi con AI che restano semplici anche sotto pressione.',
+    ctaWork: 'Vedi i lavori selezionati',
     ctaContact: 'Prenota una conversazione',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
@@ -150,6 +152,40 @@ export const it = {
       },
     },
   },
+  work: {
+    kicker: 'Cose che ho creato/diretto',
+    title: 'Lavori',
+    intro: 'Sistemi sotto pressione operativa — e prodotti che sto rilasciando ora.',
+    viewProject: 'Vedi progetto',
+    previous: 'Lavoro precedente',
+    next: 'Lavoro successivo',
+    openWork: 'Apri lavoro',
+    source: 'Fonte',
+    yearRange: '2024 → 2026',
+    techGlobe: {
+      ariaLabel: 'Globo dei loghi tecnologici',
+      captionTitle: 'Segnali tecnologici',
+      captionBody: 'Pattern di stack nei lavori selezionati',
+      tooltip: {
+        heading: 'Tecnologia',
+        site: 'Sito',
+        source: 'Fonte',
+      },
+    },
+  },
+
+  workDetail: {
+    back: 'Lavori selezionati',
+    highlights: 'Highlights',
+    stack: 'Stack',
+    sources: 'Fonti',
+    visit: 'Vai al progetto →',
+    notFound: 'Lavoro non trovato.',
+    notFoundHint: 'Il case study che cercavi è stato spostato o non esiste.',
+    backHome: '← Torna alla home',
+    gallery: 'Galleria',
+  },
+
   blog: {
     kicker: 'Journal',
     readMore: 'Leggi',
@@ -242,6 +278,8 @@ export const it = {
     },
   },
   scrollToTop: {
+    prevWork: 'Scorri al lavoro precedente',
+    nextWork: 'Scorri al lavoro successivo',
     toTop: 'Torna su',
   },
   notFound: {

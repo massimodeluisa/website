@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Cover placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d1c1c"/>
+      <stop offset="100%" stop-color="#121111"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="22%" r="62%">
+      <stop offset="0%" stop-color="#b68370" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#b68370" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g fill="none" stroke="#383737" stroke-width="1">
+    <path d="M0 250 H1600 M0 500 H1600 M0 750 H1600"/>
+    <path d="M400 0 V1000 M800 0 V1000 M1200 0 V1000"/>
+  </g>
+  <g font-family="'Geist Mono', ui-monospace, SFMono-Regular, monospace" fill="#a8a39a">
+    <text x="64" y="120" font-size="18" letter-spacing="6">SELECTED WORK</text>
+    <text x="64" y="930" font-size="14" letter-spacing="4" opacity="0.6">COVER · PLACEHOLDER</text>
+  </g>
+</svg>
