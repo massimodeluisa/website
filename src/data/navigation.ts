@@ -5,7 +5,7 @@
 
 // MARK: - Types
 
-export type TSectionId = 'home' | 'about' | 'blog' | 'contact'
+export type TSectionId = 'home' | 'about' | 'work' | 'blog' | 'contact'
 
 export interface INavItem {
   id: TSectionId
@@ -20,6 +20,7 @@ export interface INavItem {
 export const NAV_ITEMS: readonly INavItem[] = [
   { id: 'home', labelKey: 'nav.home', to: '/#home' },
   { id: 'about', labelKey: 'nav.about', to: '/#about' },
+  { id: 'work', labelKey: 'nav.work', to: '/#work' },
   { id: 'blog', labelKey: 'nav.blog', to: '/blog' },
   { id: 'contact', labelKey: 'nav.contact', to: '#contact', prominent: true },
 ]
