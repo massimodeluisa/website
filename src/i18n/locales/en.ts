@@ -2,6 +2,7 @@ export const en = {
   nav: {
     home: 'Home',
     about: 'About',
+    work: 'Work',
     blog: 'Blog',
     contact: 'Contact',
     ariaLabel: 'Main navigation',
@@ -20,6 +21,7 @@ export const en = {
     tagline5: 'I turn operational pressure into durable platforms.',
     tagline6: 'I align engineering and product on the decisions that matter.',
     bio: 'CTO of two software companies — mobile development and systems integration. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure.',
+    ctaWork: 'See selected work',
     ctaContact: 'Book a conversation',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
@@ -149,6 +151,40 @@ export const en = {
       },
     },
   },
+  work: {
+    kicker: "Things I've built/directed",
+    title: 'Work',
+    intro: 'Systems under operational pressure — and products I am shipping now.',
+    viewProject: 'View project',
+    previous: 'Previous work',
+    next: 'Next work',
+    openWork: 'Open work',
+    source: 'Source',
+    yearRange: '2024 → 2026',
+    techGlobe: {
+      ariaLabel: 'Technology logo globe',
+      captionTitle: 'Technology Signals',
+      captionBody: 'Stack patterns across selected work',
+      tooltip: {
+        heading: 'Technology',
+        site: 'Site',
+        source: 'Source',
+      },
+    },
+  },
+
+  workDetail: {
+    back: 'Selected work',
+    highlights: 'Highlights',
+    stack: 'Stack',
+    sources: 'Sources',
+    visit: 'Visit project →',
+    notFound: 'Work not found.',
+    notFoundHint: 'The case study you were looking for has moved or never existed.',
+    backHome: '← Back to homepage',
+    gallery: 'Gallery',
+  },
+
   blog: {
     kicker: 'Journal',
     readMore: 'Read',
@@ -241,6 +277,8 @@ export const en = {
     },
   },
   scrollToTop: {
+    prevWork: 'Scroll to previous work',
+    nextWork: 'Scroll to next work',
     toTop: 'Scroll to top',
   },
   notFound: {

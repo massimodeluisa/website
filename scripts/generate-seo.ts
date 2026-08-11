@@ -1,6 +1,6 @@
 /*
  * Postbuild SEO/LLM surfaces: reads the markdown content and writes sitemap.xml,
- * rss.xml, llms.txt and llms-full.txt into dist/. Runs after
+ * robots.txt, rss.xml, llms.txt and llms-full.txt into dist/. Runs after
  * `vite-ssg build` (see the build-only script).
  */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -13,7 +13,7 @@ const DIST = join(ROOT, 'dist')
 const SITE = 'https://deluisa.me'
 const SITE_NAME = 'Massimo De Luisa'
 const SUMMARY =
-  'CTO & Product Engineer. I build platforms, mobile apps and AI-assisted workflows that stay simple under pressure. Based in Udine, Italy — moving to Japan.'
+  'CTO & Product Engineer. I build platforms, mobile apps and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, IsReady.AI and SIDUS. Experimenting with Rust. Based in Udine, Italy — moving to Japan.'
 /* '' is the default English locale (served unprefixed / x-default). */
 const LOCALES = ['', 'it', 'ja', 'ru', 'uk']
 
@@ -36,11 +36,11 @@ function parseFrontmatter(raw: string): { data: TFrontmatter; body: string } {
 }
 
 /*
- * Content is authored as a base `slug.md` (metadata) plus per-locale copies
- * `slug.<locale>.md` (title/summary/body). Only the base file is a real page;
- * the English copy is overlaid as the canonical locale so title/summary/body
- * resolve. Locale-suffixed files must NOT become their own slugs (that produced
- * phantom /slug.it URLs in the sitemap).
+ * Works are authored as a base `slug.md` (metadata) plus per-locale copies
+ * `slug.<locale>.md` (title/summary/body) — mirror src/contents/works.ts. Only
+ * the base file is a real page; the English copy is overlaid as the canonical
+ * locale so title/summary/body resolve. Locale-suffixed files must NOT become
+ * their own slugs (that produced phantom /work/slug.it URLs in the sitemap).
  */
 const LOCALE_SUFFIX = /\.(en|it|ja|ru|uk)\.md$/
 
@@ -64,6 +64,7 @@ function readContent(dir: string): TContentEntry[] {
 }
 
 const blog = readContent('blog').sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+const works = readContent('works').sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0))
 
 const today = new Date().toISOString().slice(0, 10)
 const xml = (s: string | undefined): string =>
@@ -73,7 +74,7 @@ const xml = (s: string | undefined): string =>
     .replace(/>/g, '&gt;')
 
 /* Base paths (no locale prefix). */
-const pages = ['/', '/blog', ...blog.map((p) => `/blog/${p.slug}`)]
+const pages = ['/', '/blog', ...blog.map((p) => `/blog/${p.slug}`), ...works.map((w) => `/work/${w.slug}`)]
 
 function locUrl(prefix: string, path: string): string {
   const base = prefix ? `/${prefix}` : ''
@@ -87,8 +88,7 @@ function sitemap(): string {
     const lastmod = post && post.date ? post.date : today
     const alternates = [
       ...LOCALES.map(
-        (l) =>
-          `    <xhtml:link rel="alternate" hreflang="${l || 'en'}" href="${locUrl(l, path)}"/>`,
+        (l) => `    <xhtml:link rel="alternate" hreflang="${l || 'en'}" href="${locUrl(l, path)}"/>`,
       ),
       `    <xhtml:link rel="alternate" hreflang="x-default" href="${locUrl('', path)}"/>`,
     ].join('\n')
@@ -99,6 +99,45 @@ function sitemap(): string {
     }
   }
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`
+}
+
+/*
+ * 2026 "selective-allow" robots policy: explicitly welcome the AI answer-engine
+ * and assistant crawlers (citation traffic is ~4× more valuable than classic
+ * organic), opt out of nothing for a personal brand chasing visibility, and
+ * block only Bytespider — the one high-volume crawler that wastes bandwidth and
+ * routinely ignores rules. Each bot is listed individually (best practice) so
+ * the policy stays auditable as the landscape shifts.
+ */
+function robots(): string {
+  /* Search/retrieval + assistant crawlers, grouped by vendor. All allowed. */
+  const allowed: string[][] = [
+    ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User'], // OpenAI
+    ['ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai'], // Anthropic
+    ['PerplexityBot', 'Perplexity-User'], // Perplexity
+    ['Google-Extended'], // Google (Gemini/Vertex training opt-in token)
+    ['Applebot-Extended'], // Apple Intelligence token
+    ['Bingbot', 'Amazonbot', 'Meta-ExternalAgent', 'DuckAssistBot'], // Bing/Copilot, Amazon, Meta, DuckDuckGo
+    ['Googlebot', 'cohere-ai', 'YouBot', 'Diffbot', 'Timpibot'], // misc answer engines
+  ]
+  const blocks = [
+    '# robots.txt — https://deluisa.me',
+    '# Classic search + AI answer engines welcome (2026 selective-allow policy).',
+    '',
+    'User-agent: *',
+    'Allow: /',
+    '',
+    '# --- AI crawlers & assistants: explicitly allowed for citations ---',
+    ...allowed.flatMap((group) => [...group.map((ua) => `User-agent: ${ua}`), 'Allow: /', '']),
+    '# --- Abusive crawler: ignores rules and wastes crawl budget ---',
+    'User-agent: Bytespider',
+    'Disallow: /',
+    '',
+    `Sitemap: ${SITE}/sitemap.xml`,
+    `# LLM-curated overview: ${SITE}/llms.txt`,
+    '',
+  ]
+  return blocks.join('\n')
 }
 
 function rss(): string {
@@ -126,15 +165,21 @@ function llmsTxt(): string {
 ## About
 
 - Massimo De Luisa is a CTO & Product Engineer based in Udine, Italy (relocating to Japan).
-- He is CTO of two software companies (mobile development and systems integration), building platforms, mobile apps and AI-assisted workflows.
-- Core stack: Vue, TypeScript, Tailwind, Supabase, and long-context AI tooling.
+- He builds platforms, mobile apps and AI-assisted workflows as CTO at Smart Squad and Inksquad, and ships IsReady.AI and SIDUS.
+- Core stack: Vue, TypeScript, Tailwind, Supabase, Expo/Swift, and long-context AI tooling.
+- Currently shipping: Inksquad (tattoo ecosystem), IsReady.AI (AI readiness / GEO scanner), SIDUS (open-source space engineering tools).
+- Experimenting with Rust alongside TypeScript and Swift.
 - Site available in English, Italian, Japanese, Russian and Ukrainian.
 
 ## Pages
 
-- [Home](${SITE}/): overview and focus areas
+- [Home](${SITE}/): overview, focus areas and selected work
 - [Journal](${SITE}/blog): writing on systems, product and craft
 ${blog.length ? `\n## Journal\n\n${list(blog, '/blog')}\n` : ''}
+## Selected work
+
+${list(works, '/work')}
+
 ## Contact & profiles
 
 - GitHub: https://github.com/massimodeluisa
@@ -144,7 +189,7 @@ ${blog.length ? `\n## Journal\n\n${list(blog, '/blog')}\n` : ''}
 
 ## Optional
 
-- [llms-full.txt](${SITE}/llms-full.txt): every post as plain markdown
+- [llms-full.txt](${SITE}/llms-full.txt): every post and case study as plain markdown
 `
 }
 
@@ -152,6 +197,10 @@ function llmsFull(): string {
   const out = [`# ${SITE_NAME}\n\n> ${SUMMARY}\n`, '\n---\n\n# Journal\n']
   for (const p of blog) {
     out.push(`\n## ${p.title}\n\n_${p.date || ''}_\n\n${p.body}\n`)
+  }
+  out.push('\n---\n\n# Selected work\n')
+  for (const w of works) {
+    out.push(`\n## ${w.title}\n\n${w.summary ? `${w.summary}\n\n` : ''}${w.body}\n`)
   }
   return out.join('\n')
 }
@@ -162,6 +211,7 @@ if (!existsSync(DIST)) {
 }
 
 writeFileSync(join(DIST, 'sitemap.xml'), sitemap())
+writeFileSync(join(DIST, 'robots.txt'), robots())
 writeFileSync(join(DIST, 'rss.xml'), rss())
 writeFileSync(join(DIST, 'llms.txt'), llmsTxt())
 writeFileSync(join(DIST, 'llms-full.txt'), llmsFull())
@@ -170,5 +220,5 @@ writeFileSync(join(DIST, 'llms-full.txt'), llmsFull())
 writeFileSync(join(DIST, '404.html'), readFileSync(join(DIST, 'index.html'), 'utf8'))
 
 console.log(
-  `[seo] wrote sitemap.xml (${pages.length * LOCALES.length} urls), rss.xml, llms.txt, llms-full.txt, 404.html`,
+  `[seo] wrote sitemap.xml (${pages.length * LOCALES.length} urls), robots.txt, rss.xml, llms.txt, llms-full.txt, 404.html`,
 )

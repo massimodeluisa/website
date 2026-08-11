@@ -2,6 +2,7 @@ export const uk = {
   nav: {
     home: 'Головна',
     about: 'Про мене',
+    work: 'Роботи',
     blog: 'Блог',
     contact: 'Контакти',
     ariaLabel: 'Основна навігація',
@@ -20,6 +21,7 @@ export const uk = {
     tagline5: 'Перетворюю операційний тиск на довговічні платформи.',
     tagline6: 'Узгоджую інженерію та продукт на ключових рішеннях.',
     bio: 'CTO двох software-компаній — мобільна розробка та системна інтеграція. Створюю платформи, мобільні застосунки та AI-процеси, які залишаються простими під тиском.',
+    ctaWork: 'Дивитися вибрані роботи',
     ctaContact: 'Записатися на розмову',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
@@ -149,6 +151,40 @@ export const uk = {
       },
     },
   },
+  work: {
+    kicker: 'Що я створив/очолив',
+    title: 'Роботи',
+    intro: 'Системи під операційним тиском — і продукти, які я зараз випускаю.',
+    viewProject: 'Відкрити проєкт',
+    previous: 'Попередня робота',
+    next: 'Наступна робота',
+    openWork: 'Відкрити роботу',
+    source: 'Джерело',
+    yearRange: '2024 → 2026',
+    techGlobe: {
+      ariaLabel: 'Глобус логотипів технологій',
+      captionTitle: 'Технологічні сигнали',
+      captionBody: 'Патерни стеку у вибраних роботах',
+      tooltip: {
+        heading: 'Технологія',
+        site: 'Сайт',
+        source: 'Джерело',
+      },
+    },
+  },
+
+  workDetail: {
+    back: 'Вибрані роботи',
+    highlights: 'Ключові моменти',
+    stack: 'Стек',
+    sources: 'Джерела',
+    visit: 'Відкрити проєкт →',
+    notFound: 'Роботу не знайдено.',
+    notFoundHint: 'Цей кейс було переміщено або його ніколи не існувало.',
+    backHome: '← На головну',
+    gallery: 'Галерея',
+  },
+
   blog: {
     kicker: 'Journal',
     readMore: 'Читати',
@@ -240,6 +276,8 @@ export const uk = {
     },
   },
   scrollToTop: {
+    prevWork: 'До попередньої роботи',
+    nextWork: 'До наступної роботи',
     toTop: 'Догори',
   },
   notFound: {
