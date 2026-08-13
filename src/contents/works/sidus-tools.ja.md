@@ -1,20 +1,26 @@
 ---
 title: SIDUS
 eyebrow: 宇宙工学ツール
-role: Founder / プロダクトとシステム設計
-summary: 軌道力学・推進・RF/運用・搭乗員ECLSS向けのオープンソース教育ラボ。約175のpure-SI計算機、公開MCP、Agent Skill、多言語コードエクスポート。非営利・飛行ソフトウェアではない。
-seoDescription: SIDUS (sidus.tools) は約175のpure-SI宇宙工学計算機、公開MCP、Agent Skill、10言語UIを備えたオープンソース教育ラボです。
+role: Founder, product and systems architecture
+summary: ブラウザで動くオープンソースの教育用宇宙工学電卓。約175ツール。純SI。MIT。軌道力学、推進、RF、搭乗員ECLSS。
+seoTitle: SIDUS, オープンソースの宇宙工学ツール
+seoDescription: sidus.tools はブラウザで動く無料の教育用電卓です。約175の純SI宇宙工学ツール。MIT。数式は検証・テストしてください。
 highlights:
-  - 軌道・推進・衛星/RF・ECLSS・幾何・惑星・ユーティリティに約175ツール。ブラウザ上のpure-SI計算。
-  - 公開MCP（sidus.tools/api/mcp）、Agent Skill、llms.txtによるエージェント向け表面。
-  - 10言語のコードエクスポート（Rust含む）と10のUIロケール。
-  - Vallado / Curtis / NASA など複数一次文献と自動ソース検証。
+  - ブラウザで約175ツール。軌道、推進、衛星/RF、ECLSS、幾何、惑星、ユーティリティ。純SI。
+  - ページに教科書の痕跡（two-body は Vallado と Curtis）。デフォルトが違えば GitHub の Edit から直す。
+  - Rust / Python / MATLAB など複数言語へのコード出力。
+  - "公開 MCP: https://sidus.tools/api/mcp（Streamable HTTP）。Agent Skill: `npx skills add massimodeluisa/sidus-tools --skill sidus`。"
+  - 私はソフトウェアエンジニアであり、宇宙工学者ではありません。関心があるから作りました。数式と出力コードは検証・テストしてください。
 ---
 
-**SIDUS: 人とエージェントのための透明な宇宙工学計算**
+**SIDUS: 教育用の宇宙工学電卓**
 
-SIDUS（ラテン語で星座／天体）は、軌道力学・推進・衛星運用・打ち上げ・RFリンク予算・搭乗員ECLSS向けの無料教育ラボです。独立した非営利プロジェクトで、NASA・ESA・SpaceX などとは無関係であり、**飛行ソフトウェアではありません**。
+私はソフトウェアエンジニアであり、宇宙工学者ではありません。ただ宇宙工学が好きで、そのために sidus.tools を開発して公開しました。
 
-学生・趣味・実務のエンジニアが、ミッション設計スイートを立ち上げずに素早くSI単位で検算できることが目的です。共通の ToolShell、pure function、結果カード、任意の軌道プロット、各ページの GitHub 編集リンクで構成されています。
+SIDUS（ラテン語 sidus = 星座）は、軌道力学・推進・衛星運用・打上げ・RFリンクバジェット・搭乗員ECLSS向けの無料オープンソース電卓です。約175ツール。純SI。MIT。ブラウザで動きます。アカウントは不要です。
 
-2026年時点でライブカタログは約 **175ツール**。エージェント向けには公開 MCP、`npx skills add massimodeluisa/sidus-tools`、`/llms.txt` を提供します。出典品質はテストで強制され、結果は飛行判断前に必ず専門ソフトと標準で再確認してください。
+ポイントは、見える SI チェックです。入力、式、結果、任意のプロット、各ツールの Edit this page on GitHub。モデルは意図して小さく、two-body、インパルス、円軌道 Clohessy-Wiltshire、理想ロケット、ISA 空力です。
+
+同じカタログは公開 MCP（https://sidus.tools/api/mcp、Streamable HTTP）でも使えます。URL を指すだけです。クローンは不要。Agent Skill は `npx skills add massimodeluisa/sidus-tools --skill sidus`。
+
+数式ページには参考文献があります。出力できるコードも含め、レビューとテストが必要です。
