@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import Section from '@/components/shared/Section.vue'
 import TechBrand from '@/components/shared/TechBrand.vue'
+import { PROFILES } from '@/data/site'
 import { useI18n } from '@/i18n'
 import { useTextReveal } from '@/composables/use-text-reveal'
 import { prefersReducedMotion } from '@/utils/motion'
@@ -21,6 +22,10 @@ const TITLE_REVEAL_DURATION = 0.45
 const TITLE_REVEAL_STAGGER = 0.014
 const TOKEN_REVEAL_DURATION = 0.5
 const TOKEN_REVEAL_STAGGER = 0.05
+const TOKEN_REVEAL_BASE_DELAY = 0.12
+const TOKEN_REVEAL_STEP = 0.06
+const UDINE_URL = 'https://x.com/VisitFVG'
+const CATS_TWEET_URL = 'https://x.com/massimodeluisa/status/2054099024982978704'
 const CARD_REVEAL_DURATION = 0.7
 const CARD_EYEBROW_DURATION = 0.55
 const CARD_EYEBROW_STAGGER = 0.04
@@ -67,8 +72,7 @@ onMounted(() => {
 function setupReveals() {
   const kicker = document.querySelector<HTMLElement>('#about .site-kicker')
   const title = document.querySelector<HTMLElement>('#about h2')
-  const bio = document.querySelector<HTMLElement>('#about [data-about-bio]')
-  const intro = document.querySelector<HTMLElement>('#about [data-about-intro]')
+  const tokenBlocks = document.querySelectorAll<HTMLElement>('#about [data-about-tokens]')
 
   const reduced = prefersReducedMotion()
 
@@ -89,9 +93,9 @@ function setupReveals() {
   }
 
   /*
-   * The bio and intro mix text phrases with inline TechBrand badges. Revealing
-   * each as one left-to-right opacity stagger keeps the badges in lock-step with
-   * the text (a per-char SplitText walk lets the un-split badges pop in early).
+   * About copy mixes text with inline links and TechBrand badges. Revealing
+   * each block as one left-to-right opacity stagger keeps those children in
+   * lock-step (a per-char SplitText walk lets un-split nodes pop in early).
    */
   const revealTokens = (el: HTMLElement, delay: number) => {
     const trigger = ScrollTrigger.create({
@@ -121,12 +125,9 @@ function setupReveals() {
     aboutTriggers.push(trigger)
   }
 
-  if (bio) {
-    revealTokens(bio, 0.12)
-  }
-  if (intro) {
-    revealTokens(intro, 0.18)
-  }
+  tokenBlocks.forEach((el, index) => {
+    revealTokens(el, TOKEN_REVEAL_BASE_DELAY + index * TOKEN_REVEAL_STEP)
+  })
 
   const cards = document.querySelectorAll<HTMLElement>('#about .site-card')
   cards.forEach((card, index) => {
@@ -194,11 +195,57 @@ Section(id="about")
   p.site-kicker.font-mono.text-sm.font-semibold.uppercase.opacity-0(class="tracking-[0.24em]") {{ t('about.kicker') }}
   h2.mt-3.text-4xl.font-semibold.text-site-heading.opacity-0(class="md:text-6xl") {{ t('about.title') }}
 
-  p.mt-6.text-lg.leading-relaxed.text-site-heading.opacity-0(data-about-bio)
-    span {{ t('hero.bio') }}
+  p.mt-6.text-lg.leading-relaxed.text-site-heading.opacity-0(data-about-tokens)
+    span {{ t('about.bioStart') }}
+    a.font-medium.text-inherit.transition-colors(
+      :href="UDINE_URL"
+      target="_blank"
+      rel="noopener noreferrer"
+      :aria-label="`${t('about.bioPlace')} (opens in new tab)`"
+      class="hover:text-site-secondary hover:underline hover:[text-underline-offset:0.18em]"
+    ) {{ t('about.bioPlace') }}
+    span {{ t('about.bioCto') }}
+    a.font-medium.text-inherit.transition-colors(
+      :href="PROFILES.smartSquad"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Smart Squad (opens in new tab)"
+      class="hover:text-site-secondary hover:underline hover:[text-underline-offset:0.18em]"
+    ) Smart Squad
+    span {{ t('about.bioAnd') }}
+    a.font-medium.text-inherit.transition-colors(
+      :href="PROFILES.inksquad"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Inksquad (opens in new tab)"
+      class="hover:text-site-secondary hover:underline hover:[text-underline-offset:0.18em]"
+    ) Inksquad
+    span {{ t('about.bioGlue') }}
+
+  p.mt-5.text-lg.leading-relaxed.text-site-muted.opacity-0(data-about-tokens)
+    span {{ t('about.offlineStart') }}
+    a.font-medium.text-inherit.transition-colors(
+      :href="CATS_TWEET_URL"
+      target="_blank"
+      rel="noopener noreferrer"
+      :aria-label="`${t('about.offlineCats')} (opens in new tab)`"
+      class="hover:text-site-secondary hover:underline hover:[text-underline-offset:0.18em]"
+    ) {{ t('about.offlineCats') }}
+    span {{ t('about.offlineEnd') }}
+
+  p.mt-5.text-lg.leading-relaxed.text-site-muted.italic.opacity-0(data-about-tokens)
+    span {{ t('about.advisoryStart') }}
+    a.font-medium.not-italic.text-inherit.transition-colors(
+      :href="PROFILES.bio"
+      target="_blank"
+      rel="noopener noreferrer"
+      :aria-label="`${t('about.advisoryLink')} (opens in new tab)`"
+      class="hover:text-site-secondary hover:underline hover:[text-underline-offset:0.18em]"
+    ) {{ t('about.advisoryLink') }}
+    span {{ t('about.advisoryEnd') }}
 
   p.mt-5.text-lg.leading-relaxed.text-site-muted.opacity-0(
-    data-about-intro
+    data-about-tokens
     style="word-spacing: 0"
   )
     span {{ t('about.introStart') }}

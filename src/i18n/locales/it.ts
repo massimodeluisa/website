@@ -15,7 +15,7 @@ export const it = {
   hero: {
     role: 'CTO & Product Engineer',
     tagline1: 'Progetto e spedisco sistemi precisi, anche quando la settimana è brutta.',
-    tagline2: 'Scelgo lo stack che sta al prodotto, non il contrario.',
+    tagline2: 'Scelgo lo stack che sta al prodotto.',
     tagline3: 'Provo la tecnologia nuova io, prima di chiedere a un team di scommetterci.',
     tagline4: 'Metto l’AI nel workflow quando serve davvero.',
     tagline5: 'Trasformo la pressione operativa in piattaforme che un team riesce a tenere.',
@@ -29,6 +29,19 @@ export const it = {
   about: {
     kicker: 'Chi sono',
     title: 'Builder, CTO, tecnologo.',
+    bioStart: 'Ciao, sono Massimo... un appassionato di tech di ',
+    bioPlace: 'Udine',
+    bioCto: '. Al momento sono CTO di ',
+    bioAnd: ' e ',
+    bioGlue:
+      ', e lavoro soprattutto su app mobile, le piattaforme dietro, e la colla di AI e automazione che tiene insieme il resto. La parte del lavoro che mi piace di più è quando le decisioni di prodotto, infrastruttura e persone si parlano presto, non dopo.',
+    offlineStart: 'Quando chiudo il laptop di solito sto accarezzando animali (',
+    offlineCats: 'i gatti sono persino educati al water 🚽',
+    offlineEnd:
+      ', forse il mio risultato di ingegneria di cui vado più fiero), in moto, su macchine troppo veloci, a scacchi, in palestra, a fotografare città di notte, o a costruire palazzi della memoria per imparare il giapponese.',
+    advisoryStart: 'Per advisory senior o partnership interessanti, tutti i miei link sono su ',
+    advisoryLink: 'massimo.deluisa.bio',
+    advisoryEnd: ' ✨',
     introStart: 'Progetto backend basati su ',
     introWith: ' con ',
     introSep: ', ',
@@ -55,20 +68,20 @@ export const it = {
       research: {
         eyebrow: 'AI Systems',
         title: 'Agenti long-context e tooling',
-        body: 'AI pratica su codebase grandi e pile di documenti. Non una demo.',
+        body: 'AI pratica su codebase grandi e pile di documenti.',
       },
     },
   },
   profile: {
     kicker: 'Profilo professionale',
-    heading: 'Cosa costruisco, cosa guido, cosa sto ancora capendo.',
+    heading: 'Cosa costruisco, e cosa sto ancora capendo.',
     intro:
       'Sono Massimo De Luisa. CTO e product engineer a Udine. Guido la tecnologia di due aziende software: mobile, e sistemi di integrazione. Scrivo ancora il codice. Piattaforme, app mobile, workflow con AI. Sempre lo stesso punto: decisioni importanti esplicite, e qualcosa che abbia senso anche dopo il lancio.',
     capabilities: {
       heading: 'Aree di lavoro principali',
       architecture: {
         title: 'Architettura di piattaforma',
-        body: 'Confini del backend, flussi di dati, integrazioni, deploy. Sul prodotto che c’è, non sulla lavagna.',
+        body: 'Confini del backend, flussi di dati, integrazioni, deploy. Sul prodotto che c’è.',
       },
       product: {
         title: 'Product engineering',
@@ -84,7 +97,7 @@ export const it = {
       },
       leadership: {
         title: 'Leadership tecnica',
-        body: 'Architettura, rischio di consegna, dettaglio di prodotto. Un lavoro solo, non una staffetta.',
+        body: 'Architettura, rischio di consegna, dettaglio di prodotto. Un lavoro solo.',
       },
     },
     facts: {
@@ -123,7 +136,7 @@ export const it = {
       role: {
         question: 'Di cosa mi occupo?',
         answer:
-          'Sono CTO e product engineer di due aziende software: mobile, e sistemi di integrazione. Architettura, prodotto, delivery, e implemento ancora. Non separo la “strategia” dal repo. Se un’ipotesi è sbagliata, voglio sentirla nel prodotto.',
+          'Sono CTO e product engineer di due aziende software: mobile, e sistemi di integrazione. Architettura, prodotto, delivery, e implemento ancora. Se un’ipotesi è sbagliata, voglio sentirla nel prodotto.',
       },
       systems: {
         question: 'Quali tipi di sistemi costruisco?',
@@ -143,7 +156,7 @@ export const it = {
       ai: {
         question: 'Come uso l’AI nel software e nel lavoro di prodotto?',
         answer:
-          'L’AI entra in un workflow vero, o non entra. Mi interessano agenti long-context, skill riutilizzabili, decomposizione ricorsiva, tool su repo grandi e documenti. I modelli possono masticare la parte ripetitiva. Ambito e qualità restano umani. Se il processo è confuso, l’automazione lo nasconde e basta.',
+          'Metto l’AI in un workflow vero. Agenti long-context, skill riutilizzabili, decomposizione ricorsiva, tool su repo grandi e documenti. I modelli possono masticare la parte ripetitiva. Ambito e qualità restano umani. Se il processo è confuso, l’automazione lo nasconde e basta.',
       },
       engagement: {
         question: 'Per quali attività sono disponibile?',
@@ -164,7 +177,7 @@ export const it = {
     yearRange: '2024 → 2026',
     techGlobe: {
       ariaLabel: 'Globo dei loghi tecnologici',
-      captionTitle: 'Segnali tecnologici',
+      captionTitle: 'Tecnologie',
       captionBody: 'Pattern di stack nei lavori selezionati',
       tooltip: {
         heading: 'Tecnologia',
@@ -190,8 +203,7 @@ export const it = {
     kicker: 'Journal',
     readMore: 'Leggi',
     heading: 'Blog',
-    intro:
-      'Riflessioni su sistemi, prodotto, tecnologia e sulla scelta di costruire una vita tra Italia e Giappone.',
+    intro: 'Note su come si spedisce, sul prodotto, e su una vita spaccata tra Italia e Giappone.',
     seeMore: 'Vedi altro',
     minutes: 'min',
     back: 'Torna al Journal',
@@ -203,12 +215,14 @@ export const it = {
     paginationPrev: 'Pagina precedente',
     paginationNext: 'Pagina successiva',
     readingProgress: 'Avanzamento di lettura',
+    languageNote: 'Il journal è scritto in inglese. L’interfaccia intorno è tradotta.',
+    glance: 'Note pubbliche da giugno 2026. Spedizioni, crawler, tool spaziali.',
   },
   contact: {
     kicker: 'Conosciamoci!',
     title: 'Se hai un problema di sistemi vero, scrivimi.',
     description:
-      'Leadership tecnica, architettura di piattaforme, prodotto con AI. Solo problemi concreti.',
+      'Leadership tecnica, architettura di piattaforme, prodotto con AI. Problemi concreti.',
     responseTime: 'Di solito rispondo entro 24 ore.',
     bookingTitle: 'Prenota una conversazione',
     bookingDesc:
@@ -232,6 +246,7 @@ export const it = {
     madeWith: 'Fatto con',
     sitemap: 'Mappa',
     rss: 'RSS',
+    llms: 'llms.txt',
     cv: 'CV',
     sourceCode: 'Codice sorgente',
     navAriaLabel: 'Piè di pagina',
@@ -259,7 +274,7 @@ export const it = {
   },
   operatingSystem: {
     kicker: 'Sistema Operativo',
-    heading: 'Builder, CTO, tecnologo appassionato di scienza.',
+    heading: 'Builder, CTO, tecnologo.',
     areas: {
       product: {
         eyebrow: 'Ingegneria di Prodotto',

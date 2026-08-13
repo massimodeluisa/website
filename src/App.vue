@@ -18,6 +18,7 @@ const { t } = useI18n()
 const footerLinks: { labelKey: string; href: string; download?: boolean; external?: boolean }[] = [
   { labelKey: 'footer.sitemap', href: '/sitemap.xml' },
   { labelKey: 'footer.rss', href: '/rss.xml' },
+  { labelKey: 'footer.llms', href: '/llms.txt' },
   { labelKey: 'footer.cv', href: '/cv.pdf', download: true },
   {
     labelKey: 'footer.sourceCode',

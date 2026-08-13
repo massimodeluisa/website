@@ -14,12 +14,14 @@ import { Resvg } from '@resvg/resvg-js'
 import satori, { type SatoriOptions } from 'satori'
 import sharp from 'sharp'
 
+import { SITE_NAME, SITE_ROLE } from '../src/data/site.ts'
+import { SUPPORTED_LOCALES } from '../src/i18n/catalog.ts'
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = join(ROOT, 'dist')
 const OG_DIR = join(DIST, 'og')
 
-const SITE_NAME = 'Massimo De Luisa'
-const ROLE = 'CTO & Product Engineer'
+const ROLE = SITE_ROLE
 
 /* Dark-mode palette (theme.scss [data-theme='dark']) — every card uses it. */
 const DARK_BG = '#121111'
@@ -74,7 +76,7 @@ function parseFrontmatter(raw: string): TFrontmatter {
  * page; overlay the English copy as the canonical locale so the card has a
  * title/role. Locale-suffixed files must NOT each render their own card.
  */
-const LOCALE_SUFFIX = /\.(en|it|ja|ru|uk)\.md$/
+const LOCALE_SUFFIX = new RegExp(`\\.(${SUPPORTED_LOCALES.join('|')})\\.md$`)
 
 function readContent(dir: string): TContentEntry[] {
   const folder = join(ROOT, 'src/contents', dir)

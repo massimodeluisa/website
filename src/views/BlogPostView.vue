@@ -240,58 +240,59 @@ onUnmounted(() => {
 <template lang="pug">
 article.pb-24(class="md:pb-32")
   .site-container
-    .flex.items-center.justify-between(
-      ref="backRowEl"
-      class="opacity-0 translate-y-5"
-    )
-      router-link(:to="localePath('/blog')")
-        StdButton.gap-1.rounded-full.px-3.text-sm(variant="secondary" class="py-1.5")
-          span(aria-hidden="true") ←
-          span {{ t('blog.back') }}
-      span.font-mono.text-xs.text-site-muted {{ readingTimeLabel }}
-
-    template(v-if="post")
-      .mt-6(
-        ref="contentWrapperEl"
-        class="opacity-0 translate-y-7"
+    .mx-auto.w-full.max-w-4xl
+      .flex.items-center.justify-between(
+        ref="backRowEl"
+        class="opacity-0 translate-y-5"
       )
-        .flex.items-center.gap-3.text-xs.uppercase.tracking-widest.text-site-muted
-          time(:datetime="post.date") {{ formattedDate }}
-          span(aria-hidden="true") ·
-          span.rounded-full.border.border-site-border(class="px-2 py-0.5") {{ post.category }}
+        router-link(:to="localePath('/blog')")
+          StdButton.gap-1.rounded-full.px-3.text-sm(variant="secondary" class="py-1.5")
+            span(aria-hidden="true") ←
+            span {{ t('blog.back') }}
+        span.font-mono.text-xs.text-site-muted {{ readingTimeLabel }}
 
-        h1.mt-3.text-5xl.font-semibold.text-site-heading {{ post.title }}
-
-        figure.relative.mt-8.overflow-hidden.border(
-          class="rounded-[14px] aspect-[1200/630] border-[var(--site-border-soft)] bg-[var(--site-surface-soft)]"
-          :aria-hidden="!post.cover"
+      template(v-if="post")
+        .mt-6(
+          ref="contentWrapperEl"
+          class="opacity-0 translate-y-7"
         )
-          img.h-full.w-full.object-cover(v-if="post.cover" :src="post.cover" :alt="post.coverAlt || post.title")
-          span.grid.h-full.place-items-center.font-mono.text-xs.uppercase.text-site-muted(v-else class="tracking-[0.3em] opacity-60") {{ post.category }}
+          .flex.items-center.gap-3.text-xs.uppercase.tracking-widest.text-site-muted
+            time(:datetime="post.date") {{ formattedDate }}
+            span(aria-hidden="true") ·
+            span.rounded-full.border.border-site-border(class="px-2 py-0.5") {{ post.category }}
 
-        .blog-prose.mt-8.text-site-text(
-          ref="proseEl"
-          class="text-[1.05rem] opacity-0 translate-y-8"
-          v-html="post.html"
+          h1.mt-3.text-5xl.font-semibold.text-site-heading {{ post.title }}
+
+          figure.relative.mt-8.overflow-hidden.border(
+            class="rounded-[14px] aspect-[1200/630] border-[var(--site-border-soft)] bg-[var(--site-surface-soft)]"
+            :aria-hidden="!post.cover"
+          )
+            img.h-full.w-full.object-cover(v-if="post.cover" :src="post.cover" :alt="post.coverAlt || post.title")
+            span.grid.h-full.place-items-center.font-mono.text-xs.uppercase.text-site-muted(v-else class="tracking-[0.3em] opacity-60") {{ post.category }}
+
+          .blog-prose.mt-8.text-site-text(
+            ref="proseEl"
+            class="text-[1.05rem] opacity-0 translate-y-8"
+            v-html="post.html"
+          )
+
+        .mt-16.border-t.border-site-border.pt-8(
+          ref="moreSectionEl"
+          class="opacity-0 translate-y-6"
         )
+          p.mb-4.text-sm.uppercase.tracking-widest.text-site-muted {{ t('blog.moreWriting') }}
+          .space-y-3
+            router-link.block.text-site-secondary(
+              v-for="other in otherPosts"
+              :key="other.slug"
+              :to="localePath(`/blog/${other.slug}`)"
+              class="opacity-0 translate-y-3 hover:text-site-link-hover"
+            ) {{ other.title }}
 
-      .mt-16.border-t.border-site-border.pt-8(
-        ref="moreSectionEl"
-        class="opacity-0 translate-y-6"
-      )
-        p.mb-4.text-sm.uppercase.tracking-widest.text-site-muted {{ t('blog.moreWriting') }}
-        .space-y-3
-          router-link.block.text-site-secondary(
-            v-for="other in otherPosts"
-            :key="other.slug"
-            :to="localePath(`/blog/${other.slug}`)"
-            class="opacity-0 translate-y-3 hover:text-site-link-hover"
-          ) {{ other.title }}
-
-    template(v-else)
-      .mt-12
-        h1.text-4xl.font-semibold.text-site-heading {{ t('blog.notFound') }}
-        p.mt-4.text-site-muted {{ t('blog.notFoundHint') }}
+      template(v-else)
+        .mt-12
+          h1.text-4xl.font-semibold.text-site-heading {{ t('blog.notFound') }}
+          p.mt-4.text-site-muted {{ t('blog.notFoundHint') }}
 </template>
 
 <style scoped lang="scss">
@@ -309,6 +310,7 @@ article.pb-24(class="md:pb-32")
 }
 
 .blog-prose :deep(h2) {
+  clear: both;
   margin-top: 2em;
   margin-bottom: 0.6em;
   font-size: 1.55rem;
@@ -398,5 +400,61 @@ article.pb-24(class="md:pb-32")
   margin: 2.5em 0;
   border: 0;
   border-top: 1px solid var(--site-border);
+}
+
+.blog-prose::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.blog-prose :deep(img) {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  margin: 1.4em 0;
+  border: 1px solid var(--site-border);
+  border-radius: 14px;
+}
+
+.blog-prose :deep(p:has(> img.img-left:only-child)),
+.blog-prose :deep(p:has(> img.img-right:only-child)) {
+  width: min(24rem, 46%);
+}
+
+.blog-prose :deep(p:has(> img.img-left:only-child)) {
+  float: left;
+  clear: left;
+  margin: 0.15em 1.35em 1.15em 0;
+}
+
+.blog-prose :deep(p:has(> img.img-right:only-child)) {
+  float: right;
+  clear: right;
+  margin: 0.15em 0 1.15em 1.35em;
+}
+
+.blog-prose :deep(p:has(> img.img-center:only-child)) {
+  width: min(36rem, 85%);
+  margin: 1.4em auto;
+}
+
+.blog-prose :deep(p:has(> img.img-left:only-child) img),
+.blog-prose :deep(p:has(> img.img-right:only-child) img),
+.blog-prose :deep(p:has(> img.img-center:only-child) img) {
+  margin: 0;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 639px) {
+  .blog-prose :deep(p:has(> img.img-left:only-child)),
+  .blog-prose :deep(p:has(> img.img-right:only-child)),
+  .blog-prose :deep(p:has(> img.img-center:only-child)) {
+    float: none;
+    width: 100%;
+    margin: 1.2em 0;
+  }
 }
 </style>

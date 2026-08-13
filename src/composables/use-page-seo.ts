@@ -3,26 +3,27 @@ import { useHead, useSeoMeta } from '@unhead/vue'
 import { useRoute } from 'vue-router'
 
 import { useLocale } from './use-locale'
-import type { TLocaleCode } from '@/i18n'
+import { SUPPORTED_LOCALES, type TLocaleCode } from '@/i18n'
+import {
+  ORG_ID,
+  PERSON_ID,
+  PROFILES,
+  SAME_AS,
+  SITE_NAME,
+  SITE_ROLE,
+  SITE_SUMMARY,
+  SITE_URL,
+  TWITTER_HANDLE,
+  WEBSITE_ID,
+} from '@/data/site'
+
+export { ORG_ID, PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from '@/data/site'
 
 // MARK: - Variables
-
-export const SITE_URL = 'https://deluisa.me'
-export const SITE_NAME = 'Massimo De Luisa'
-
-/* Stable @id anchors so every page's JSON-LD references one canonical entity
- * (helps Google's Knowledge Graph + AI answer engines resolve who/what). */
-export const PERSON_ID = `${SITE_URL}/#person`
-export const WEBSITE_ID = `${SITE_URL}/#website`
-export const ORG_ID = `${SITE_URL}/#organization`
-
-const TWITTER_HANDLE = '@massimodeluisa'
 
 /* Let search engines show full-size image previews and untruncated snippets. */
 const DEFAULT_ROBOTS =
   'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-
-const ALL_LOCALES: TLocaleCode[] = ['en', 'it', 'ja', 'ru', 'uk']
 
 const OG_LOCALE: Record<TLocaleCode, string> = {
   en: 'en_US',
@@ -62,7 +63,12 @@ export function usePageSeo(input: IPageSeo) {
   // Route path with any locale prefix stripped, so alternates can be rebuilt.
   const basePath = computed(() => {
     const match = route.path.match(/^\/(?:it|ja|ru|uk)(\/.*)?$/)
-    return match ? (match[1] ?? '/') : route.path
+    let path = match ? (match[1] ?? '/') : route.path
+    /* /articles is a legacy alias of /blog — never let it become the canonical. */
+    if (path === '/articles' || path.startsWith('/articles/')) {
+      path = path.replace(/^\/articles/, '/blog')
+    }
+    return path
   })
 
   const fullTitle = computed(() => {
@@ -104,7 +110,7 @@ export function usePageSeo(input: IPageSeo) {
     ogLocale: () => OG_LOCALE[current.value],
     /* Other supported locales, so crawlers know this URL has translations. */
     ogLocaleAlternate: () =>
-      ALL_LOCALES.filter((code) => code !== current.value).map((code) => OG_LOCALE[code]),
+      SUPPORTED_LOCALES.filter((code) => code !== current.value).map((code) => OG_LOCALE[code]),
     /* article:* — only meaningful for type=article; undefined fields are dropped. */
     articleAuthor: isArticle ? [SITE_URL] : undefined,
     articlePublishedTime: isArticle ? () => toValue(input.published) : undefined,
@@ -125,7 +131,7 @@ export function usePageSeo(input: IPageSeo) {
     htmlAttrs: { lang: current },
     link: () => [
       { rel: 'canonical', href: canonical.value },
-      ...ALL_LOCALES.map((code) => ({
+      ...SUPPORTED_LOCALES.map((code) => ({
         rel: 'alternate' as const,
         hreflang: code,
         href: `${SITE_URL}${localePath(basePath.value, code)}`,
@@ -135,6 +141,14 @@ export function usePageSeo(input: IPageSeo) {
         hreflang: 'x-default',
         href: `${SITE_URL}${localePath(basePath.value, 'en')}`,
       },
+      { rel: 'alternate', type: 'application/rss+xml', href: `${SITE_URL}/rss.xml`, title: `${SITE_NAME} — Journal` },
+      { rel: 'alternate', type: 'application/feed+json', href: `${SITE_URL}/feed.json`, title: `${SITE_NAME} — Journal` },
+      { rel: 'alternate', type: 'application/atom+xml', href: `${SITE_URL}/atom.xml`, title: `${SITE_NAME} — Journal` },
+      { rel: 'me', href: PROFILES.github },
+      { rel: 'me', href: PROFILES.linkedin },
+      { rel: 'me', href: PROFILES.x },
+      { rel: 'me', href: PROFILES.bio },
+      { rel: 'author', href: SITE_URL },
     ],
   })
 }
@@ -161,12 +175,11 @@ export const personEntity = (): Record<string, unknown> => ({
   '@type': 'Person',
   '@id': PERSON_ID,
   name: SITE_NAME,
-  alternateName: 'MDL',
+  alternateName: ['MDL', 'Massimo Deluisa'],
   url: SITE_URL,
   image: `${SITE_URL}/og/home.jpg`,
-  jobTitle: 'CTO & Product Engineer',
-  description:
-    'I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure. Right now that is Inksquad, isready.ai, and sidus.tools. Also learning Rust.',
+  jobTitle: SITE_ROLE,
+  description: SITE_SUMMARY,
   knowsAbout: [
     'Software Architecture',
     'Product Engineering',
@@ -184,14 +197,8 @@ export const personEntity = (): Record<string, unknown> => ({
     { '@type': 'Organization', name: 'Inksquad', url: 'https://inksquad.com' },
   ],
   address: { '@type': 'PostalAddress', addressLocality: 'Udine', addressCountry: 'IT' },
-  sameAs: [
-    'https://github.com/massimodeluisa',
-    'https://x.com/massimodeluisa',
-    'https://www.linkedin.com/in/massimodeluisa',
-    'https://massimo.deluisa.bio',
-    'https://isready.ai',
-    'https://sidus.tools',
-  ],
+  nationality: { '@type': 'Country', name: 'Italy' },
+  sameAs: [...SAME_AS],
 })
 
 /*
@@ -202,18 +209,26 @@ export const organizationEntity = (): Record<string, unknown> => ({
   '@type': 'Organization',
   '@id': ORG_ID,
   name: SITE_NAME,
+  legalName: SITE_NAME,
   url: SITE_URL,
   logo: {
     '@type': 'ImageObject',
     url: `${SITE_URL}/favicon/android-chrome-512x512.png`,
+    width: 512,
+    height: 512,
   },
+  image: `${SITE_URL}/og/home.jpg`,
   founder: { '@id': PERSON_ID },
-  sameAs: [
-    'https://github.com/massimodeluisa',
-    'https://x.com/massimodeluisa',
-    'https://www.linkedin.com/in/massimodeluisa',
-    'https://massimo.deluisa.bio',
-  ],
+  founderName: SITE_NAME,
+  sameAs: [...SAME_AS],
+})
+
+/* Named author node — BlogPosting must carry author.name, not only @id. */
+export const authorRef = (): Record<string, unknown> => ({
+  '@type': 'Person',
+  '@id': PERSON_ID,
+  name: SITE_NAME,
+  url: SITE_URL,
 })
 
 /* The canonical WebSite node (keyed by WEBSITE_ID), authored by the Person. */
@@ -222,8 +237,8 @@ export const websiteEntity = (): Record<string, unknown> => ({
   '@id': WEBSITE_ID,
   url: SITE_URL,
   name: SITE_NAME,
-  inLanguage: 'en',
-  author: { '@id': PERSON_ID },
+  inLanguage: [...SUPPORTED_LOCALES],
+  author: authorRef(),
   creator: { '@id': PERSON_ID },
   publisher: { '@id': ORG_ID },
 })

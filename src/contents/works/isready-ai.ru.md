@@ -1,18 +1,29 @@
 ---
-title: IsReady.AI
+title: isready.ai
 eyebrow: AI readiness и GEO
 role: CTO, продукт и платформенная архитектура
-summary: "Бесплатный open-source аудит: могут ли AI-системы реально читать ваш сайт? 32 проверки (crawler, rendering, structured data, trust, GEO), Smart Agent readability и CLI для CI."
-seoDescription: IsReady.AI оценивает, могут ли ChatGPT, Claude, Perplexity и другие AI читать ваш сайт — 32 проверки, Smart Agent, CLI и GitHub Actions.
+summary: Бесплатный open-source аудит. Когда GPTBot или ClaudeBot забирают страницу, приходит статья? 32 проверки. Deep scan CLI и Markdown-решения бесплатны. Мониторинг — hosted.
+seoTitle: isready.ai, готов ли сайт к AI
+seoDescription: isready.ai оценивает, могут ли ChatGPT, Claude, Perplexity и другие AI читать ваш сайт. 32 проверки. Deep scan CLI и Markdown бесплатны. Pro €19 и Team €49 — hosted-мониторинг.
 highlights:
-  - 32 evidence-based проверки в пяти измерениях и версионированный score 0–100.
-  - "CLI `npx isreadyai` с --json, --md, --llm, --deep и exit code для CI."
-  - Smart Agent readability на реальном браузере (agent-browser).
-  - Deep scan CLI и Markdown-решения полностью бесплатны. fix-action и hosted monitoring — Pro/Team.
+  - "32 проверки: crawler, rendering, structured data, trust, GEO-контент. Версионированный score 0–100."
+  - "CLI `npx isreadyai` (1.1.4). `--json`, `--md`, `--llm`, `--deep` (до 10 страниц на бесплатном вебе), `--smart-ai`, exit code для CI. Полностью бесплатно."
+  - "Smart Agent readability: agent-browser смотрит, видит ли живой браузер контент и именованные контролы."
+  - "audit-action@v1 как CI-гейт. Pro €19 / Team €49: мониторинг, история, бейдж, Ask-your-site и PR fix-action."
 ---
 
-**IsReady.AI: измеримо ли, что AI читает сайт**
+**isready.ai: читают ли AI-краулеры сайт?**
 
-IsReady.AI отвечает на один вопрос с доказательствами: **могут ли AI-системы реально читать ваш сайт?** Продукт Smart Squad S.r.l. (Удине). Движок и CLI — MIT; hosted dashboard — PolyForm Shield.
+isready.ai отвечает с доказательствами: когда GPTBot, ClaudeBot, PerplexityBot или OAI-SearchBot забирают страницу, приходит статья или пустой документ? Продукт Smart Squad (Удине). Движок и CLI — MIT. Hosted dashboard — PolyForm Shield.
 
-Классический SEO не ловит разрыв: GPTBot и аналоги часто **не выполняют JavaScript**. CSR-приложение может ранжироваться в Google и оставаться пустой оболочкой для ассистентов. Сканер fetch’ит как AI-crawler, парсит raw HTML и гоняет 32 проверки. Deep scan в CLI и Markdown-решения бесплатны, Pro для этого не нужен. `llms.txt` только информативен и не двигает score.
+Эти краулеры обычно не выполняют JavaScript. Клиентский React или Vue может ранжироваться в Google и приехать пустой оболочкой. У каждого провайдера отдельные краулеры для обучения, поиска и живых запросов. Challenge в духе Cloudflare может выкинуть вас из ответов, не трогая классический рейтинг.
+
+Скан fetch’ит как AI-краулер, парсит HTML так же и гоняет 32 проверки. GEO контента следует Aggarwal et al., KDD 2024: цитаты, статистика, источники. У каждой находки есть наблюдённое значение, следствие и конкретный фикс. Score версионирован. `llms.txt` только информативен и не двигает score.
+
+```bash
+npx isreadyai yourdomain.com --deep --md
+```
+
+Deep scan в CLI и Markdown-решения бесплатны. Pro для этого не нужен. Опциональный Smart Agent добавляет второй 0–100 для агентов с браузером.
+
+Pro — €19 в месяц, Team — €49: мониторинг, история, бейдж, Ask-your-site и `isreadyai/fix-action` для автоматических PR.

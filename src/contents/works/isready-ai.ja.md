@@ -1,18 +1,29 @@
 ---
-title: IsReady.AI
+title: isready.ai
 eyebrow: AI readiness と GEO
 role: CTO / プロダクトとプラットフォーム設計
-summary: AIが実際にサイトを読めるかを証拠ベースで測る無料オープンソース監査。クローラ・レンダリング・構造化データ・信頼・GEOコンテンツの32チェック、Smart Agent、CI向けCLI。
-seoDescription: IsReady.AI は ChatGPT / Claude / Perplexity などがサイトを読めるかを32チェックと Smart Agent で評価します。
+summary: 無料のオープンソース監査。GPTBot や ClaudeBot がページを取ったとき、記事が届くか。32 チェック。CLI のディープスキャンと Markdown の修正案は無料。監視はホスト側。
+seoTitle: isready.ai、サイトは AI に読めるか
+seoDescription: isready.ai は ChatGPT / Claude / Perplexity などがサイトを読めるかを 32 チェックで測ります。CLI のディープスキャンと Markdown は無料。Pro €19 と Team €49 はホスト監視です。
 highlights:
-  - 5次元・32の証拠ベースチェックとバージョン付き0–100スコア。
-  - "`npx isreadyai` CLI（--json / --md / --llm / --deep）とCI終了コード。"
-  - Smart Agent readability（agent-browser によるアクセシビリティツリー）。
-  - CLI のディープスキャンと Markdown の修正案は完全に無料。fix-action と hosted monitoring は Pro/Team。
+  - クローラ、レンダリング、構造化データ、信頼、GEO コンテンツの 32 チェック。バージョン付き 0–100 スコア。
+  - "`npx isreadyai` CLI（1.1.4）。`--json` / `--md` / `--llm` / `--deep`（無料ウェブは最大 10 ページ）/ `--smart-ai`、CI 終了コード。完全に無料。"
+  - Smart Agent readability。agent-browser が実ブラウザでコンテンツと名前付きコントロールを見る。
+  - GitHub の audit-action@v1 が CI ゲート。Pro €19 / Team €49 は監視、履歴、バッジ、Ask-your-site、fix-action の PR。
 ---
 
-**IsReady.AI: AIが本当にサイトを読めるかを測る**
+**isready.ai: AI クローラはサイトを読めるか**
 
-IsReady.AI は「**AIシステムは実際にあなたのサイトを読めるか？**」に証拠で答えます。Smart Squad S.r.l.（イタリア・ウーディネ）のプロダクトで、スキャナとCLIはMIT、ホスト型ダッシュボードは PolyForm Shield です。
+isready.ai は証拠で答えます。GPTBot、ClaudeBot、PerplexityBot、OAI-SearchBot がページを取ったとき、記事が届くか、空の文書か。Smart Squad（ウーディネ）のプロダクトです。スキャナと CLI は MIT。ホスト型ダッシュボードは PolyForm Shield です。
 
-GPTBot などは一般に JavaScript を実行しません。CSR の React/Vue は Google では順位を取っても AI には空の殻になり得ます。スキャンは AI クローラ同様に生HTMLを解析し、32チェックでスコア化します。CLI のディープスキャンと Markdown ソリューションは無料です。Pro は不要です。`llms.txt` は情報表示のみでスコアに影響しません。
+これらのクローラはだいたい JavaScript を実行しません。クライアント側だけの React / Vue は Google では順位を取っても、空の殻で届くことがあります。プロバイダごとに学習、検索、ライブ取得のクローラが分かれています。Cloudflare 系のチャレンジは、古典的な順位を触らずに回答から消すことがあります。
+
+スキャンは AI クローラと同じ生 HTTP で取り、同じように HTML を解析し、32 チェックを走らせます。コンテンツ GEO は Aggarwal ら KDD 2024 に沿っています。引用、統計、出典。各指摘には観測値、結果、具体的な直しがあります。スコアはバージョン付きです。`llms.txt` は情報表示だけで、点数は動きません。
+
+```bash
+npx isreadyai yourdomain.com --deep --md
+```
+
+CLI のディープスキャンと Markdown の修正案は無料です。それには Pro は要りません。任意の Smart Agent が、ブラウザ付きエージェント向けに二つ目の 0–100 を足します。
+
+Pro は月 €19、Team は €49。監視、履歴、バッジ、Ask-your-site、自動修正 PR の `isreadyai/fix-action` です。
