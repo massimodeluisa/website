@@ -2,31 +2,23 @@
 title: Inksquad
 eyebrow: Ecosistema per il tatuaggio
 role: CTO, architettura di prodotto e di piattaforma
-summary: Ecosistema cross-platform per il tatuaggio — un'app consumer React Native, uno strumento pro nativo per iPad in SwiftUI e una piattaforma condivisa Supabase e AI che porta le idee dall'ispirazione a materiale creativo utilizzabile.
-seoDescription: Ecosistema cross-platform per il tatuaggio — un'app consumer React Native, uno strumento pro per iPad in SwiftUI e una piattaforma condivisa Supabase e AI.
+summary: Due prodotti su una piattaforma. Inksquad People aiuta a dare forma a un’idea di tatuaggio. Inksquad Artist è lo strumento iPad da studio. Sotto, Supabase e AI condivisi.
+seoDescription: Inksquad People per le idee di tatuaggio. Inksquad Artist su iPad per stencil, matching inchiostri e sessioni con i guanti. Piattaforma Supabase e AI condivisa.
 highlights:
-  - Due prodotti su un'unica piattaforma — Inksquad People per dare forma alle idee di tatuaggio e Inksquad Artist, uno strumento per iPad con workflow di livello professionale.
-  - Gli strumenti per gli artisti includono generazione automatica di stencil, color matching degli inchiostri con CIE94 e CIEDE2000, strumenti per le palette e modalità live a controllo vocale.
-  - Piattaforma Turborepo condivisa su Supabase con Postgres, RLS ed Edge Functions, oltre alla generazione AI multi-provider tramite il Vercel AI SDK.
-  - Una dashboard di amministrazione Next.js e un sito web Payload CMS completano l'ecosistema.
+  - "People è per gli appassionati: progetti privati, stili, posizione, reference, visual AI, poi si condivide con un artista. Non è un’app di prenotazione."
+  - "Artist su iPad: stencil automatico, matching inchiostri con CIE94 e CIEDE2000, Matrix e Color Wheel, controllo vocale con i guanti."
+  - Oltre 400 cataloghi inchiostri reali, anche set conformi UE. Lavoro in studio anche offline.
+  - Turborepo condiviso su Supabase (Postgres, RLS, Edge Functions) e AI multi-provider con il Vercel AI SDK.
 ---
 
-**Inksquad: un sistema di prodotto cross-platform per la creazione di tatuaggi**
+**Inksquad: da un’idea vaga di tatuaggio a qualcosa che un artista può usare**
 
-Inksquad non è una singola app. È un intero ecosistema di prodotto costruito attorno a un'unica idea: aiutare i concept di tatuaggio a passare da un'ispirazione vaga a materiale creativo preciso e utilizzabile. La piattaforma collega due pubblici, gli appassionati di tatuaggi e gli artisti professionisti, attraverso una base tecnica condivisa fatta di app mobile, uno strumento professionale nativo per iPad, un CMS web, una dashboard di amministrazione, infrastruttura Supabase e operazioni AI sulle immagini.
+Inksquad sono due prodotti, non un’app travestita.
 
-L'app rivolta ai consumatori, Inksquad People, è presentata pubblicamente come un modo per “Define your next Tattoo like never before.” Il suo scopo non è la prenotazione. È la preparazione. Gli utenti possono creare progetti di tatuaggio privati, scrivere descrizioni dettagliate, selezionare stili e posizioni sul corpo preferiti, definire la dimensione, raccogliere immagini di riferimento, generare visual con l'AI e condividere un progetto completo con un tatuatore quando l'idea è pronta.
+**People** (web.inksquad.com) è per gli appassionati. Si costruisce un progetto privato: descrizione, stile, posizione, dimensione, reference, visual AI. Quando l’idea è pronta, si condivide con un artista. È preparazione, non prenotazione. WIP pubblico.
 
-Tecnicamente, People è un'app Expo 55 e React Native 0.84 basata su React 19, Expo Router, HeroUI Native, FlashList, TanStack Query, acquisti RevenueCat, Supabase Auth, Supabase Storage e Supabase Edge Functions. L'app include l'accesso con Apple e Google, onboarding multilingue, gestione delle notifiche push, recupero dati offline-aware, condivisione dei progetti tramite token firmati, accesso privato alle immagini e un AI Studio basato su thread. I workflow AI vengono persistiti come `ai_threads` e `ai_thread_messages`, con immagini sorgente, immagini generate, metadati delle operazioni, contabilizzazione dei crediti e azioni come generazione di tatuaggi, modifica delle immagini, rimozione dello sfondo, alternative, upscaling, try-on e creazione di progetti.
+**Artist** (App Store, iPad) è da studio. Importi un bozzetto da Procreate, Photoshop o Illustrator. Generi concept. Fai inkboard. Abbini inchiostri. Tieni una sessione live. Lo stencil trasforma l’artwork in layer PencilKit modificabili. Il color matching mette marcatori sull’immagine e pesca i cataloghi con CIE94 / CIEDE2000. Matrix e Color Wheel servono a palette e blending. La modalità live capisce comandi vocali per zoom, marcatori, layer, timer, viste: i guanti restano addosso.
 
-La controparte professionale è Inksquad Artist, descritta pubblicamente come “Pro tools for pro Tattoo Artists.” Si tratta di un'applicazione SwiftUI iPad-first costruita con Swift, SwiftData, CloudKit, PencilKit, Speech, AVFoundation, CoreImage, Vision, Supabase Swift, Google Sign-In, Firebase Messaging, Nuke, DotLottie, PINCache, ColorKit e un package Swift condiviso chiamato `InksquadShared`. Offre agli artisti un ambiente di lavoro per importare bozzetti da strumenti come Procreate, Photoshop o Illustrator, generare concept con l'AI, creare inkboard, abbinare i colori, costruire palette e gestire le sessioni live.
+Sotto: Turborepo, Supabase, Vercel AI SDK verso OpenAI, Grok, Replicate, Vertex. Una admin Next.js e un sito Payload stanno accanto alle app.
 
-I sistemi più distintivi dell'app Artist sono al tempo stesso tecnici e pratici. Il modulo stencil automatico usa il preprocessing delle immagini, l'edge detection, la vettorizzazione VTracer e la generazione di layer PencilKit per trasformare l'artwork in layer di stencil modificabili. Il color matching consente agli artisti di trascinare marcatori su un'immagine e individuare gli abbinamenti di inchiostro dai cataloghi globali, usando confronti percettivi dei colori come CIE94 e CIEDE2000. Gli strumenti Matrix e Color Wheel supportano l'esplorazione delle palette, la miscelazione degli inchiostri e le regolazioni fini usando i colori primari più il bianco e il nero. La modalità live aggiunge comandi vocali per zoomare, mostrare i marcatori, aprire i layer di stencil, controllare un timer e cambiare le viste delle immagini senza toccare l'iPad durante una sessione.
-
-Dietro entrambe le app c'è un'architettura di piattaforma condivisa. Il monorepo usa Turborepo e pnpm, con `packages/ui` per componenti UI cross-platform, design token, effetti glass, controlli di chat, gallerie, card, modali, componenti di amministrazione e varianti native/web. La logica di business risiede in `packages/di`, dove vengono centralizzati i composable Supabase, i tipi di database generati, l'i18n, i query provider, la logica dei progetti, la logica dei thread AI, i pagamenti, la configurazione dell'app e la registrazione dei dispositivi.
-
-Il backend è Supabase: Postgres con RLS, Storage, Auth, migrazioni, tipi TypeScript generati e Deno Edge Functions. Le operazioni AI sono alimentate dal Vercel AI SDK con un registry di modelli che spazia tra OpenAI, xAI/Grok, Replicate e Google Vertex. Gli strumenti server-side gestiscono generazione, modifica, rimozione dello sfondo, upscaling, alternative, try-on, analisi dei contenuti, miglioramento dei prompt, calcolo dei costi e audit trail delle operazioni.
-
-Una dashboard di amministrazione Next.js 16 completa il sistema. Costruita con HeroUI, Tailwind CSS v4, Recharts e hook DI condivisi, gestisce utenti, artisti, studi, eventi, stili di tatuaggio, parti del corpo, articoli, feedback, acquisti, pricing AI, link delle app, versioni delle app e cataloghi di inchiostri. Anche il sito web pubblico è in Next.js con Payload CMS, global localizzati, media Vercel Blob, metadati SEO, JSON-LD e pagine marketing per People e Artist.
-
-Il risultato è una piattaforma in cui prodotto, AI, strumenti di design, contenuti editoriali, commercio e controllo operativo sono integrati anziché assemblati alla rinfusa. Inksquad trasforma la pianificazione di un tatuaggio in dati creativi strutturati, poi offre agli artisti strumenti professionali per trasformare quei dati in un lavoro che possono utilizzare.
+L’AI aiuta. Non sostituisce l’artista.

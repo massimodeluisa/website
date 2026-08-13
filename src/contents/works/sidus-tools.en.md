@@ -2,26 +2,27 @@
 title: SIDUS
 eyebrow: Space engineering tools
 role: Founder, product and systems architecture
-summary: Open-source educational lab for orbital mechanics, propulsion, RF/ops and crew ECLSS — ~175 pure-SI calculators, public MCP, agent skill, and multi-language code export. Non-profit, not flight software.
-seoTitle: SIDUS — open-source space engineering tools
-seoDescription: SIDUS (sidus.tools) is an open-source educational lab with ~175 pure-SI space engineering calculators, public MCP endpoint, agent skill, and 10 UI locales.
+summary: Open-source educational space-engineering calculators in the browser. About 175 tools. Pure SI. MIT. Orbital mechanics, propulsion, RF, crew ECLSS.
+seoTitle: SIDUS, open-source space engineering tools
+seoDescription: sidus.tools is a free educational set of about 175 pure-SI space-engineering calculators in the browser. MIT license. Formulas should be reviewed and tested.
 highlights:
-  - About 175 live tools across orbital, propulsion, satellite/RF, crew ECLSS, geometry, planetary and utilities — pure SI math in the browser.
-  - "Agent-native surface: public Streamable HTTP MCP at sidus.tools/api/mcp, installable Agent Skill, and llms.txt for AI discovery."
-  - Multi-language code export (C, C++, Rust, Zig, Python, JS/TS, MATLAB, Julia, Fortran, LaTeX) and 10 UI locales.
-  - "Source quality enforced by tests: multi-reference bibliographies (Vallado, Curtis, NASA GRC, OCHMO, CelesTrak, JPL Horizons)."
+  - "About 175 calculators in the browser: orbital, propulsion, satellite/RF, crew ECLSS, geometry, planetary, utilities. Pure SI."
+  - Textbook trail on the pages (Vallado and Curtis for two-body). If a default is wrong, the fix path is Edit on GitHub.
+  - Code export in several languages, including Rust, Python, and MATLAB.
+  - "Public MCP at https://sidus.tools/api/mcp (Streamable HTTP). Agent Skill: `npx skills add massimodeluisa/sidus-tools --skill sidus`."
+  - I am a software engineer, not a space engineer. I built this because I care about the subject. Formulas and exportable code should be reviewed and tested.
 ---
 
-**SIDUS: Transparent Space Engineering Math for Humans and Agents**
+**SIDUS: educational space-engineering calculators**
 
-SIDUS (*sidus*, Latin for constellation / heavenly body) is a free educational lab for orbital mechanics, propulsion, satellite operations, launch, RF link budgets and crew ECLSS. It is independent and non-profit — not affiliated with NASA, ESA, SpaceX or any agency or company — and deliberately **not** flight software.
+I am a software engineer, not a space engineer, but I am passionate about space engineering. That is why I built sidus.tools.
 
-The product problem is simple: students, hobbyists and working engineers need fast, transparent SI checks without spinning up a mission-design suite. SIDUS answers that with a shared ToolShell pattern: SI inputs, pure functions under a physics library, results cards, optional orbit/trajectory plots, and “Edit this page on GitHub” on every tool.
+SIDUS (*sidus*, Latin for constellation) is a free, open-source set of educational calculators for orbital mechanics, propulsion, satellite ops, launch, RF link budgets, and crew ECLSS. About 175 tools. Pure SI. MIT. They run in the browser. No account.
 
-As of 2026 the live catalog is on the order of **175 tools** across seven categories. Defaults use Earth gravitational parameter μ⊕ = 3.986004418×10¹⁴ m³/s² and equatorial radius 6 378 137 m (WGS-84 educational values). Models stay intentionally scoped: two-body and impulsive maneuvers, circular Clohessy–Wiltshire rendezvous, ideal rocket and ISA aero — not CR3BP design suites, n-body SPICE, or certified ECLSS.
+The point is a fast SI check you can actually see: inputs, the formula, the result, optional plots, and Edit this page on GitHub. Defaults use educational WGS-84-class Earth values (μ⊕ = 3.986004418×10¹⁴ m³/s², equatorial radius 6 378 137 m). Models stay small on purpose: two-body, impulsive burns, circular Clohessy-Wiltshire, ideal rocket, ISA aero.
 
-What makes SIDUS different from a static formula page is the **agent surface**. AI clients can use a public MCP endpoint (`https://sidus.tools/api/mcp`) with no install, an Agent Skill (`npx skills add massimodeluisa/sidus-tools`), and a machine index at `/llms.txt`. Humans get ten UI locales and idiomatic code export so a Hohmann Δv can leave the page as Rust, Python or MATLAB.
+Formula pages carry a bibliography (Vallado and Curtis as the two-body backbone, plus NASA-class references where they apply). Automated checks want real HTTPS source URLs before a tool ships.
 
-Quality is treated as product, not decoration. Formula tools carry multi-source bibliographies (typically Vallado and Curtis as textbook backbone, plus NASA GRC, OCHMO, CelesTrak, JPL Horizons, satellite.js and RF references). Automated checks require resolvable source IDs with HTTPS URLs before a tool ships.
+The same catalog is on a public MCP at https://sidus.tools/api/mcp (Streamable HTTP). You point a client at that URL. No clone. Agent Skill, if you want it that way: `npx skills add massimodeluisa/sidus-tools --skill sidus`.
 
-SIDUS is also a personal R&D sandbox: high-density UI patterns, physics purity, SEO/GEO for technical content, and learning how space tooling should feel when both a human and an LLM need the same number. Results should always be cross-checked against mission design software and standards before any flight decision.
+If you want the same number in your own stack, pages can export code (C, C++, Rust, Zig, Python, JS/TS, MATLAB, Julia, Fortran, LaTeX). The formulas and that exportable / executable code should be reviewed and tested.

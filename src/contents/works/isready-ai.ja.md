@@ -8,11 +8,11 @@ highlights:
   - 5次元・32の証拠ベースチェックとバージョン付き0–100スコア。
   - "`npx isreadyai` CLI（--json / --md / --llm / --deep）とCI終了コード。"
   - Smart Agent readability（agent-browser によるアクセシビリティツリー）。
-  - GitHub audit-action / fix-action によるスコアゲートと自動修正PR。
+  - CLI のディープスキャンと Markdown の修正案は完全に無料。fix-action と hosted monitoring は Pro/Team。
 ---
 
 **IsReady.AI: AIが本当にサイトを読めるかを測る**
 
 IsReady.AI は「**AIシステムは実際にあなたのサイトを読めるか？**」に証拠で答えます。Smart Squad S.r.l.（イタリア・ウーディネ）のプロダクトで、スキャナとCLIはMIT、ホスト型ダッシュボードは PolyForm Shield です。
 
-GPTBot などは一般に JavaScript を実行しません。CSR の React/Vue は Google では順位を取っても AI には空の殻になり得ます。スキャンは AI クローラ同様に生HTMLを解析し、32チェックでスコア化します。`llms.txt` は情報表示のみでスコアに影響しません。
+GPTBot などは一般に JavaScript を実行しません。CSR の React/Vue は Google では順位を取っても AI には空の殻になり得ます。スキャンは AI クローラ同様に生HTMLを解析し、32チェックでスコア化します。CLI のディープスキャンと Markdown ソリューションは無料です。Pro は不要です。`llms.txt` は情報表示のみでスコアに影響しません。

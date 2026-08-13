@@ -8,11 +8,11 @@ highlights:
   - 32 evidence-based перевірки у п’яти вимірах і версійований score 0–100.
   - "CLI `npx isreadyai` з --json, --md, --llm, --deep і exit code для CI."
   - Smart Agent readability на реальному браузері (agent-browser).
-  - GitHub audit-action / fix-action для score gate і auto-fix PR.
+  - Deep scan CLI і Markdown-рішення повністю безкоштовні. fix-action і hosted monitoring — Pro/Team.
 ---
 
 **IsReady.AI: вимірювано, чи AI читає сайт**
 
 IsReady.AI відповідає на одне питання з доказами: **чи можуть AI-системи реально читати ваш сайт?** Продукт Smart Squad S.r.l. (Удіне). Двигун і CLI — MIT; hosted dashboard — PolyForm Shield.
 
-Класичний SEO не ловить розрив: GPTBot і аналоги часто **не виконують JavaScript**. CSR-додаток може ранжуватися в Google й лишатися порожньою оболонкою для асистентів. Сканер fetch’ить як AI-crawler, парсить raw HTML і проганяє 32 перевірки. `llms.txt` лише інформативний і не рухає score.
+Класичний SEO не ловить розрив: GPTBot і аналоги часто **не виконують JavaScript**. CSR-додаток може ранжуватися в Google й лишатися порожньою оболонкою для асистентів. Сканер fetch’ить як AI-crawler, парсить raw HTML і проганяє 32 перевірки. Deep scan у CLI і Markdown-рішення безкоштовні, Pro для цього не потрібен. `llms.txt` лише інформативний і не рухає score.
