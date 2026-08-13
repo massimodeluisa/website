@@ -203,6 +203,8 @@ export const it = {
     paginationPrev: 'Pagina precedente',
     paginationNext: 'Pagina successiva',
     readingProgress: 'Avanzamento di lettura',
+    languageNote: 'Il journal è scritto in inglese. L’interfaccia intorno è tradotta.',
+    glance: 'Note pubbliche da giugno 2026 su prodotti, AI readiness e strumenti spaziali.',
   },
   contact: {
     kicker: 'Conosciamoci!',
@@ -232,6 +234,7 @@ export const it = {
     madeWith: 'Fatto con',
     sitemap: 'Mappa',
     rss: 'RSS',
+    llms: 'llms.txt',
     cv: 'CV',
     sourceCode: 'Codice sorgente',
     navAriaLabel: 'Piè di pagina',

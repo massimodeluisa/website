@@ -8,6 +8,8 @@ type TBlogFrontmatter = {
   category?: string
   excerpt?: string
   readingTime?: number
+  cover?: string
+  coverAlt?: string
 }
 
 type TMarkdownBlogModule = {
@@ -22,6 +24,8 @@ export type TBlogPost = {
   category: string
   excerpt: string
   readingTime: number
+  cover?: string
+  coverAlt?: string
   html: string
 }
 
@@ -44,12 +48,15 @@ export const blogPosts: TBlogPost[] = Object.entries(contentFiles)
       category: asString(frontmatter.category, 'tech'),
       excerpt: asString(frontmatter.excerpt),
       readingTime: Number(frontmatter.readingTime ?? 5),
+      cover: asString(frontmatter.cover) || undefined,
+      coverAlt: asString(frontmatter.coverAlt) || undefined,
       html: module.html,
     }
   })
   .sort((a, b) => b.date.localeCompare(a.date))
 
-export const BLOG_PAGE_SIZE = 2
+/* Keep the first page large enough that every live post is crawlable without ?page=. */
+export const BLOG_PAGE_SIZE = 12
 
 export function blogPageCount(size: number = BLOG_PAGE_SIZE): number {
   return Math.max(1, Math.ceil(blogPosts.length / size))

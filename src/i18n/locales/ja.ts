@@ -202,6 +202,8 @@ export const ja = {
     paginationPrev: '前のページ',
     paginationNext: '次のページ',
     readingProgress: '読書の進捗',
+    languageNote: 'ジャーナル本文は英語です。サイトの枠組みだけ翻訳しています。',
+    glance: '2026年6月以降、プロダクト、AI readiness、宇宙工学ツールについて公開しています。',
   },
   contact: {
     kicker: 'お会いしましょう！',
@@ -231,6 +233,7 @@ export const ja = {
     madeWith: '愛をこめて',
     sitemap: 'サイトマップ',
     rss: 'RSS',
+    llms: 'llms.txt',
     cv: 'CV',
     sourceCode: 'ソースコード',
     navAriaLabel: 'フッター',

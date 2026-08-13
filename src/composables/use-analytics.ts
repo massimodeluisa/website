@@ -79,6 +79,21 @@ export function trackPageView(path: string) {
   })
 }
 
+/** Journal listing impression (GA4 custom event via GTM). */
+export function trackBlogList(payload: { page: number; posts: number }) {
+  track('blog_list_view', payload)
+}
+
+/** Journal article open (GA4 custom event via GTM). */
+export function trackArticleView(payload: { slug: string; title: string; category: string }) {
+  track('article_view', payload)
+}
+
+/** Reading-depth milestone 25/50/75/100 (GA4 custom event via GTM). */
+export function trackArticleProgress(payload: { slug: string; percent: number }) {
+  track('article_read_progress', payload)
+}
+
 /* Loads GTM and reports a page view after every route change (on nextTick so
  * the document title is already updated by @unhead). */
 export function installAnalytics(router: Router) {

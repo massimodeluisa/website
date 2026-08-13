@@ -202,6 +202,8 @@ export const en = {
     paginationPrev: 'Previous page',
     paginationNext: 'Next page',
     readingProgress: 'Reading progress',
+    languageNote: 'The journal is written in English. The site chrome around it is translated.',
+    glance: 'Public notes since June 2026 on shipping products, AI readiness, and space tools.',
   },
   contact: {
     kicker: "Let's meet!",
@@ -231,6 +233,7 @@ export const en = {
     madeWith: 'Made with',
     sitemap: 'Sitemap',
     rss: 'RSS',
+    llms: 'llms.txt',
     cv: 'CV',
     sourceCode: 'Source code',
     navAriaLabel: 'Footer',

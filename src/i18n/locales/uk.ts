@@ -202,6 +202,8 @@ export const uk = {
     paginationPrev: 'Попередня сторінка',
     paginationNext: 'Наступна сторінка',
     readingProgress: 'Прогрес читання',
+    languageNote: 'Журнал написано англійською. Оболонка сайту перекладена.',
+    glance: 'Публічні нотатки з червня 2026 про продукти, AI readiness і космічні інструменти.',
   },
   contact: {
     kicker: 'Познайомимось!',
@@ -230,6 +232,7 @@ export const uk = {
     madeWith: 'Зроблено з',
     sitemap: 'Карта сайту',
     rss: 'RSS',
+    llms: 'llms.txt',
     cv: 'CV',
     sourceCode: 'Вихідний код',
     navAriaLabel: 'Підвал сайту',

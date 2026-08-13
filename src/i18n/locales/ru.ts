@@ -202,6 +202,8 @@ export const ru = {
     paginationPrev: 'Предыдущая страница',
     paginationNext: 'Следующая страница',
     readingProgress: 'Прогресс чтения',
+    languageNote: 'Журнал написан по-английски. Оболочка сайта переведена.',
+    glance: 'Публичные заметки с июня 2026 о продуктах, AI readiness и космических инструментах.',
   },
   contact: {
     kicker: 'Давайте познакомимся!',
@@ -230,6 +232,7 @@ export const ru = {
     madeWith: 'Сделано с',
     sitemap: 'Карта сайта',
     rss: 'RSS',
+    llms: 'llms.txt',
     cv: 'CV',
     sourceCode: 'Исходный код',
     navAriaLabel: 'Подвал сайта',

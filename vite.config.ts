@@ -11,11 +11,13 @@ import { Mode, plugin as markdownHtml } from 'vite-plugin-markdown'
 
 import tailwindcss from '@tailwindcss/vite'
 
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './src/i18n/catalog'
+
 /* Locale path prefixes ('' is the default English, served unprefixed). */
-const LOCALE_PREFIXES = ['', '/it', '/ja', '/ru', '/uk']
+const LOCALE_PREFIXES = SUPPORTED_LOCALES.map((code) => (code === DEFAULT_LOCALE ? '' : `/${code}`))
 
 /* Per-locale copy files (`slug.<locale>.md`) share their base slug's route. */
-const LOCALE_COPY_SUFFIX = /\.(it|ja|ru|uk|en)\.md$/
+const LOCALE_COPY_SUFFIX = new RegExp(`\\.(${SUPPORTED_LOCALES.join('|')})\\.md$`)
 
 function markdownSlugs(dir: string): string[] {
   const folder = fileURLToPath(new URL(`./src/contents/${dir}`, import.meta.url))
