@@ -14,11 +14,11 @@ sourceUrls:
   - "https://github.com/massimodeluisa/sidus-tools"
   - "https://sidus.tools/llms.txt"
   - "https://sidus.tools/api/mcp"
-coverUrl: sidus-tools/cover.webp
+coverUrl: sidus-tools/cover.svg
 gallery:
-  - sidus-tools/cover.webp
+  - sidus-tools/cover.svg
 showcase:
-  - sidus-tools/cover.webp
+  - sidus-tools/cover.svg
 priority: 90
 featured: true
 ---

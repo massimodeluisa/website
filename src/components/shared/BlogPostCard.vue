@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router'
 
 import type { PropType } from 'vue'
 
+import { useLocale } from '@/composables/use-locale'
 import { useI18n } from '@/i18n'
 import type { TBlogPost } from '@/contents/blog'
 
@@ -15,8 +16,11 @@ const props = defineProps({
 // MARK: - Composables
 
 const { t, locale } = useI18n()
+const { localePath } = useLocale()
 
 // MARK: - Computed
+
+const postPath = computed(() => localePath(`/blog/${props.post.slug}`))
 
 // Format date using the active locale so dates render in the reader's language.
 const formattedDate = computed(() =>
@@ -30,20 +34,21 @@ const formattedDate = computed(() =>
 
 <template lang="pug">
 RouterLink.block.group.transition-colors(
-  :to="`/blog/${post.slug}`"
+  :to="postPath"
   :class="compact ? 'py-[clamp(1.5rem,2.5vw,2.25rem)]' : ''"
 )
   .flex.items-center.gap-6
     //- Placeholder cover (tablet+); swap for a real <img> once posts have covers.
-    figure.hidden.shrink-0.w-44.overflow-hidden.rounded-lg.border.ring-1.ring-inset(
-      class="md:grid md:place-items-center aspect-[16/10] border-[var(--site-border-soft)] ring-[color-mix(in_oklab,var(--site-secondary)_16%,transparent)] bg-[var(--site-surface-soft)]"
-      aria-hidden="true"
+    figure.hidden.shrink-0.w-44.overflow-hidden.rounded-lg.border(
+      class="md:grid aspect-[1200/630] border-[var(--site-border-soft)] bg-[var(--site-surface-soft)]"
+      :aria-hidden="!post.cover"
     )
-      span.font-mono.text-site-muted(class="text-[8px] uppercase tracking-[0.25em] opacity-50") {{ post.category }}
+      img.h-full.w-full.object-cover(v-if="post.cover" :src="post.cover" :alt="post.coverAlt || post.title")
+      span.grid.place-items-center.font-mono.text-site-muted(v-else class="text-[8px] uppercase tracking-[0.25em] opacity-50") {{ post.category }}
 
     .mr-auto.min-w-0
       .flex.items-center.gap-3
-        span.font-mono.text-xs.uppercase.text-site-muted {{ formattedDate }}
+        time.font-mono.text-xs.uppercase.text-site-muted(:datetime="post.date") {{ formattedDate }}
         span.px-2.py-px.rounded-full.border.border-site-border.text-site-muted(class="text-[10px]") {{ post.category }}
 
       h3.font-semibold.text-site-heading.transition-colors(

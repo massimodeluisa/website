@@ -198,6 +198,10 @@ export const uk = {
     moreWriting: 'Інші тексти',
     notFound: 'Статтю не знайдено',
     notFoundHint: 'Цієї статті (поки що) не існує.',
+    paginationLabel: 'Сторінки журналу',
+    paginationPrev: 'Попередня сторінка',
+    paginationNext: 'Наступна сторінка',
+    readingProgress: 'Прогрес читання',
   },
   contact: {
     kicker: 'Познайомимось!',

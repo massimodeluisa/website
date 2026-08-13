@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import gsap from 'gsap'
@@ -12,11 +12,16 @@ import {
   useBreadcrumbLd,
   personEntity,
   websiteEntity,
+  organizationEntity,
+  authorRef,
   SITE_URL,
-  PERSON_ID,
   WEBSITE_ID,
+  ORG_ID,
 } from '@/composables/use-page-seo'
 import { blogPosts } from '@/contents/blog'
+import { useLocale } from '@/composables/use-locale'
+import { trackArticleProgress, trackArticleView } from '@/composables/use-analytics'
+import { useReadingProgress } from '@/composables/use-reading-progress'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
 
@@ -39,6 +44,7 @@ const MORE_LINKS_REVEAL_DELAY = 0.35
 
 const route = useRoute()
 const { t, locale } = useI18n()
+const { localePath } = useLocale()
 
 // MARK: - Variables
 
@@ -66,10 +72,16 @@ usePageSeo({
   section: () => post.value?.category,
   robots: post.value ? undefined : 'noindex, follow',
 })
+const wordCount = computed(() => {
+  const text = (post.value?.html ?? '').replace(/<[^>]+>/g, ' ').trim()
+  return text ? text.split(/\s+/).length : 0
+})
+
 useJsonLd(() => ({
   '@context': 'https://schema.org',
   '@graph': [
     personEntity(),
+    organizationEntity(),
     websiteEntity(),
     {
       '@type': 'BlogPosting',
@@ -80,11 +92,18 @@ useJsonLd(() => ({
       dateModified: post.value?.date,
       articleSection: post.value?.category,
       inLanguage: locale.value,
+      wordCount: wordCount.value || undefined,
+      timeRequired: post.value ? `PT${post.value.readingTime}M` : undefined,
+      keywords: post.value?.category,
       image: `${SITE_URL}/og/blog/${slug.value}.jpg`,
-      author: { '@id': PERSON_ID },
-      publisher: { '@id': PERSON_ID },
+      author: authorRef(),
+      publisher: { '@id': ORG_ID },
       isPartOf: { '@id': WEBSITE_ID },
       mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl.value },
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', '.blog-prose'],
+      },
     },
   ],
 }))
@@ -96,6 +115,8 @@ useBreadcrumbLd(() => [
 const otherPosts = computed(() =>
   blogPosts.filter((p) => post.value && p.slug !== post.value.slug).slice(0, 3),
 )
+const { progress } = useReadingProgress()
+const firedProgress = new Set<number>()
 const formattedDate = computed(() =>
   post.value
     ? new Date(post.value.date).toLocaleDateString(locale.value, {
@@ -111,7 +132,26 @@ const readingTimeLabel = computed(() =>
 
 // MARK: - Lifecycle
 
+watch(progress, (value) => {
+  if (!post.value) {
+    return
+  }
+  for (const mark of [25, 50, 75, 100]) {
+    if (value * 100 >= mark && !firedProgress.has(mark)) {
+      firedProgress.add(mark)
+      trackArticleProgress({ slug: post.value.slug, percent: mark })
+    }
+  }
+})
+
 onMounted(() => {
+  if (post.value) {
+    trackArticleView({
+      slug: post.value.slug,
+      title: post.value.title,
+      category: post.value.category,
+    })
+  }
   const reduced = prefersReducedMotion()
 
   if (reduced) {
@@ -204,7 +244,7 @@ article.pb-24(class="md:pb-32")
       ref="backRowEl"
       class="opacity-0 translate-y-5"
     )
-      router-link(to="/blog")
+      router-link(:to="localePath('/blog')")
         StdButton.gap-1.rounded-full.px-3.text-sm(variant="secondary" class="py-1.5")
           span(aria-hidden="true") ←
           span {{ t('blog.back') }}
@@ -216,17 +256,18 @@ article.pb-24(class="md:pb-32")
         class="opacity-0 translate-y-7"
       )
         .flex.items-center.gap-3.text-xs.uppercase.tracking-widest.text-site-muted
-          span {{ formattedDate }}
+          time(:datetime="post.date") {{ formattedDate }}
           span(aria-hidden="true") ·
           span.rounded-full.border.border-site-border(class="px-2 py-0.5") {{ post.category }}
 
         h1.mt-3.text-5xl.font-semibold.text-site-heading {{ post.title }}
 
-        figure.relative.mt-8.grid.place-items-center.overflow-hidden.border.ring-1.ring-inset(
-          class="rounded-[14px] aspect-[16/10] border-[var(--site-border-soft)] ring-[color-mix(in_oklab,var(--site-secondary)_18%,transparent)] bg-[var(--site-surface-soft)]"
-          aria-hidden="true"
+        figure.relative.mt-8.overflow-hidden.border(
+          class="rounded-[14px] aspect-[1200/630] border-[var(--site-border-soft)] bg-[var(--site-surface-soft)]"
+          :aria-hidden="!post.cover"
         )
-          span.font-mono.text-xs.uppercase.text-site-muted(class="tracking-[0.3em] opacity-60") {{ post.category }}
+          img.h-full.w-full.object-cover(v-if="post.cover" :src="post.cover" :alt="post.coverAlt || post.title")
+          span.grid.h-full.place-items-center.font-mono.text-xs.uppercase.text-site-muted(v-else class="tracking-[0.3em] opacity-60") {{ post.category }}
 
         .blog-prose.mt-8.text-site-text(
           ref="proseEl"
@@ -243,7 +284,7 @@ article.pb-24(class="md:pb-32")
           router-link.block.text-site-secondary(
             v-for="other in otherPosts"
             :key="other.slug"
-            :to="`/blog/${other.slug}`"
+            :to="localePath(`/blog/${other.slug}`)"
             class="opacity-0 translate-y-3 hover:text-site-link-hover"
           ) {{ other.title }}
 

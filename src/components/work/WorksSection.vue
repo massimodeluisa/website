@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLocale } from '@/composables/use-locale'
 import { useTextReveal } from '@/composables/use-text-reveal'
 import { useWorkMorph } from '@/composables/use-work-morph'
+import { registerWorkStageNav, setWorkStageIndex } from '@/composables/use-work-stage'
 import { worksFor } from '@/contents/works'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
@@ -45,6 +46,9 @@ const winAspect = ref(16 / 9)
 const triggers: ScrollTrigger[] = []
 const rowTriggers: ScrollTrigger[] = []
 let mq: MediaQueryList | undefined
+let swapTrigger: ScrollTrigger | undefined
+let unregisterStageNav: (() => void) | undefined
+let cleanupHeaderReveal: (() => void) | undefined
 
 /*
  * useWorkMorph must be instantiated after the element refs it receives — so it
@@ -77,7 +81,60 @@ const handleOpen = (slug: string) => {
   router.push({ name: 'work', params: { slug } })
 }
 
-let cleanupHeaderReveal: (() => void) | undefined
+function workHash(slug: string) {
+  return `#work-${slug}`
+}
+
+function slugFromHash(hash: string) {
+  const value = hash.startsWith('#') ? hash.slice(1) : hash
+  return value.startsWith('work-') ? value.slice(5) : ''
+}
+
+function applyWorkHash(slug: string) {
+  if (typeof window === 'undefined') {
+    return
+  }
+  const target = workHash(slug)
+  if (window.location.hash === target) {
+    return
+  }
+  const url = `${window.location.pathname}${window.location.search}${target}`
+  window.history.replaceState(window.history.state, '', url)
+}
+
+function scrollToWorkIndex(index: number) {
+  if (!swapTrigger || typeof window === 'undefined') {
+    return
+  }
+  const total = works.value.length
+  const reduced = prefersReducedMotion()
+  const behavior: ScrollBehavior = reduced ? 'auto' : 'smooth'
+  if (index < 0) {
+    window.scrollTo({ top: Math.max(0, swapTrigger.start - 48), behavior })
+    return
+  }
+  if (index >= total) {
+    window.scrollTo({ top: swapTrigger.end + 48, behavior })
+    return
+  }
+  const progressAt = (index + 0.45) / total
+  const top = swapTrigger.start + progressAt * (swapTrigger.end - swapTrigger.start)
+  window.scrollTo({ top, behavior })
+}
+
+function syncFromHash() {
+  if (typeof window === 'undefined') {
+    return
+  }
+  const slug = slugFromHash(window.location.hash)
+  if (!slug) {
+    return
+  }
+  const next = works.value.findIndex((work) => work.slug === slug)
+  if (next >= 0) {
+    scrollToWorkIndex(next)
+  }
+}
 
 function setupHeaderReveals() {
   cleanupHeaderReveal?.()
@@ -89,16 +146,28 @@ function setupHeaderReveals() {
   const reverts: Array<() => void> = []
   requestAnimationFrame(() => {
     if (kickerEl.value) {
-      reverts.push(revealCharsFade(kickerEl.value, { start: 'top 85%', duration: 0.4, stagger: 0.016 }))
+      reverts.push(
+        revealCharsFade(kickerEl.value, { start: 'top 85%', duration: 0.4, stagger: 0.016 }),
+      )
     }
     if (titleEl.value) {
       reverts.push(
-        revealCharsFade(titleEl.value, { start: 'top 82%', delay: 0.08, duration: 0.45, stagger: 0.014 }),
+        revealCharsFade(titleEl.value, {
+          start: 'top 82%',
+          delay: 0.08,
+          duration: 0.45,
+          stagger: 0.014,
+        }),
       )
     }
     if (introEl.value) {
       reverts.push(
-        revealCharsFade(introEl.value, { start: 'top 82%', delay: 0.16, duration: 0.4, stagger: 0.01 }),
+        revealCharsFade(introEl.value, {
+          start: 'top 82%',
+          delay: 0.16,
+          duration: 0.4,
+          stagger: 0.01,
+        }),
       )
     }
   })
@@ -171,13 +240,31 @@ function setupDesktop() {
       if (idx !== activeIndex.value) {
         activeIndex.value = idx
       }
+      const rect = track.getBoundingClientRect()
+      const fullscreen = rect.top <= 0 && rect.bottom > window.innerHeight
+      setWorkStageIndex(fullscreen ? idx : -1)
+      if (fullscreen) {
+        const slug = works.value[idx]?.slug
+        if (slug) {
+          applyWorkHash(slug)
+        }
+      }
     },
   })
+  swapTrigger = swap
   triggers.push(swap)
+  unregisterStageNav = registerWorkStageNav({
+    count: segments,
+    goTo: scrollToWorkIndex,
+  })
 }
 
 function destroyDesktop() {
   workMorph.teardown()
+  unregisterStageNav?.()
+  unregisterStageNav = undefined
+  swapTrigger = undefined
+  setWorkStageIndex(-1)
   while (triggers.length) {
     triggers.pop()?.kill()
   }
@@ -249,14 +336,20 @@ onMounted(() => {
   requestAnimationFrame(() => {
     if (isDesktop.value) {
       setupDesktop()
+      requestAnimationFrame(() => {
+        syncFromHash()
+        setTimeout(syncFromHash, 200)
+      })
     } else {
       setupMobileRows()
     }
   })
+  window.addEventListener('hashchange', syncFromHash)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', updateWinAspect)
+  window.removeEventListener('hashchange', syncFromHash)
   mq?.removeEventListener('change', refreshMode)
   destroyDesktop()
   destroyMobileRows()
@@ -273,8 +366,8 @@ section#work.relative.isolate.border-t.border-site-border(
       ref="headerAreaEl"
       class="pb-0 xl:pb-[clamp(80px,5vw,96px)]"
     )
-      .work-header(class="xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:items-start xl:gap-12")
-        .work-header-text
+      .work-header(class="xl:grid xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] xl:items-start xl:gap-10")
+        .work-header-text.min-w-0
           p.site-kicker.font-mono.text-sm.font-semibold.uppercase.text-site-secondary.opacity-0(
             ref="kickerEl"
             class="tracking-[0.24em]"

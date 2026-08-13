@@ -6,6 +6,7 @@ import gsap from 'gsap'
 
 import StdButton from '@/components/shared/StdButton.vue'
 import { useActiveSection } from '@/composables/use-scroll-spy'
+import { useLocale } from '@/composables/use-locale'
 import { blogPosts } from '@/contents/blog'
 import { useI18n } from '@/i18n'
 import { NAV_ITEMS, type INavItem } from '@/data/navigation'
@@ -25,17 +26,19 @@ const MOBILE_LINKS_DELAY = 0.05
 
 const route = useRoute()
 const { t } = useI18n()
+const { localePath } = useLocale()
 const { activeSection } = useActiveSection()
-
-// Drop the Blog link until at least one post exists.
-const navItems = computed(() =>
-  blogPosts.length ? NAV_ITEMS : NAV_ITEMS.filter((item) => item.id !== 'blog'),
-)
 
 // MARK: - Variables
 
 const mobileMenuEl = ref<HTMLElement | null>(null)
 const mobileOpen = ref(false)
+
+// MARK: - Computed
+
+const navItems = computed(() =>
+  blogPosts.length ? NAV_ITEMS : NAV_ITEMS.filter((item) => item.id !== 'blog'),
+)
 
 // MARK: - Methods
 
@@ -91,17 +94,19 @@ const toggleMobile = () => {
   }
 }
 
+const itemHref = (item: INavItem) => (item.to.startsWith('#') ? item.to : localePath(item.to))
+
 const handleNavClick = (to: string, e: Event) => {
-  if (to.startsWith('#')) {
-    e.preventDefault()
-    const id = to.slice(1)
-    const target = document.getElementById(id)
+  const hash = to.includes('#') ? to.slice(to.indexOf('#') + 1) : ''
+  if (hash) {
+    const target = document.getElementById(hash)
     if (target) {
+      e.preventDefault()
       target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-    if (mobileOpen.value) {
-      closeMobile()
-    }
+  }
+  if (mobileOpen.value) {
+    closeMobile()
   }
 }
 
@@ -111,7 +116,7 @@ const handleNavClick = (to: string, e: Event) => {
  */
 const isActive = (item: INavItem) => {
   const name = String(route.name ?? '')
-  if (name.includes('blog')) {
+  if (name.includes('blog') || name.includes('article')) {
     return item.id === 'blog'
   }
   if (name === 'home' || name === 'locale.home') {
@@ -149,14 +154,14 @@ nav.ml-auto.hidden.items-center.gap-2.text-sm.font-medium(
   template(v-for="item in navItems" :key="item.id")
     SiteHeaderContactPill(
       v-if="item.prominent"
-      :to="item.to"
+      :to="itemHref(item)"
       :label="t(item.labelKey)"
       :active="isActive(item)"
       @click="handleNavClick(item.to, $event)"
     )
     RouterLink(
       v-else
-      :to="item.to"
+      :to="itemHref(item)"
       @click="handleNavClick(item.to, $event)"
     )
       StdButton.min-h-10.rounded-full.px-4.py-2(variant="ghost" :class="navLinkClass(item)") {{ t(item.labelKey) }}
@@ -191,7 +196,7 @@ teleport(to="body")
     RouterLink.mobile-link.text-5xl.font-medium.tracking-tight.transition-colors(
       v-for="item in navItems"
       :key="item.id"
-      :to="item.to"
+      :to="itemHref(item)"
       @click="handleNavClick(item.to, $event)"
     ) {{ t(item.labelKey) }}
 
