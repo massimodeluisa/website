@@ -166,7 +166,7 @@ export const personEntity = (): Record<string, unknown> => ({
   image: `${SITE_URL}/og/home.jpg`,
   jobTitle: 'CTO & Product Engineer',
   description:
-    'CTO & Product Engineer building platforms, mobile apps and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, IsReady.AI and SIDUS; experimenting with Rust.',
+    'I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure. Right now that is Inksquad, isready.ai, and sidus.tools. Also learning Rust.',
   knowsAbout: [
     'Software Architecture',
     'Product Engineering',
