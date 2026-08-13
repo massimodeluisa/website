@@ -198,6 +198,10 @@ export const ru = {
     moreWriting: 'Другие тексты',
     notFound: 'Статья не найдена',
     notFoundHint: 'Этой статьи (пока) не существует.',
+    paginationLabel: 'Страницы журнала',
+    paginationPrev: 'Предыдущая страница',
+    paginationNext: 'Следующая страница',
+    readingProgress: 'Прогресс чтения',
   },
   contact: {
     kicker: 'Давайте познакомимся!',

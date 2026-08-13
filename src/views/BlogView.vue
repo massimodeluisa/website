@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import BlogPostCard from '@/components/shared/BlogPostCard.vue'
+import BlogPagination from '@/components/shared/BlogPagination.vue'
 import StdButton from '@/components/shared/StdButton.vue'
 import {
   usePageSeo,
@@ -17,7 +19,7 @@ import {
 } from '@/composables/use-page-seo'
 import { useLocale } from '@/composables/use-locale'
 import { useTextReveal } from '@/composables/use-text-reveal'
-import { blogPosts } from '@/contents/blog'
+import { blogPageCount, blogPosts, blogPostsForPage, parseBlogPage } from '@/contents/blog'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
 
@@ -25,8 +27,9 @@ gsap.registerPlugin(ScrollTrigger)
 
 // MARK: - Composables
 
+const route = useRoute()
 const { t } = useI18n()
-const { current } = useLocale()
+const { current, localePath } = useLocale()
 const { revealLines, revealWords } = useTextReveal()
 
 usePageSeo({
@@ -66,7 +69,53 @@ let postTriggers: ScrollTrigger[] = []
 
 // MARK: - Computed
 
-const sortedPosts = computed(() => blogPosts)
+const currentPage = computed(() => parseBlogPage(route.query.page))
+const totalPages = computed(() => blogPageCount())
+const pagedPosts = computed(() => blogPostsForPage(currentPage.value))
+const listPath = computed(() => route.path)
+
+// MARK: - Methods
+
+function killPostTriggers() {
+  postTriggers.forEach((trigger) => trigger.kill())
+  postTriggers = []
+}
+
+function setupPostReveals() {
+  killPostTriggers()
+  const reduced = prefersReducedMotion()
+  const items = document.querySelectorAll<HTMLElement>('[data-blog-post]')
+  if (reduced) {
+    if (items.length) {
+      gsap.set(items, { opacity: 1, clearProps: 'transform' })
+    }
+    return
+  }
+  items.forEach((item, index) => {
+    gsap.set(item, { opacity: 0, y: 36 })
+    const trigger = ScrollTrigger.create({
+      trigger: item,
+      start: 'top 92%',
+      once: true,
+      onEnter: () => {
+        gsap.to(item, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: index * 0.04 })
+      },
+    })
+    postTriggers.push(trigger)
+  })
+  requestAnimationFrame(() => ScrollTrigger.refresh())
+}
+
+// MARK: - Watchers
+
+watch(currentPage, async () => {
+  if (typeof window === 'undefined') {
+    return
+  }
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
+  await nextTick()
+  setupPostReveals()
+})
 
 // MARK: - Lifecycle
 
@@ -97,33 +146,18 @@ onMounted(() => {
     revealWords(pageIntro, { start: 'top 79%', delay: 0.15, duration: 0.9 })
   }
 
-  const items = document.querySelectorAll<HTMLElement>('[data-blog-post]')
-  items.forEach((item, index) => {
-    const trigger = ScrollTrigger.create({
-      trigger: item,
-      start: 'top 92%',
-      once: true,
-      onEnter: () => {
-        gsap.to(item, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: index * 0.04 })
-      },
-    })
-    postTriggers.push(trigger)
-  })
-
-  /* Recompute after layout/fonts settle so cards already in view reveal on load. */
-  requestAnimationFrame(() => ScrollTrigger.refresh())
+  setupPostReveals()
 })
 
 onUnmounted(() => {
-  postTriggers.forEach((t) => t.kill())
-  postTriggers = []
+  killPostTriggers()
 })
 </script>
 
 <template lang="pug">
 section
   .site-container
-    router-link(to="/")
+    router-link(:to="localePath('/')")
       StdButton.gap-1.rounded-full.px-3.text-sm(variant="secondary" class="py-1.5")
         span(aria-hidden="true") ←
         span {{ t('blog.backHome') }}
@@ -135,10 +169,16 @@ section
 
     .mt-16.space-y-12
       .border-b.border-site-border.pb-10(
-        v-for="post in sortedPosts"
+        v-for="post in pagedPosts"
         :key="post.slug"
         data-blog-post
         class="opacity-0 translate-y-9 last:border-b-0"
       )
         BlogPostCard(:post="post")
+
+    BlogPagination.mt-4(
+      :current="currentPage"
+      :total="totalPages"
+      :base-path="listPath"
+    )
 </template>

@@ -19,6 +19,12 @@ const baseChildren: RouteRecordRaw[] = [
   { path: '', name: 'home', component: HomeView },
   { path: 'blog', name: 'blog', component: () => import('@/views/BlogView.vue') },
   { path: 'blog/:slug', name: 'blogPost', component: () => import('@/views/BlogPostView.vue') },
+  { path: 'articles', name: 'articles', component: () => import('@/views/BlogView.vue') },
+  {
+    path: 'articles/:slug',
+    name: 'article',
+    component: () => import('@/views/BlogPostView.vue'),
+  },
   { path: 'work/:slug', name: 'work', component: () => import('@/views/WorkDetailView.vue') },
   {
     path: ':pathMatch(.*)*',
@@ -65,6 +71,9 @@ export const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) =>
     stripLocale(to.path) === stripLocale(from.path) &&
     localeOf(to.path) !== localeOf(from.path)
   ) {
+    return false
+  }
+  if (to.hash && /^#work-.+/.test(to.hash)) {
     return false
   }
   if (to.hash) {

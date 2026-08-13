@@ -40,8 +40,10 @@ function staticRoutes(): string[] {
   for (const prefix of LOCALE_PREFIXES) {
     paths.push(prefix || '/')
     paths.push(`${prefix}/blog`)
+    paths.push(`${prefix}/articles`)
     for (const slug of blog) {
       paths.push(`${prefix}/blog/${slug}`)
+      paths.push(`${prefix}/articles/${slug}`)
     }
     for (const slug of work) {
       paths.push(`${prefix}/work/${slug}`)

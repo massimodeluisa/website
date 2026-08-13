@@ -48,3 +48,25 @@ export const blogPosts: TBlogPost[] = Object.entries(contentFiles)
     }
   })
   .sort((a, b) => b.date.localeCompare(a.date))
+
+export const BLOG_PAGE_SIZE = 2
+
+export function blogPageCount(size: number = BLOG_PAGE_SIZE): number {
+  return Math.max(1, Math.ceil(blogPosts.length / size))
+}
+
+export function blogPostsForPage(page: number, size: number = BLOG_PAGE_SIZE): TBlogPost[] {
+  const total = blogPageCount(size)
+  const safe = Math.min(total, Math.max(1, page))
+  const start = (safe - 1) * size
+  return blogPosts.slice(start, start + size)
+}
+
+export function parseBlogPage(raw: unknown): number {
+  const value = Array.isArray(raw) ? raw[0] : raw
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) {
+    return 1
+  }
+  return Math.min(blogPageCount(), Math.max(1, Math.trunc(parsed)))
+}
