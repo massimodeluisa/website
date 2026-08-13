@@ -23,4 +23,15 @@ export default defineConfigWithVueTs(
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
   skipFormatting,
+
+  /* Pug templates are invisible to ESLint, so identifiers used only in
+     `<template lang="pug">` look unused. Do not delete them to "fix" this. */
+  {
+    name: 'app/vue-pug-false-positives',
+    files: ['**/*.vue'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 )
