@@ -34,6 +34,29 @@ jobs:
       - name: Build (static pre-render via vite-ssg)
         run: bun run build
 
+      - name: Checkout profile README
+        uses: actions/checkout@v6
+        with:
+          repository: massimodeluisa/massimodeluisa
+          path: profile-readme
+          ssh-key: ${{ secrets.PROFILE_README_DEPLOY_KEY }}
+          persist-credentials: true
+
+      - name: Sync GitHub profile Writing
+        run: |
+          bun scripts/sync-profile-readme.mts \
+            --feed dist/feed.json \
+            --readme profile-readme/README.md
+          git -C profile-readme config user.name "github-actions[bot]"
+          git -C profile-readme config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C profile-readme add README.md
+          if git -C profile-readme diff --cached --quiet; then
+            echo "profile README already current"
+            exit 0
+          fi
+          git -C profile-readme commit -m "docs: sync writing from deluisa.me"
+          git -C profile-readme push
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

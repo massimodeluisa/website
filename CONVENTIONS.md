@@ -281,6 +281,8 @@ Works (case studies) and journal posts are Markdown files with frontmatter, load
 - **Frontmatter is the contract.** The loaders normalise frontmatter into a typed object with `asString` / `asStringArray` guards and sensible fallbacks. When you add a frontmatter field, add it to the `*Frontmatter` type **and** the normalising `.map(...)` in the loader — don't read raw `attributes` at the call site.
 - Work cover/gallery assets live under `src/assets/works/<slug>/` and are resolved by `resolveAsset` against an `import.meta.glob` of the assets folder. Reference them by the relative path in frontmatter (e.g. `coverUrl: itd/cover.webp`); a missing asset falls back to the placeholder cover.
 - Markdown rendering is configured in `vite.config.ts` (`vite-plugin-markdown` in HTML mode, exposing `html` + `attributes`, `html: false`). Don't enable raw HTML in markdown content.
+- Journal **detail** (`BlogPostView`) caps the column at `max-w-4xl`. The listing stays full `site-container`.
+- Inline images are block-level by default. To place one, append `{.img-left}`, `{.img-right}`, or `{.img-center}` on the same line: `![caption](/journal/…/photo.jpg){.img-left}`. Raw HTML in markdown is still forbidden.
 
 ---
 

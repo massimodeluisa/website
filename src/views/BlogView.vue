@@ -13,12 +13,15 @@ import {
   useJsonLd,
   useBreadcrumbLd,
   websiteEntity,
+  organizationEntity,
+  authorRef,
   SITE_URL,
-  PERSON_ID,
   WEBSITE_ID,
+  ORG_ID,
 } from '@/composables/use-page-seo'
 import { useLocale } from '@/composables/use-locale'
 import { useTextReveal } from '@/composables/use-text-reveal'
+import { trackBlogList } from '@/composables/use-analytics'
 import { blogPageCount, blogPosts, blogPostsForPage, parseBlogPage } from '@/contents/blog'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
@@ -40,21 +43,36 @@ useJsonLd(() => ({
   '@context': 'https://schema.org',
   '@graph': [
     websiteEntity(),
+    organizationEntity(),
     {
-      '@type': 'Blog',
+      '@type': ['Blog', 'CollectionPage'],
       '@id': `${SITE_URL}/blog/#blog`,
       url: `${SITE_URL}/blog`,
       name: t('blog.heading'),
       description: t('blog.intro'),
       inLanguage: current.value,
       isPartOf: { '@id': WEBSITE_ID },
-      publisher: { '@id': PERSON_ID },
+      publisher: { '@id': ORG_ID },
+      author: authorRef(),
+      dateModified: blogPosts[0]?.date,
+      numberOfItems: blogPosts.length,
       blogPost: blogPosts.map((p) => ({
         '@type': 'BlogPosting',
         headline: p.title,
         url: `${SITE_URL}/blog/${p.slug}`,
         datePublished: p.date,
+        dateModified: p.date,
+        author: authorRef(),
       })),
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: blogPosts.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${SITE_URL}/blog/${p.slug}`,
+          name: p.title,
+        })),
+      },
     },
   ],
 }))
@@ -120,6 +138,7 @@ watch(currentPage, async () => {
 // MARK: - Lifecycle
 
 onMounted(() => {
+  trackBlogList({ page: currentPage.value, posts: pagedPosts.value.length })
   const reduced = prefersReducedMotion()
 
   if (reduced) {
@@ -163,16 +182,18 @@ section
         span {{ t('blog.backHome') }}
 
     .max-w-3xl.mt-10
-      p.site-kicker.font-mono.text-sm.font-semibold.uppercase.opacity-0(class="tracking-[0.24em]") {{ t('blog.kicker') }}
-      h1.mt-2.text-5xl.font-semibold.text-site-heading.opacity-0(class="md:text-6xl") {{ t('blog.heading') }}
-      p.mt-6.max-w-2xl.text-xl.text-site-muted.opacity-0(data-blog-intro) {{ t('blog.intro') }}
+      p.site-kicker.font-mono.text-sm.font-semibold.uppercase(class="tracking-[0.24em]") {{ t('blog.kicker') }}
+      h1.mt-2.text-5xl.font-semibold.text-site-heading(class="md:text-6xl") {{ t('blog.heading') }}
+      p.mt-6.max-w-2xl.text-xl.text-site-muted(data-blog-intro) {{ t('blog.intro') }}
+      p.mt-3.max-w-2xl.text-sm.text-site-muted {{ t('blog.languageNote') }}
+      p.mt-2.max-w-2xl.text-sm.text-site-muted {{ t('blog.glance') }}
 
     .mt-16.space-y-12
       .border-b.border-site-border.pb-10(
         v-for="post in pagedPosts"
         :key="post.slug"
         data-blog-post
-        class="opacity-0 translate-y-9 last:border-b-0"
+        class="last:border-b-0"
       )
         BlogPostCard(:post="post")
 

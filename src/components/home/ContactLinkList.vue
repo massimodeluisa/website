@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '@/i18n'
+import { PROFILES, SITE_EMAIL } from '@/data/site'
 
 interface ISocialLink {
   labelKey: string
@@ -17,30 +18,30 @@ const { t } = useI18n()
 const links: ISocialLink[] = [
   {
     labelKey: 'contact.links.share',
-    href: 'https://massimo.deluisa.bio',
+    href: PROFILES.bio,
     icon: 'mdi:link-variant',
     external: true,
   },
   {
     labelKey: 'contact.links.email',
-    href: 'mailto:massimodeluisa@me.com',
+    href: `mailto:${SITE_EMAIL}`,
     icon: 'mdi:email-outline',
   },
   {
     labelKey: 'contact.links.github',
-    href: 'https://github.com/massimodeluisa',
+    href: PROFILES.github,
     icon: 'mdi:github',
     external: true,
   },
   {
     labelKey: 'contact.links.linkedin',
-    href: 'https://www.linkedin.com/in/massimodeluisa',
+    href: PROFILES.linkedin,
     icon: 'mdi:linkedin',
     external: true,
   },
   {
     labelKey: 'contact.links.telegram',
-    href: 'https://t.me/massimodeluisa',
+    href: PROFILES.telegram,
     icon: 'fa-brands:telegram',
     external: true,
   },
@@ -52,7 +53,7 @@ const links: ISocialLink[] = [
   },
   {
     labelKey: 'contact.links.x',
-    href: 'https://x.com/massimodeluisa',
+    href: PROFILES.x,
     icon: 'simple-icons:x',
     external: true,
   },

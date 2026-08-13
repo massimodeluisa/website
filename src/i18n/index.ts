@@ -7,27 +7,16 @@ import { it } from './locales/it'
 import { ja } from './locales/ja'
 import { ru } from './locales/ru'
 import { uk } from './locales/uk'
+import { DEFAULT_LOCALE, LOCALE_LABELS, SUPPORTED_LOCALES, type TLocaleCode } from './catalog'
 
-// MARK: - Locale catalog
-
-/* Single source of truth for locale codes; the union type and every locale-aware
-   regex/list across the app derive from this tuple. */
-export const SUPPORTED_LOCALES = ['en', 'it', 'ja', 'ru', 'uk'] as const
-export type TLocaleCode = (typeof SUPPORTED_LOCALES)[number]
-export const DEFAULT_LOCALE: TLocaleCode = 'en'
-export const NON_DEFAULT_LOCALES: readonly TLocaleCode[] = SUPPORTED_LOCALES.filter(
-  (code) => code !== DEFAULT_LOCALE,
-)
+export { DEFAULT_LOCALE, NON_DEFAULT_LOCALES, SUPPORTED_LOCALES, type TLocaleCode } from './catalog'
 
 const LOCALE_STORAGE_KEY = 'mdl:locale'
 
-const availableLocales: { code: TLocaleCode; label: string }[] = [
-  { code: 'en', label: 'EN' },
-  { code: 'it', label: 'IT' },
-  { code: 'ja', label: 'JP' },
-  { code: 'ru', label: 'RU' },
-  { code: 'uk', label: 'UK' },
-]
+const availableLocales: { code: TLocaleCode; label: string }[] = SUPPORTED_LOCALES.map((code) => ({
+  code,
+  label: LOCALE_LABELS[code],
+}))
 
 /* i18next owns lookup and interpolation; every locale is bundled as a resource. */
 void i18next.init({
