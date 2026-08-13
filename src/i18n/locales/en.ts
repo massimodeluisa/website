@@ -14,20 +14,20 @@ export const en = {
   },
   hero: {
     role: 'CTO & Product Engineer',
-    tagline1: 'I design and ship precise, high-leverage systems.',
-    tagline2: 'I architect scalable solutions with modern technologies.',
-    tagline3: 'I research and evaluate the latest market technologies.',
-    tagline4: 'I integrate AI systems pragmatically.',
-    tagline5: 'I turn operational pressure into durable platforms.',
-    tagline6: 'I align engineering and product on the decisions that matter.',
-    bio: 'CTO of two software companies — mobile development and systems integration. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure.',
+    tagline1: 'I design and ship precise systems that still work when the week gets ugly.',
+    tagline2: 'I pick the stack that fits the product, not the other way around.',
+    tagline3: 'I try new tech myself before I ask a team to bet on it.',
+    tagline4: 'I put AI in the workflow when it actually helps.',
+    tagline5: 'I turn operational pressure into platforms a team can keep.',
+    tagline6: 'I keep engineering and product arguing about the same decisions.',
+    bio: 'CTO of two software companies: one mobile, one systems integration. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure.',
     ctaWork: 'See selected work',
     ctaContact: 'Book a conversation',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
   },
   about: {
-    kicker: 'About me — Delu OS',
+    kicker: 'About me',
     title: 'Builder, CTO, technologist.',
     introStart: 'I architect backends powered by ',
     introWith: ' with ',
@@ -40,51 +40,51 @@ export const en = {
     introUsing: ' powered by ',
     introBuild: ' monorepos; build native experiences with ',
     introOrchestrate: '; and orchestrate AI through the ',
-    introEnd: ' — so teams move fast without losing clarity or craft.',
+    introEnd: ', so teams move fast without losing clarity or craft.',
     focus: {
       product: {
         eyebrow: 'Product Engineering',
-        title: 'From idea pressure to shipped systems',
-        body: 'I turn constraints into elegant, durable platforms.',
+        title: 'From a messy idea to something shipped',
+        body: 'I turn constraints into platforms a team can still maintain a year later.',
       },
       leadership: {
         eyebrow: 'Technical Leadership',
         title: 'CTO thinking with maker speed',
-        body: 'Architecture, delivery risk and product detail in balance.',
+        body: 'Architecture, delivery risk, and product detail. Same conversation, not three decks.',
       },
       research: {
         eyebrow: 'AI Systems',
         title: 'Long-context agents & tooling',
-        body: 'Practical AI workflows for large codebases and documents.',
+        body: 'Practical AI on large codebases and document piles. Not a demo.',
       },
     },
   },
   profile: {
     kicker: 'Professional profile',
-    heading: 'What I build, lead, and research.',
+    heading: 'What I build, what I lead, what I am still figuring out.',
     intro:
-      'I am Massimo De Luisa, a CTO and product engineer based in Udine, Italy. I lead technology for two software companies: one focused on mobile development and one on systems integration. My work connects product strategy, software architecture, delivery, and hands-on implementation. I design platforms, mobile applications, and AI-assisted workflows for teams that need to move quickly without turning operational pressure into unnecessary complexity. My goal is consistent: make important decisions explicit, keep systems maintainable, and ship work that remains clear after the first release.',
+      'I am Massimo De Luisa. CTO and product engineer in Udine, Italy. I lead tech for two software companies: mobile, and systems integration. I still write the code. Platforms, mobile apps, AI-assisted workflows. Same point every time: keep the important decisions explicit, and ship something that still makes sense after launch.',
     capabilities: {
       heading: 'Core areas of work',
       architecture: {
         title: 'Platform architecture',
-        body: 'Backend boundaries, data flows, integrations, and deployment choices designed around real product constraints.',
+        body: 'Backend boundaries, data flows, integrations, deploys. Designed around the product you actually have, not a whiteboard.',
       },
       product: {
         title: 'Product engineering',
-        body: 'From an early idea and delivery pressure to a maintainable web product that teams can continue evolving.',
+        body: 'From a rough idea and a deadline to a web product the team can keep changing without fear.',
       },
       mobile: {
         title: 'Mobile development',
-        body: 'Native product experiences built with Expo and connected to dependable services and operational workflows.',
+        body: 'Native apps with Expo, wired to services people can actually run a business on.',
       },
       ai: {
         title: 'AI-assisted systems',
-        body: 'Practical agent workflows, model integrations, and long-context tooling for code and document-heavy work.',
+        body: 'Agents, model wiring, long-context tools. Useful on real repos and real documents.',
       },
       leadership: {
         title: 'Technical leadership',
-        body: 'Architecture, delivery risk, product detail, and engineering direction handled as one connected responsibility.',
+        body: 'Architecture, delivery risk, product detail. One job, not a relay race.',
       },
     },
     facts: {
@@ -122,39 +122,39 @@ export const en = {
       role: {
         question: 'What do I do?',
         answer:
-          'I work as a CTO and product engineer, responsible for technology across two software companies: one centered on mobile development and the other on systems integration. My role combines architectural decisions, product judgment, delivery planning, technical research, and direct implementation. Rather than separating strategy from engineering, I use hands-on product work to test assumptions and keep technical direction connected to what teams and customers actually need.',
+          'I am CTO and product engineer for two software companies: mobile, and systems integration. Architecture, product calls, delivery, and I still implement. I do not split “strategy” from the repo. If an assumption is wrong, I want to feel it in the product.',
       },
       systems: {
         question: 'What kinds of systems do I build?',
         answer:
-          'I build software platforms, web products, mobile applications, integrations, and AI-assisted operational workflows. The common requirement is that these systems must remain understandable while handling real delivery pressure. I turn product constraints into explicit boundaries, dependable data flows, and practical interfaces. My work favors durable foundations over unnecessary abstraction, while still leaving teams enough flexibility to add features, connect services, and adapt the product after launch.',
+          'Platforms, web products, mobile apps, integrations, AI-assisted ops. They have to stay understandable while the calendar is on fire. I would rather ship a boring foundation a team can extend than a clever abstraction nobody wants to touch.',
       },
       stack: {
         question: 'Which technologies are part of my core stack?',
         answer:
-          'My current work includes Vue, TypeScript, Tailwind CSS, Supabase, Expo, Vercel, and Turborepo. Backend and data work can involve NestJS, Typesense, Sequin, Redis, Deno, and workflow automation with n8n. For AI systems, I work with the AI SDK, OpenAI, Google Vertex AI, and Replicate. I select technology to fit the product and operating model; my objective is not to maximize the number of tools, but to keep delivery fast and the resulting system coherent.',
+          'Day to day: Vue, TypeScript, Tailwind, Supabase, Expo, Vercel, Turborepo. Backends may include NestJS, Typesense, Redis, Deno, n8n. AI work uses the AI SDK, OpenAI, Vertex, Replicate. I do not collect tools. I pick what keeps delivery fast and the system coherent.',
       },
       leadership: {
         question: 'How do I approach technical leadership?',
         answer:
-          'I treat architecture, delivery risk, and product detail as parts of the same decision. I work at CTO level while staying close enough to implementation to see where plans become fragile or unnecessarily complex. That means clarifying trade-offs, choosing boundaries that a team can maintain, researching unfamiliar technology before committing to it, and preserving a high standard for the user-facing result. My aim is to help teams move with maker speed without losing operational discipline.',
+          'Architecture, delivery risk, and product detail are the same decision. I work as CTO and stay close enough to the code to see where a plan gets fragile. Trade-offs get named. Boundaries have to be ones a team can keep. New tech gets tried before it becomes a bet.',
       },
       ai: {
         question: 'How do I use AI in software and product work?',
         answer:
-          'I integrate AI pragmatically, as a capability inside a wider product or engineering workflow. My public interests include long-context agents, reusable agent skills, recursive decomposition, and tools for working across large codebases or document sets. I evaluate where models can reduce repetitive analysis, improve retrieval, or coordinate multi-step work, while keeping human judgment responsible for scope and quality. I use AI to make a clear process more capable, not to hide an unclear process behind automation.',
+          'AI goes inside a real workflow, or it does not go in. I care about long-context agents, reusable skills, recursive decomposition, and tools for big repos and document sets. Models can chew the repetitive part. Scope and quality stay human. If the process is unclear, automation just hides it.',
       },
       engagement: {
         question: 'What work am I available for?',
         answer:
-          'I am available for focused work involving technical leadership, platform architecture, and AI-assisted product development. A useful engagement usually starts with a concrete product, delivery, or systems problem: an architecture that needs direction, a platform that must scale without becoming opaque, a mobile initiative that needs stronger foundations, or an AI workflow that must become reliable. I offer limited 30-minute conversations through my scheduling page and normally reply to direct enquiries within 24 hours.',
+          'Focused work: technical leadership, platform architecture, AI-assisted product. Start with a concrete problem. An architecture that needs a direction, a platform getting opaque, a mobile foundation that is wobbly, an AI workflow that has to become reliable. 30-minute calls, limited on purpose. I usually reply within 24 hours.',
       },
     },
   },
   work: {
     kicker: "Things I've built/directed",
     title: 'Work',
-    intro: 'Systems under operational pressure — and products I am shipping now.',
+    intro: 'Systems under operational pressure, and products I am shipping now.',
     viewProject: 'View project',
     previous: 'Previous work',
     next: 'Next work',
@@ -190,7 +190,7 @@ export const en = {
     readMore: 'Read',
     heading: 'Blog',
     intro:
-      'Thoughts on systems, product, technology, and the decision to build a life between Italy and Japan.',
+      'Notes on systems, product, technology, and building a life between Italy and Japan.',
     seeMore: 'See more',
     minutes: 'min',
     back: 'Back to Journal',
@@ -205,14 +205,14 @@ export const en = {
   },
   contact: {
     kicker: "Let's meet!",
-    title: 'Let’s build something precise.',
+    title: 'If you have a real systems problem, write me.',
     description:
-      'Available for technical leadership, platform architecture, and AI-assisted product work.',
+      'Technical leadership, platform architecture, AI-assisted product work. Concrete problems only.',
     responseTime: 'I usually reply within 24 hours.',
     bookingTitle: 'Book a focused conversation',
     bookingDesc:
-      '30-minute calls. I keep the calendar intentionally limited so every conversation gets real attention.',
-    bookingWindow: 'Currently booking for April 2026 onward.',
+      '30-minute calls. I keep the calendar short so the conversation is actually useful.',
+    bookingWindow: 'The calendar is limited on purpose.',
     bookCta: 'Open scheduling',
     cvTitle: 'Download CV',
     cvMeta: 'PDF · 2 pages',
@@ -262,20 +262,20 @@ export const en = {
     areas: {
       product: {
         eyebrow: 'Product Engineering',
-        title: 'From idea pressure to shipped systems',
-        body: 'I structure Vue, Tailwind and Supabase products so teams can move quickly without losing maintainability.',
+        title: 'From a messy idea to something shipped',
+        body: 'I structure Vue, Tailwind, and Supabase products so a team can move fast and still find the code next year.',
         animationTitle: 'Looping idea pressure icon',
       },
       leadership: {
         eyebrow: 'Technical Leadership',
         title: 'CTO thinking with maker speed',
-        body: 'I balance architecture, hiring context, delivery risk and product detail across two software companies.',
+        body: 'Architecture, hiring, delivery risk, product detail. Two companies. I stay close to the code.',
         animationTitle: 'Looping laptop maker speed icon',
       },
       research: {
         eyebrow: 'Research Systems',
         title: 'AI workflows for long-context work',
-        body: 'My public work explores agent skills, recursive decomposition and practical tooling for large code and document tasks.',
+        body: 'Public work on agent skills, recursive decomposition, and tools for big codebases and document piles.',
         animationTitle: 'Looping artificial intelligence icon',
       },
     },
@@ -290,7 +290,7 @@ export const en = {
     title: 'Something went',
     accent: 'wrong',
     subtitle:
-      "Lost past the event horizon — somewhere between Galileo's stars and Fermi's silence.",
+      "Lost past the event horizon, somewhere between Galileo's stars and Fermi's silence.",
     cta: 'Go home',
   },
 } as const

@@ -14,20 +14,20 @@ export const it = {
   },
   hero: {
     role: 'CTO & Product Engineer',
-    tagline1: 'Progetto e realizzo sistemi precisi e ad alto impatto.',
-    tagline2: 'Progetto soluzioni scalabili con tecnologie moderne.',
-    tagline3: 'Cerco e valuto le ultime tecnologie sul mercato.',
-    tagline4: 'Integro sistemi AI in maniera pragmatica.',
-    tagline5: 'Trasformo la pressione operativa in piattaforme durature.',
-    tagline6: 'Allineo ingegneria e prodotto sulle decisioni che contano.',
-    bio: 'CTO di due aziende software — sviluppo mobile e sistemi di integrazione. Costruisco piattaforme, app mobile e flussi con AI che restano semplici anche sotto pressione.',
+    tagline1: 'Progetto e spedisco sistemi precisi, anche quando la settimana è brutta.',
+    tagline2: 'Scelgo lo stack che sta al prodotto, non il contrario.',
+    tagline3: 'Provo la tecnologia nuova io, prima di chiedere a un team di scommetterci.',
+    tagline4: 'Metto l’AI nel workflow quando serve davvero.',
+    tagline5: 'Trasformo la pressione operativa in piattaforme che un team riesce a tenere.',
+    tagline6: 'Tengo ingegneria e prodotto sulla stessa decisione.',
+    bio: 'CTO di due aziende software: una mobile, una di sistemi di integrazione. Costruisco piattaforme, app mobile e flussi con AI che restano semplici anche sotto pressione.',
     ctaWork: 'Vedi i lavori selezionati',
     ctaContact: 'Prenota una conversazione',
     portraitAlt: 'Massimo De Luisa',
     fullName: 'Massimo De Luisa',
   },
   about: {
-    kicker: 'Chi sono — Delu OS',
+    kicker: 'Chi sono',
     title: 'Builder, CTO, tecnologo.',
     introStart: 'Progetto backend basati su ',
     introWith: ' con ',
@@ -40,51 +40,51 @@ export const it = {
     introUsing: ' in monorepo ',
     introBuild: '; costruisco esperienze native con ',
     introOrchestrate: "; e orchestro l'AI tramite ",
-    introEnd: ' — perché i team siano veloci senza perdere chiarezza o qualità.',
+    introEnd: ', perché i team siano veloci senza perdere chiarezza o qualità.',
     focus: {
       product: {
         eyebrow: 'Product Engineering',
-        title: 'Dall’idea alla consegna',
-        body: 'Trasformo vincoli in piattaforme eleganti e durature.',
+        title: 'Da un’idea confusa a qualcosa di spedito',
+        body: 'Trasformo i vincoli in piattaforme che un team riesce ancora a manutenere dopo un anno.',
       },
       leadership: {
         eyebrow: 'Technical Leadership',
         title: 'Pensiero da CTO, velocità da maker',
-        body: 'Architettura, rischio di consegna e dettaglio di prodotto in equilibrio.',
+        body: 'Architettura, rischio di consegna, dettaglio di prodotto. Stessa conversazione, non tre slide.',
       },
       research: {
         eyebrow: 'AI Systems',
         title: 'Agenti long-context e tooling',
-        body: 'Workflow AI pratici per grandi codebase e documenti.',
+        body: 'AI pratica su codebase grandi e pile di documenti. Non una demo.',
       },
     },
   },
   profile: {
     kicker: 'Profilo professionale',
-    heading: 'Cosa costruisco, guido e ricerco.',
+    heading: 'Cosa costruisco, cosa guido, cosa sto ancora capendo.',
     intro:
-      'Sono Massimo De Luisa, CTO e product engineer con base a Udine, in Italia. Guido la tecnologia di due aziende software: una dedicata allo sviluppo mobile e una ai sistemi di integrazione. Il mio lavoro unisce strategia di prodotto, architettura software, delivery e implementazione diretta. Progetto piattaforme, applicazioni mobile e workflow assistiti dall’AI per team che devono muoversi rapidamente senza trasformare la pressione operativa in complessità inutile. Il mio obiettivo resta costante: rendere esplicite le decisioni importanti, mantenere i sistemi manutenibili e consegnare prodotti che restino chiari anche dopo il primo rilascio.',
+      'Sono Massimo De Luisa. CTO e product engineer a Udine. Guido la tecnologia di due aziende software: mobile, e sistemi di integrazione. Scrivo ancora il codice. Piattaforme, app mobile, workflow con AI. Sempre lo stesso punto: decisioni importanti esplicite, e qualcosa che abbia senso anche dopo il lancio.',
     capabilities: {
       heading: 'Aree di lavoro principali',
       architecture: {
         title: 'Architettura di piattaforma',
-        body: 'Confini del backend, flussi di dati, integrazioni e scelte di deploy progettati sui vincoli reali del prodotto.',
+        body: 'Confini del backend, flussi di dati, integrazioni, deploy. Sul prodotto che c’è, non sulla lavagna.',
       },
       product: {
         title: 'Product engineering',
-        body: 'Da un’idea iniziale e dalla pressione della delivery a un prodotto web manutenibile che il team può continuare a evolvere.',
+        body: 'Da un’idea grezza e una scadenza a un prodotto web che il team può continuare a cambiare senza paura.',
       },
       mobile: {
         title: 'Sviluppo mobile',
-        body: 'Esperienze native realizzate con Expo e collegate a servizi affidabili e workflow operativi.',
+        body: 'App native con Expo, collegate a servizi su cui un’attività può davvero girare.',
       },
       ai: {
         title: 'Sistemi assistiti dall’AI',
-        body: 'Workflow pratici con agenti, integrazioni di modelli e strumenti long-context per codice e documenti.',
+        body: 'Agenti, modelli, strumenti long-context. Utili su repo vere e documenti veri.',
       },
       leadership: {
         title: 'Leadership tecnica',
-        body: 'Architettura, rischio di consegna, dettaglio di prodotto e direzione ingegneristica gestiti come un’unica responsabilità.',
+        body: 'Architettura, rischio di consegna, dettaglio di prodotto. Un lavoro solo, non una staffetta.',
       },
     },
     facts: {
@@ -123,39 +123,39 @@ export const it = {
       role: {
         question: 'Di cosa mi occupo?',
         answer:
-          'Lavoro come CTO e product engineer e sono responsabile della tecnologia di due aziende software, una focalizzata sullo sviluppo mobile e l’altra sui sistemi di integrazione. Il mio ruolo combina decisioni architetturali, giudizio di prodotto, pianificazione della delivery, ricerca tecnica e implementazione diretta. Invece di separare strategia e ingegneria, uso il lavoro pratico sul prodotto per verificare le ipotesi e mantenere la direzione tecnica collegata a ciò di cui team e clienti hanno realmente bisogno.',
+          'Sono CTO e product engineer di due aziende software: mobile, e sistemi di integrazione. Architettura, prodotto, delivery, e implemento ancora. Non separo la “strategia” dal repo. Se un’ipotesi è sbagliata, voglio sentirla nel prodotto.',
       },
       systems: {
         question: 'Quali tipi di sistemi costruisco?',
         answer:
-          'Costruisco piattaforme software, prodotti web, applicazioni mobile, integrazioni e workflow operativi assistiti dall’AI. Il requisito comune è che questi sistemi restino comprensibili anche sotto la pressione reale della delivery. Trasformo i vincoli di prodotto in confini espliciti, flussi di dati affidabili e interfacce pratiche. Il mio lavoro privilegia fondamenta durature rispetto all’astrazione non necessaria, lasciando comunque ai team la flessibilità per aggiungere funzionalità, collegare servizi e adattare il prodotto dopo il lancio.',
+          'Piattaforme, prodotti web, app mobile, integrazioni, ops con AI. Devono restare comprensibili mentre il calendario brucia. Preferisco una fondazione noiosa che il team può estendere a un’astrazione brillante che nessuno vuole toccare.',
       },
       stack: {
         question: 'Quali tecnologie fanno parte del mio stack principale?',
         answer:
-          'Il mio lavoro attuale include Vue, TypeScript, Tailwind CSS, Supabase, Expo, Vercel e Turborepo. Backend e dati possono coinvolgere NestJS, Typesense, Sequin, Redis, Deno e l’automazione dei workflow con n8n. Per i sistemi AI lavoro con AI SDK, OpenAI, Google Vertex AI e Replicate. Scelgo la tecnologia in base al prodotto e al modello operativo: il mio obiettivo non è aumentare il numero di strumenti, ma mantenere rapida la delivery e coerente il sistema risultante.',
+          'Nel quotidiano: Vue, TypeScript, Tailwind, Supabase, Expo, Vercel, Turborepo. In backend magari NestJS, Typesense, Redis, Deno, n8n. Per l’AI: AI SDK, OpenAI, Vertex, Replicate. Non colleziono tool. Scelgo quello che tiene veloce la delivery e coerente il sistema.',
       },
       leadership: {
         question: 'Come affronto la leadership tecnica?',
         answer:
-          'Considero architettura, rischio di consegna e dettaglio di prodotto come parti della stessa decisione. Lavoro a livello CTO restando abbastanza vicino all’implementazione da vedere dove i piani diventano fragili o inutilmente complessi. Questo significa chiarire i compromessi, scegliere confini che un team possa mantenere, studiare tecnologie sconosciute prima di adottarle e preservare uno standard elevato per il risultato rivolto agli utenti. Il mio obiettivo è aiutare i team a muoversi con velocità da maker senza perdere disciplina operativa.',
+          'Architettura, rischio di consegna e dettaglio di prodotto sono la stessa decisione. Lavoro da CTO e resto abbastanza vicino al codice da vedere dove un piano si spezza. I compromessi si nominano. I confini devono essere quelli che un team riesce a tenere. La tech nuova si prova prima di farci una scommessa.',
       },
       ai: {
         question: 'Come uso l’AI nel software e nel lavoro di prodotto?',
         answer:
-          'Integro l’AI in modo pragmatico, come capacità inserita in un workflow di prodotto o ingegneria più ampio. I miei interessi pubblici comprendono agenti long-context, skill riutilizzabili, decomposizione ricorsiva e strumenti per lavorare su grandi codebase o insiemi di documenti. Valuto dove i modelli possano ridurre l’analisi ripetitiva, migliorare il recupero delle informazioni o coordinare attività in più passaggi, mantenendo il giudizio umano responsabile di ambito e qualità. Uso l’AI per rendere più capace un processo chiaro, non per nascondere un processo confuso dietro l’automazione.',
+          'L’AI entra in un workflow vero, o non entra. Mi interessano agenti long-context, skill riutilizzabili, decomposizione ricorsiva, tool su repo grandi e documenti. I modelli possono masticare la parte ripetitiva. Ambito e qualità restano umani. Se il processo è confuso, l’automazione lo nasconde e basta.',
       },
       engagement: {
         question: 'Per quali attività sono disponibile?',
         answer:
-          'Sono disponibile per lavori mirati di leadership tecnica, architettura di piattaforma e sviluppo di prodotti assistiti dall’AI. Una collaborazione utile parte di solito da un problema concreto di prodotto, delivery o sistemi: un’architettura che richiede direzione, una piattaforma che deve scalare senza diventare opaca, un’iniziativa mobile che necessita di fondamenta più solide o un workflow AI che deve diventare affidabile. Offro un numero limitato di conversazioni da 30 minuti tramite la pagina di prenotazione e normalmente rispondo alle richieste dirette entro 24 ore.',
+          'Lavoro mirato: leadership tecnica, architettura di piattaforma, prodotto con AI. Si parte da un problema concreto. Un’architettura senza direzione, una piattaforma che diventa opaca, un mobile con le fondamenta ballerine, un workflow AI che deve diventare affidabile. Chiamate da 30 minuti, poche di proposito. Di solito rispondo entro 24 ore.',
       },
     },
   },
   work: {
     kicker: 'Cose che ho creato/diretto',
     title: 'Lavori',
-    intro: 'Sistemi sotto pressione operativa — e prodotti che sto rilasciando ora.',
+    intro: 'Sistemi sotto pressione operativa, e prodotti che sto rilasciando ora.',
     viewProject: 'Vedi progetto',
     previous: 'Lavoro precedente',
     next: 'Lavoro successivo',
@@ -206,14 +206,14 @@ export const it = {
   },
   contact: {
     kicker: 'Conosciamoci!',
-    title: 'Costruiamo qualcosa di preciso.',
+    title: 'Se hai un problema di sistemi vero, scrivimi.',
     description:
-      'Disponibile per leadership tecnica, architettura di piattaforme e lavoro di prodotto con AI.',
+      'Leadership tecnica, architettura di piattaforme, prodotto con AI. Solo problemi concreti.',
     responseTime: 'Di solito rispondo entro 24 ore.',
     bookingTitle: 'Prenota una conversazione',
     bookingDesc:
-      'Chiamate da 30 minuti. Tengo il calendario intenzionalmente limitato perché ogni conversazione meriti attenzione vera.',
-    bookingWindow: 'Apertura prenotazioni da aprile 2026.',
+      'Chiamate da 30 minuti. Tengo il calendario corto, così la conversazione serve.',
+    bookingWindow: 'Il calendario è limitato di proposito.',
     bookCta: 'Apri calendario',
     cvTitle: 'Scarica CV',
     cvMeta: 'PDF · 2 pagine',
@@ -263,20 +263,20 @@ export const it = {
     areas: {
       product: {
         eyebrow: 'Ingegneria di Prodotto',
-        title: 'Dalla pressione delle idee ai sistemi spediti',
-        body: 'Strutturo prodotti Vue, Tailwind e Supabase così i team possono muoversi in fretta senza perdere manutenibilità.',
+        title: 'Da un’idea confusa a qualcosa di spedito',
+        body: 'Strutturo prodotti Vue, Tailwind e Supabase così un team va veloce e l’anno dopo trova ancora il codice.',
         animationTitle: 'Icona animata della pressione delle idee',
       },
       leadership: {
         eyebrow: 'Leadership Tecnica',
         title: 'Pensiero da CTO con velocità da maker',
-        body: 'Bilancio architettura, contesto di hiring, rischio di consegna e dettaglio di prodotto per due aziende software.',
+        body: 'Architettura, hiring, rischio di consegna, dettaglio di prodotto. Due aziende. Resto vicino al codice.',
         animationTitle: 'Icona animata del laptop maker',
       },
       research: {
         eyebrow: 'Sistemi di Ricerca',
         title: 'Workflow AI per lavori a contesto lungo',
-        body: 'Il mio lavoro pubblico esplora agent skills, decomposizione ricorsiva e strumenti pratici per grandi task di codice e documenti.',
+        body: 'Lavoro pubblico su agent skills, decomposizione ricorsiva e strumenti per codebase grandi e pile di documenti.',
         animationTitle: 'Icona animata di intelligenza artificiale',
       },
     },
@@ -291,7 +291,7 @@ export const it = {
     title: 'Qualcosa è andato',
     accent: 'storto',
     subtitle:
-      "Persa oltre l'orizzonte degli eventi — tra le stelle di Galileo e il silenzio di Fermi.",
+      "Persa oltre l'orizzonte degli eventi, tra le stelle di Galileo e il silenzio di Fermi.",
     cta: 'Torna alla home',
   },
 } as const
