@@ -10,6 +10,7 @@ import SectionHeading from '@/components/shared/SectionHeading.vue'
 import SectionKicker from '@/components/shared/SectionKicker.vue'
 import StdButton from '@/components/shared/StdButton.vue'
 import { useTextReveal } from '@/composables/use-text-reveal'
+import { useLocale } from '@/composables/use-locale'
 import { blogPosts } from '@/contents/blog'
 import { useI18n } from '@/i18n'
 import { prefersReducedMotion } from '@/utils/motion'
@@ -25,6 +26,7 @@ const FADE_REVEAL_STAGGER = 0.012
 // MARK: - Composables
 
 const { t } = useI18n()
+const { localePath } = useLocale()
 const { revealCharsFade } = useTextReveal()
 
 // MARK: - Variables
@@ -111,7 +113,7 @@ Section(v-if="hasPosts" id="blog" class="opacity-0 translate-y-8")
       SectionKicker {{ t('blog.kicker') }}
       SectionHeading {{ t('blog.heading') }}
 
-    RouterLink(to="/blog")
+    RouterLink(:to="localePath('/blog')")
       StdButton.see-more-pill.gap-2.rounded-full.px-4.py-2.text-sm(variant="secondary")
         span {{ t('blog.seeMore') }}
         span →

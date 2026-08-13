@@ -198,6 +198,10 @@ export const ja = {
     moreWriting: 'その他の記事',
     notFound: '記事が見つかりません',
     notFoundHint: 'この記事はまだ存在しません。',
+    paginationLabel: 'ジャーナルのページ',
+    paginationPrev: '前のページ',
+    paginationNext: '次のページ',
+    readingProgress: '読書の進捗',
   },
   contact: {
     kicker: 'お会いしましょう！',

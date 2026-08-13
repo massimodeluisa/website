@@ -44,6 +44,13 @@ export function useScrollSpy({ ids }: IScrollSpyOptions): void {
 
   const updateActive = () => {
     rafId = 0
+    const track = document.querySelector('#work .work-track')
+    if (track) {
+      const trackRect = track.getBoundingClientRect()
+      if (trackRect.top <= 0 && trackRect.bottom > window.innerHeight) {
+        return
+      }
+    }
     const viewport = window.innerHeight
     const focusY = viewport * FOCUS_RATIO
 

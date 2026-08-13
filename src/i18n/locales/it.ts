@@ -199,6 +199,10 @@ export const it = {
     moreWriting: 'Altri scritti',
     notFound: 'Articolo non trovato',
     notFoundHint: 'Questo articolo non esiste (ancora).',
+    paginationLabel: 'Pagine del journal',
+    paginationPrev: 'Pagina precedente',
+    paginationNext: 'Pagina successiva',
+    readingProgress: 'Avanzamento di lettura',
   },
   contact: {
     kicker: 'Conosciamoci!',

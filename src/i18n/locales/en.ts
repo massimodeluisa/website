@@ -198,6 +198,10 @@ export const en = {
     moreWriting: 'More writing',
     notFound: 'Post not found',
     notFoundHint: "This article doesn't exist (yet).",
+    paginationLabel: 'Journal pages',
+    paginationPrev: 'Previous page',
+    paginationNext: 'Next page',
+    readingProgress: 'Reading progress',
   },
   contact: {
     kicker: "Let's meet!",
