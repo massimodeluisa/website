@@ -26,11 +26,11 @@
 
 @theme {
   --font-sans:
-    'Geist Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+    'Geist Sans', 'Symbols Nerd Font', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono:
-    'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+    'Geist Mono', 'Symbols Nerd Font', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
   --font-pixel: 'Geist Pixel Square', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
   --font-pixel-grid: 'Geist Pixel Grid', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
   --font-pixel-circle: 'Geist Pixel Circle', 'Geist Sans', ui-sans-serif, system-ui, sans-serif;

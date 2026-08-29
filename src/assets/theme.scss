@@ -84,6 +84,16 @@
   font-weight: 400;
 }
 
+/* Subset of Nerd Fonts Symbols Only v3.5.1 (PUA glyphs used in the journal). */
+@font-face {
+  font-family: 'Symbols Nerd Font';
+  src: url('/fonts/nerd-fonts/SymbolsNerdFont-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+E000-F8FF, U+F0000-F1AFF;
+}
+
 @layer base {
   :root {
     --site-header-height: 4rem;
