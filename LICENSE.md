@@ -30,6 +30,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+`public/fonts/nerd-fonts/` is a subset of [Nerd Fonts](https://www.nerdfonts.com) Symbols Only v3.5.1 (MIT, Ryan L McIntyre). The upstream `LICENSE` sits next to the WOFF2.
+
 ## Content — © All Rights Reserved
 
 The MIT grant above does **not** cover the site's content, which is the personal
