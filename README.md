@@ -1,24 +1,35 @@
-# Massimo De Luisa — Portfolio
+<h1 align="center">Massimo De Luisa</h1>
 
-[![AI readiness](https://isready.ai/badge/deluisa.me)](https://isready.ai)
+<p align="center">
+  <strong>Personal site</strong><br />
+  Portfolio, selected work and journal. Multilingual, static, GitHub Pages
+</p>
 
-Professional, multilingual portfolio of **Massimo De Luisa** (MDL), CTO of two software companies (mobile development and systems integration).
+<p align="center">
+  <a href="https://deluisa.me"><img src="https://img.shields.io/badge/Live-deluisa.me-111827?style=flat-square" alt="Live site" /></a>
+  <a href="https://isready.ai"><img src="https://isready.ai/badge/deluisa.me" alt="AI readiness" /></a>
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT_code-green?style=flat-square" alt="Source MIT, content reserved" /></a>
+  <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/Vue-3-42B883?style=flat-square&logo=vuedotjs&logoColor=white" alt="Vue 3" /></a>
+</p>
 
-Live at [deluisa.me](https://deluisa.me) (primary), with Japanese domains [出る.com](https://出る.com) and [デルイザ.com](https://デルイザ.com) for the Japan move.
+<p align="center">
+  <a href="#stack">Stack</a> ·
+  <a href="#development">Develop</a> ·
+  <a href="#internationalization">i18n</a> ·
+  <a href="#deployment">Deploy</a>
+</p>
 
-## Philosophy
+<p align="center">
+  <img src="https://deluisa.me/og/home.jpg" alt="Massimo De Luisa, deluisa.me" width="800" />
+</p>
 
-This site is built with obsessive attention to **cleanliness, clarity, and craft**.
+---
 
-- Extremely high signal-to-noise ratio
-- Purposeful, restrained motion (GSAP)
-- Rigorous component hygiene and ordering
-- First-class multilingual experience (English, Italian, Japanese, Russian, Ukrainian)
-- Content-driven (markdown case studies + journal)
+Live at [deluisa.me](https://deluisa.me) (primary), with Japanese domains [出る.com](https://出る.com) and [デルイザ.com](https://デルイザ.com).
 
-The visual and technical references that shaped the direction include the quiet confidence of ewan-kerboas.fr, martinpriotti.dev, aimane.dev, crz.studio, and jorisbrianti.fr, combined with the technical depth already present in the previous version of this portfolio.
+CTO & Product Engineer. Platforms, mobile apps and AI-assisted workflows. Shipping Inksquad, IsReady.AI and SIDUS. Experimenting with Rust. Udine, Italy, moving to Japan.
 
-## Tech Stack
+## Stack
 
 - **Vue 3** (latest beta + Volar)
 - **Tailwind CSS 4** (via Vite plugin)
@@ -26,7 +37,7 @@ The visual and technical references that shaped the direction include the quiet 
 - **Pug** templates + **SCSS**
 - **TypeScript** (strict)
 - **bun** as package manager and runtime
-- Custom lightweight i18n (no heavy dependencies)
+- Custom lightweight i18n
 - Markdown-driven content (works + journal)
 
 Typography: Geist Sans / Mono / Pixel (Vercel typeface, self-hosted variable fonts).
@@ -38,17 +49,13 @@ bun install
 bun dev
 ```
 
-### Quality commands (all via bun)
-
 ```bash
 bun run build          # Production build
 bun run type-check     # vue-tsc
 bun lint               # oxlint + eslint + oxfmt
 ```
 
-### Component Discipline (enforced)
-
-Every component follows a strict internal order:
+Every component follows a strict internal order (enforced):
 
 1. Imports (external → `@/` → relative)
 2. Types & interfaces
@@ -60,7 +67,7 @@ Every component follows a strict internal order:
 8. Watchers
 9. Lifecycle hooks
 
-Templates are written in **Pug**. Styles (when not achievable with Tailwind) live in `<style lang="scss" scoped>`.
+Templates are written in **Pug**. Styles (when not achievable with Tailwind) live in `<style lang="scss" scoped>`. See [`CONVENTIONS.md`](CONVENTIONS.md).
 
 ## Internationalization
 
@@ -70,47 +77,37 @@ Five languages, client-side, clean URLs, persisted in localStorage:
 - Italian (complete)
 - Japanese, Russian, Ukrainian (UI complete, content expanding)
 
-Language switcher lives elegantly inside the fixed header (and mobile menu). All new copy must go through `useI18n()`.
+Language switcher lives in the fixed header (and mobile menu). All new copy must go through `useI18n()`.
 
 ## Content
 
-- **Journal / Blog**: Markdown posts in `src/contents/blog/` (planned, with categories Tech / Product / Personal).
+- **Selected work**: Inksquad, IsReady.AI, SIDUS. Routes `/work/inksquad`, `/work/isready-ai`, `/work/sidus-tools`.
+- **Journal**: Markdown posts in `src/contents/blog/`.
 - Photos and assets live in `src/assets/`.
-
-## Header (sacred)
-
-The fixed header with its scroll-driven "transparent → pill" morph animation, house icon, live Rome time, and mobile hamburger is preserved exactly as originally authored. Only navigation labels and the integrated language switcher were added.
 
 ## Deployment
 
-The production site is deployed as a static build through GitHub Pages.
+The production site is a static build on GitHub Pages.
 
-GitHub Pages does not expose repository-level custom response-header configuration for
-custom domains. To send `Strict-Transport-Security`, put `deluisa.me` behind a CDN or
-reverse proxy that can add:
+GitHub Pages does not expose repository-level custom response-header configuration for custom domains. To send `Strict-Transport-Security`, put `deluisa.me` behind a CDN or reverse proxy that can add:
 
 ```text
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 ```
 
-Do not use a static `_headers` file or an HTML `http-equiv` tag for HSTS: GitHub Pages
-ignores the former, and browsers only honor HSTS as an HTTPS response header.
+Do not use a static `_headers` file or an HTML `http-equiv` tag for HSTS: GitHub Pages ignores the former, and browsers only honor HSTS as an HTTPS response header.
 
-The Japanese domains (`出る.com`, `デルイザ.com`) are chosen for their playful kanji reading of "De Luisa" → "Deruiza" → 出る (to go out / to emerge).
+The Japanese domains (`出る.com`, `デルイザ.com`) are chosen for their kanji reading of "De Luisa" → "Deruiza" → 出る.
 
-## License & Attribution
+## Author
 
-Personal portfolio. Feel free to study the source for patterns (especially the GSAP + Vue + Tailwind 4 + Pug + strict component hygiene approach). If you reuse significant parts in public work, a credit or star on GitHub is appreciated.
+<p>
+  <a href="https://x.com/massimodeluisa"><img src="https://img.shields.io/badge/X-@massimodeluisa-000000?style=flat-square&logo=x" alt="X" /></a>
+  <a href="https://github.com/massimodeluisa"><img src="https://img.shields.io/badge/GitHub-massimodeluisa-181717?style=flat-square&logo=github" alt="GitHub" /></a>
+</p>
 
-## Contact
+**Massimo De Luisa**: [massimo.deluisa.bio](https://massimo.deluisa.bio)
 
-Massimo De Luisa  
-CTO of two software companies (mobile development & systems integration)
-Udine, Italy → Japan
+## License
 
-- GitHub: https://github.com/massimodeluisa
-- X: https://x.com/massimodeluisa
-
----
-
-Built with clarity and care. The code should read as nicely as the site looks.
+Source code MIT, content All Rights Reserved, see [LICENSE.md](LICENSE.md).
