@@ -27,7 +27,7 @@
 
 Live at [deluisa.me](https://deluisa.me) (primary), with Japanese domains [出る.com](https://出る.com) and [デルイザ.com](https://デルイザ.com).
 
-CTO & Product Engineer. Platforms, mobile apps and AI-assisted workflows. Shipping Inksquad, IsReady.AI and SIDUS. Experimenting with Rust. Udine, Italy, moving to Japan.
+CTO & Product Engineer. Platforms, mobile apps and AI-assisted workflows. Shipping Inksquad, IsReady.AI, SIDUS and Images in motion. Experimenting with Rust. Udine, Italy, moving to Japan.
 
 ## Stack
 
@@ -81,7 +81,7 @@ Language switcher lives in the fixed header (and mobile menu). All new copy must
 
 ## Content
 
-- **Selected work**: Inksquad, IsReady.AI, SIDUS. Routes `/work/inksquad`, `/work/isready-ai`, `/work/sidus-tools`.
+- **Selected work**: Inksquad, IsReady.AI, Images in motion, SIDUS. Routes `/work/inksquad`, `/work/isready-ai`, `/work/images-in-motion`, `/work/sidus-tools`.
 - **Journal**: Markdown posts in `src/contents/blog/`.
 - Photos and assets live in `src/assets/`.
 
@@ -102,7 +102,7 @@ The Japanese domains (`出る.com`, `デルイザ.com`) are chosen for their kan
 ## Author
 
 <p>
-  <a href="https://x.com/massimodeluisa"><img src="https://img.shields.io/badge/X-@massimodeluisa-000000?style=flat-square&logo=x" alt="X" /></a>
+  <a href="https://x.com/massimodeluisa"><img src="https://img.shields.io/badge/@massimodeluisa-000000?style=flat-square&logo=x" alt="X" /></a>
   <a href="https://github.com/massimodeluisa"><img src="https://img.shields.io/badge/GitHub-massimodeluisa-181717?style=flat-square&logo=github" alt="GitHub" /></a>
 </p>
 
