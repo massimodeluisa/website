@@ -1,5 +1,7 @@
 /// <reference types="vite-ssg" />
 import { existsSync, readdirSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import { delimiter, dirname, join } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -11,7 +13,19 @@ import { Mode, plugin as markdownHtml } from 'vite-plugin-markdown'
 
 import tailwindcss from '@tailwindcss/vite'
 
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './src/i18n/catalog'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './src/i18n/catalog.ts'
+
+/*
+ * bun's isolated linker keeps vue/compiler-sfc in ~/.bun/install/cache. That
+ * package `require('pug')`s from there, so Node never walks this project's
+ * node_modules. NODE_PATH + _initPaths makes the project copy visible.
+ */
+const nodeModule = createRequire(import.meta.url)('module') as { _initPaths: () => void }
+const projectModules = join(dirname(fileURLToPath(import.meta.url)), 'node_modules')
+process.env.NODE_PATH = process.env.NODE_PATH
+  ? `${projectModules}${delimiter}${process.env.NODE_PATH}`
+  : projectModules
+nodeModule._initPaths()
 
 /* Locale path prefixes ('' is the default English, served unprefixed). */
 const LOCALE_PREFIXES = SUPPORTED_LOCALES.map((code) => (code === DEFAULT_LOCALE ? '' : `/${code}`))

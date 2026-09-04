@@ -276,6 +276,7 @@ function brandFacts(): string {
         { name: 'isready.ai', url: 'https://isready.ai', role: 'founder' },
         { name: 'SIDUS', url: 'https://sidus.tools', role: 'author' },
         { name: 'Inksquad', url: 'https://inksquad.com', role: 'CTO' },
+        { name: 'Images in motion', url: 'https://iim.smartsquad.io/', role: 'author' },
       ],
       contact: { page: `${SITE_URL}/#contact` },
       citation: { preferred: SITE_URL, llms: `${SITE_URL}/llms.txt` },
@@ -348,9 +349,9 @@ function llmsTxt(): string {
 ## About
 
 - Massimo De Luisa is a CTO & Product Engineer based in Udine, Italy (relocating to Japan).
-- He builds platforms, mobile apps and AI-assisted workflows as CTO at Smart Squad and Inksquad, and ships IsReady.AI and SIDUS.
+- He builds platforms, mobile apps and AI-assisted workflows as CTO at Smart Squad and Inksquad, and ships IsReady.AI, SIDUS and Images in motion.
 - Core stack: Vue, TypeScript, Tailwind, Supabase, Expo/Swift, and long-context AI tooling.
-- Currently shipping: Inksquad (tattoo ecosystem), IsReady.AI (AI readiness / GEO scanner), SIDUS (open-source space engineering tools).
+- Currently shipping: Inksquad (tattoo ecosystem), IsReady.AI (AI readiness / GEO scanner), Images in motion (iim.smartsquad.io), SIDUS (open-source space engineering tools).
 - Experimenting with Rust alongside TypeScript and Swift.
 - Site available in English, Italian, Japanese, Russian and Ukrainian.
 
