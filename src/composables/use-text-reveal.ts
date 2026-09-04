@@ -100,7 +100,7 @@ function createReveal(element: HTMLElement | null, options: IRevealOptions = {})
     linesClass: 'reveal-line',
     wordsClass: 'reveal-word',
     charsClass: 'reveal-char',
-    /* Keep non-breaking spaces intact (e.g. "De Luisa") so they never split. */
+    /* Keep U+00A0 non-breaking spaces intact so they never split. */
     reduceWhiteSpace: false,
   })
 
