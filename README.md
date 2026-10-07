@@ -81,7 +81,7 @@ Language switcher lives in the fixed header (and mobile menu). All new copy must
 
 ## Content
 
-- **Selected work**: Inksquad, IsReady.AI, Images in motion, SIDUS. Routes `/work/inksquad`, `/work/isready-ai`, `/work/images-in-motion`, `/work/sidus-tools`.
+- **Selected work**: Inksquad, Open Bio Page, IsReady.AI, Images in motion, SIDUS. Routes `/work/inksquad`, `/work/open-bio-page`, `/work/isready-ai`, `/work/images-in-motion`, `/work/sidus-tools`.
 - **Journal**: Markdown posts in `src/contents/blog/`.
 - Photos and assets live in `src/assets/`.
 

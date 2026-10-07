@@ -5,7 +5,7 @@ export const SITE_NAME = 'Massimo De Luisa'
 export const SITE_EMAIL = 'massimodeluisa@me.com'
 export const SITE_ROLE = 'CTO & Product Engineer'
 export const SITE_SUMMARY =
-  'CTO and product engineer. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, isready.ai, SIDUS, and Images in motion. Experimenting with Rust. Based in Udine, Italy, moving to Japan.'
+  'CTO and product engineer. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, isready.ai, SIDUS, Images in motion, and Open Bio Page. Experimenting with Rust. Based in Udine, Italy, moving to Japan.'
 export const TWITTER_HANDLE = '@massimodeluisa'
 
 export const PERSON_ID = `${SITE_URL}/#person`
@@ -23,6 +23,7 @@ export const PROFILES = {
   isready: 'https://isready.ai',
   sidus: 'https://sidus.tools',
   iim: 'https://iim.smartsquad.io/',
+  openBio: 'https://openbio.page/',
 } as const
 
 export const SAME_AS = [
@@ -33,4 +34,5 @@ export const SAME_AS = [
   PROFILES.isready,
   PROFILES.sidus,
   PROFILES.iim,
+  PROFILES.openBio,
 ] as const
