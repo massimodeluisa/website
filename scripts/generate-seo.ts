@@ -188,7 +188,7 @@ function rss(): string {
     <title>${xml(SITE_NAME)} — Journal</title>
     <link>${SITE_URL}/blog</link>
     <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
-    <description>Notes on systems, product, technology and the move to Japan.</description>
+    <description>Notes on systems, product, and technology.</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <managingEditor>${SITE_EMAIL} (${xml(SITE_NAME)})</managingEditor>
@@ -225,7 +225,7 @@ function atom(): string {
   <id>${SITE_URL}/blog</id>
   <updated>${latest}T00:00:00Z</updated>
   <author><name>${xml(SITE_NAME)}</name><uri>${SITE_URL}</uri></author>
-  <subtitle>Notes on systems, product, technology and the move to Japan.</subtitle>
+  <subtitle>Notes on systems, product, and technology.</subtitle>
 ${entries}
 </feed>
 `
@@ -238,7 +238,7 @@ function jsonFeed(): string {
       title: `${SITE_NAME} — Journal`,
       home_page_url: `${SITE_URL}/blog`,
       feed_url: `${SITE_URL}/feed.json`,
-      description: 'Notes on systems, product, technology and the move to Japan.',
+      description: 'Notes on systems, product, and technology.',
       language: 'en',
       authors: [{ name: SITE_NAME, url: SITE_URL }],
       icon: `${SITE_URL}/favicon/android-chrome-512x512.png`,
@@ -270,7 +270,7 @@ function brandFacts(): string {
       jobTitle: SITE_ROLE,
       description: SITE_SUMMARY,
       founded: '2025',
-      location: { locality: 'Udine', country: 'IT', relocatingTo: 'Japan' },
+      location: { locality: 'San Francisco', region: 'CA', country: 'US' },
       languages: ['en', 'it', 'ja', 'ru', 'uk'],
       sameAs: [...SAME_AS],
       products: [
@@ -317,7 +317,7 @@ function humansTxt(): string {
 Name: ${SITE_NAME}
 Role: ${SITE_ROLE}
 Site: ${SITE_URL}
-Location: Udine, Italy — moving to Japan
+Location: Moving to San Francisco, CA
 GitHub: ${PROFILES.github}
 
 /* SITE */
@@ -350,7 +350,7 @@ function llmsTxt(): string {
 
 ## About
 
-- Massimo De Luisa is a CTO & Product Engineer based in Udine, Italy (relocating to Japan).
+- Massimo De Luisa is a CTO & Product Engineer moving to San Francisco, CA.
 - He builds platforms, mobile apps and AI-assisted workflows as CTO at Smart Squad and Inksquad, and ships IsReady.AI, SIDUS, Images in motion, and Open Bio Page.
 - Core stack: Vue, TypeScript, Tailwind, Supabase, Expo/Swift, and long-context AI tooling.
 - Currently shipping: Inksquad (tattoo ecosystem), IsReady.AI (AI readiness / GEO scanner), Images in motion (iim.smartsquad.io), SIDUS (open-source space engineering tools), Open Bio Page (openbio.page).

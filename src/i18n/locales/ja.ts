@@ -30,7 +30,7 @@ export const ja = {
     kicker: '私について',
     title: 'Builder, CTO, 技術者。',
     bioStart: 'Ciao、マッシモです。テックが好きで、住んでいるのは ',
-    bioPlace: 'ウーディネ（イタリア）',
+    bioPlace: 'サンフランシスコ、CA',
     bioCto: '。いまは ',
     bioAnd: ' と ',
     bioGlue:
@@ -76,7 +76,7 @@ export const ja = {
     kicker: 'プロフェッショナルプロフィール',
     heading: '作っていること、まだ掴みきれていないこと。',
     intro:
-      'Massimo De Luisa です。ウーディネの CTO 兼プロダクトエンジニア。モバイルとシステム統合、二つの会社の技術を見ています。コードもまだ書きます。プラットフォーム、モバイルアプリ、AI のワークフロー。大事な判断は隠さない。出したあとも意味が通るものを出荷する。',
+      'Massimo De Luisa です。CTO 兼プロダクトエンジニア。モバイルとシステム統合、二つの会社の技術を見ています。コードもまだ書きます。プラットフォーム、モバイルアプリ、AI のワークフロー。大事な判断は隠さない。出したあとも意味が通るものを出荷する。',
     capabilities: {
       heading: '主な専門領域',
       architecture: {
@@ -123,7 +123,7 @@ export const ja = {
       },
       location: {
         label: '拠点',
-        value: 'イタリア・ウーディネ。日本への移住を計画中',
+        value: 'サンフランシスコ、CAへ移転中',
       },
       languages: {
         label: 'サイト言語',
@@ -202,7 +202,7 @@ export const ja = {
     kicker: 'Journal',
     readMore: '読む',
     heading: 'Blog',
-    intro: '出荷、プロダクト、イタリアと日本にまたがる暮らしについてのメモ。',
+    intro: '出荷とプロダクトについてのメモ。',
     seeMore: 'もっと見る',
     minutes: '分',
     back: 'ジャーナルへ戻る',

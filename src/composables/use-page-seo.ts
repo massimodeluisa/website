@@ -196,7 +196,12 @@ export const personEntity = (): Record<string, unknown> => ({
     { '@type': 'Organization', name: 'Smart Squad', url: 'https://smartsquad.io' },
     { '@type': 'Organization', name: 'Inksquad', url: 'https://inksquad.com' },
   ],
-  address: { '@type': 'PostalAddress', addressLocality: 'Udine', addressCountry: 'IT' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'San Francisco',
+    addressRegion: 'CA',
+    addressCountry: 'US',
+  },
   nationality: { '@type': 'Country', name: 'Italy' },
   sameAs: [...SAME_AS],
 })

@@ -30,7 +30,7 @@ export const en = {
     kicker: 'About me',
     title: 'Builder, CTO, technologist.',
     bioStart: "Ciao, I'm Massimo... a tech passionate from ",
-    bioPlace: 'Udine, Italy',
+    bioPlace: 'San Francisco, CA',
     bioCto: '. I currently serve as CTO at ',
     bioAnd: ' and ',
     bioGlue:
@@ -76,7 +76,7 @@ export const en = {
     kicker: 'Professional profile',
     heading: 'What I build, and what I am still figuring out.',
     intro:
-      'I am Massimo De Luisa. CTO and product engineer in Udine, Italy. I lead tech for two software companies: mobile, and systems integration. I still write the code. Platforms, mobile apps, AI-assisted workflows. Same point every time: keep the important decisions explicit, and ship something that still makes sense after launch.',
+      'I am Massimo De Luisa. CTO and product engineer. I lead tech for two software companies: mobile, and systems integration. I still write the code. Platforms, mobile apps, AI-assisted workflows. Same point every time: keep the important decisions explicit, and ship something that still makes sense after launch.',
     capabilities: {
       heading: 'Core areas of work',
       architecture: {
@@ -123,7 +123,7 @@ export const en = {
       },
       location: {
         label: 'Based in',
-        value: 'Udine, Italy, with a planned move to Japan',
+        value: 'Moving to San Francisco, CA',
       },
       languages: {
         label: 'Site languages',
@@ -202,7 +202,7 @@ export const en = {
     kicker: 'Journal',
     readMore: 'Read',
     heading: 'Blog',
-    intro: 'Notes on shipping, product, and a life split between Italy and Japan.',
+    intro: 'Notes on shipping and product.',
     seeMore: 'See more',
     minutes: 'min',
     back: 'Back to Journal',

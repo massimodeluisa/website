@@ -5,7 +5,7 @@ export const SITE_NAME = 'Massimo De Luisa'
 export const SITE_EMAIL = 'massimodeluisa@me.com'
 export const SITE_ROLE = 'CTO & Product Engineer'
 export const SITE_SUMMARY =
-  'CTO and product engineer. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, isready.ai, SIDUS, Images in motion, and Open Bio Page. Experimenting with Rust. Based in Udine, Italy, moving to Japan.'
+  'CTO and product engineer. I build platforms, mobile apps, and AI-assisted workflows that stay simple under pressure. Shipping Inksquad, isready.ai, SIDUS, Images in motion, and Open Bio Page. Experimenting with Rust. Moving to San Francisco, CA.'
 export const TWITTER_HANDLE = '@massimodeluisa'
 
 export const PERSON_ID = `${SITE_URL}/#person`

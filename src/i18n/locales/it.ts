@@ -30,7 +30,7 @@ export const it = {
     kicker: 'Chi sono',
     title: 'Builder, CTO, tecnologo.',
     bioStart: 'Ciao, sono Massimo... un appassionato di tech di ',
-    bioPlace: 'Udine',
+    bioPlace: 'San Francisco, CA',
     bioCto: '. Al momento sono CTO di ',
     bioAnd: ' e ',
     bioGlue:
@@ -76,7 +76,7 @@ export const it = {
     kicker: 'Profilo professionale',
     heading: 'Cosa costruisco, e cosa sto ancora capendo.',
     intro:
-      'Sono Massimo De Luisa. CTO e product engineer a Udine. Guido la tecnologia di due aziende software: mobile, e sistemi di integrazione. Scrivo ancora il codice. Piattaforme, app mobile, workflow con AI. Sempre lo stesso punto: decisioni importanti esplicite, e qualcosa che abbia senso anche dopo il lancio.',
+      'Sono Massimo De Luisa. CTO e product engineer. Guido la tecnologia di due aziende software: mobile, e sistemi di integrazione. Scrivo ancora il codice. Piattaforme, app mobile, workflow con AI. Sempre lo stesso punto: decisioni importanti esplicite, e qualcosa che abbia senso anche dopo il lancio.',
     capabilities: {
       heading: 'Aree di lavoro principali',
       architecture: {
@@ -124,7 +124,7 @@ export const it = {
       },
       location: {
         label: 'Base',
-        value: 'Udine, Italia, con un trasferimento in Giappone pianificato',
+        value: 'In trasferimento a San Francisco, CA',
       },
       languages: {
         label: 'Lingue del sito',
@@ -203,7 +203,7 @@ export const it = {
     kicker: 'Journal',
     readMore: 'Leggi',
     heading: 'Blog',
-    intro: 'Note su come si spedisce, sul prodotto, e su una vita spaccata tra Italia e Giappone.',
+    intro: 'Note su come si spedisce e sul prodotto.',
     seeMore: 'Vedi altro',
     minutes: 'min',
     back: 'Torna al Journal',

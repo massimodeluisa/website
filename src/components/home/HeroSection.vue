@@ -22,8 +22,8 @@ const { t } = useI18n()
 // MARK: - Variables
 
 /* Where I'm based — change these two to move the hero clock pin. */
-const CURRENT_LOCATION = 'Udine, Italy'
-const CURRENT_LOCATION_URL = 'https://x.com/VisitFVG'
+const CURRENT_LOCATION = 'Moving to San Francisco, CA'
+const CURRENT_LOCATION_URL = 'https://x.com/onlyinsf'
 
 const formatter = shallowRef('dddd YY-MM-DD HH:mm:ss z')
 const formatted = ref('')

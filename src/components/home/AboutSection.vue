@@ -24,7 +24,7 @@ const TOKEN_REVEAL_DURATION = 0.5
 const TOKEN_REVEAL_STAGGER = 0.05
 const TOKEN_REVEAL_BASE_DELAY = 0.12
 const TOKEN_REVEAL_STEP = 0.06
-const UDINE_URL = 'https://x.com/VisitFVG'
+const PLACE_URL = 'https://x.com/onlyinsf'
 const CATS_TWEET_URL = 'https://x.com/massimodeluisa/status/2054099024982978704'
 const CARD_REVEAL_DURATION = 0.7
 const CARD_EYEBROW_DURATION = 0.55
@@ -198,7 +198,7 @@ Section(id="about")
   p.mt-6.text-lg.leading-relaxed.text-site-heading.opacity-0(data-about-tokens)
     span {{ t('about.bioStart') }}
     a.font-medium.text-inherit.transition-colors(
-      :href="UDINE_URL"
+      :href="PLACE_URL"
       target="_blank"
       rel="noopener noreferrer"
       :aria-label="`${t('about.bioPlace')} (opens in new tab)`"
